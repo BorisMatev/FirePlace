@@ -1,0 +1,34 @@
+<main>
+    <img src="../../assets/mountain.png" class="mountain">
+
+    <div class="container text-center align-items-center pb-5">
+        <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <label for="first-name">Име: </label>
+            <input id="first-name" type="text" formControlName="firstName"><br>
+            <label for="last-name">Парола: </label>
+            <input id="last-name" type="text" formControlName="lastName">
+          </form>
+        <button type="submit" [disabled]="!loginForm.valid">Submit</button> -->
+        <div class="row">
+            <h1 class="mt-5">Welcome to FirePlace</h1>
+        </div>
+        <div class="row">
+            <form>
+                <span class="p-float-label mt-5">
+                    <input pInputText id="username"/>
+                    <label for="username" style="color: #f3e4c3;">Username</label>
+                </span>
+                <span class="p-float-label mt-5">
+                    <input pInputText id="password"/>
+                    <label for="password" style="color: #f3e4c3;">Password</label>
+                </span>
+                <div class="d-flex justify-content-center align-items-center mt-5">
+                    <button class="btn btn-success px-5 me-3">Log in</button>
+                    <a href="" class="ms-3">Create profile!</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</main>

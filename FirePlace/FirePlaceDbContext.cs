@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FirePlace.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirePlace
 {
@@ -8,7 +9,8 @@ namespace FirePlace
             : base(options)
         {
         }
-        //public DbSet<User> User { get; set; }
-        //public DbSet<Image> Images { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

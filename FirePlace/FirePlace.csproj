@@ -18,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DB\" />
     <Folder Include="Models\Response\" />
-    <Folder Include="Models\Request\" />
   </ItemGroup>
 
 </Project>
