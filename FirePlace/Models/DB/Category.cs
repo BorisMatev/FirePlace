@@ -9,6 +9,6 @@ namespace FirePlace.Models.DB
         public string Name { get; set; }
 
         //many to many
-        public List<Photo> Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
     }
 }

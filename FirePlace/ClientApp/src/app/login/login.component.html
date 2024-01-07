@@ -1,6 +1,6 @@
 <main>
     <img src="../../assets/mountain.png" class="mountain">
-
+    <img src="../../assets/mountain.png" class="mountain1">
     <div class="container text-center align-items-center pb-5">
         <!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <label for="first-name">Име: </label>
@@ -13,17 +13,24 @@
             <h1 class="mt-5">Welcome to FirePlace</h1>
         </div>
         <div class="row">
-            <form>
+            <form [formGroup]="loginForm">
                 <span class="p-float-label mt-5">
-                    <input pInputText id="username"/>
+                    <input pInputText 
+                           id="username"
+                           formControlName="username"
+                           />
                     <label for="username" style="color: #f3e4c3;">Username</label>
                 </span>
                 <span class="p-float-label mt-5">
-                    <input pInputText id="password"/>
+                    <input pInputText 
+                           id="password" 
+                           type="password" 
+                           formControlName="password"
+                           />
                     <label for="password" style="color: #f3e4c3;">Password</label>
                 </span>
                 <div class="d-flex justify-content-center align-items-center mt-5">
-                    <button class="btn btn-success px-5 me-3">Log in</button>
+                    <button class="btn btn-success px-5 me-3" (click)="onSubmit()">Log in</button>
                     <a href="" class="ms-3">Create profile!</a>
                 </div>
             </form>

@@ -13,9 +13,11 @@ namespace FirePlace.Models.DB
         public string Password { get; set; }
         public string Info { get; set; }
         [Required]
-        public Photo ProfilePhoto { get; set; }
+        public string Role { get; set; }
+        [Required]
+        public string ProfilePhoto { get; set; }
 
         //one to many
-        public List<Photo> Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
     }
 }

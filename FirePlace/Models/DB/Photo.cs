@@ -13,12 +13,13 @@ namespace FirePlace.Models.DB
 
 
         //many to many
-        public List<Category> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
 
 
         [ForeignKey(nameof(User))] //attribute  
         public int UserId { get; set; } //FK
+        [NotMapped]
         public User User { get; set; } //navigational property
     }
 }
