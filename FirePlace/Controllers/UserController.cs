@@ -1,6 +1,11 @@
 ﻿using FirePlace.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 using FirePlace.Models.DB;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FirePlace.Controllers
 {
@@ -9,11 +14,12 @@ namespace FirePlace.Controllers
     public class UserController : ControllerBase
     {
         private readonly FirePlaceDbContext _dbContext;
-        //private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
-        public UserController(FirePlaceDbContext dbContext)
+        public UserController(FirePlaceDbContext dbContext, IConfiguration configuration)
         {
             _dbContext = dbContext;
+            _configuration = configuration;
         }
         [HttpPost]
         public ActionResult Register(UserRegister request)
@@ -40,7 +46,7 @@ namespace FirePlace.Controllers
             user.Email = request.Email;
             user.Password = request.Password;
             user.Info = "";
-            user.Role = "Admin";
+            user.Role = "User";
             user.ProfilePhoto = request.ProfilePhoto;
 
             _dbContext.Users.Add(user);
@@ -49,7 +55,8 @@ namespace FirePlace.Controllers
             return Ok();
         }
 
-        /*[HttpGet]
+        [HttpGet]
+        [Authorize(Policy = "Admin")]
         public ActionResult<List<UserRegister>> GetUsers() 
         {
             return _dbContext.Users.Select(x => 
@@ -58,7 +65,7 @@ namespace FirePlace.Controllers
                                Password = x.Password,
                                ProfilePhoto = x.ProfilePhoto})
                 .ToList();
-        }*/
+        }
         [HttpPost]
         public ActionResult Login(UserLogin request)
         {
@@ -70,7 +77,28 @@ namespace FirePlace.Controllers
             {
                 return NotFound();
             }
-            return Ok();
+            else if (user.Role == "Admin")
+            {
+                return Ok(GenerateJwtToken("Admin"));
+            }
+            else return Ok(GenerateJwtToken("User"));
+        }
+
+        //generate Token
+        private string GenerateJwtToken(string role)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Role, role) }),
+                Expires = DateTime.UtcNow.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["JwtSettings:Issuer"],
+                Audience = _configuration["JwtSettings:Audience"]
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
