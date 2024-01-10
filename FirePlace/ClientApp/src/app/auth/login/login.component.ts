@@ -3,7 +3,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder,Validators  } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserService } from '../core/servises/user.service';
+import { UserService } from '../../core/servises/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ import { UserService } from '../core/servises/user.service';
   imports: [ReactiveFormsModule,
             FormsModule,
             ButtonModule,
-            InputTextModule
+            InputTextModule,
+            RouterLink
           ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
