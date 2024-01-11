@@ -11,6 +11,8 @@ namespace FirePlace.Models.DB
         public double Lat { get; set; }
         public double Lng { get; set; }
 
+        public int Likes { get; set; }
+
 
         //many to many
         public ICollection<Category> Categories { get; set; }

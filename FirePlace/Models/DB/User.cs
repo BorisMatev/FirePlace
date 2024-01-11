@@ -19,5 +19,7 @@ namespace FirePlace.Models.DB
 
         //one to many
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<User> Followers { get; set; }
+        public ICollection<User> Follow { get; set; }
     }
 }

@@ -21,6 +21,22 @@ namespace FirePlace.Controllers
             _dbContext = dbContext;
             _configuration = configuration;
         }
+
+        [HttpGet]
+        [Authorize(Policy = "Admin")]
+        public ActionResult<List<UserRegister>> GetUsers()
+        {
+            return _dbContext.Users.Select(x =>
+            new UserRegister
+            {
+                Email = x.Email,
+                Username = x.Username,
+                Password = x.Password,
+                ProfilePhoto = x.ProfilePhoto
+            })
+            .ToList();
+        }
+
         [HttpPost]
         public ActionResult Register(UserRegister request)
         {
@@ -31,11 +47,15 @@ namespace FirePlace.Controllers
             {
                 return BadRequest("This username is already taken!");
             }
-            if (request.Username.Length < 3 && request.Username.Length > 30)
+            if (request.Username.Length < 3 && request.Username.Length > 20)
             {
                 return BadRequest();
             }
             if (request.Password.Length > 30 || request.Password.Length < 8)
+            {
+                return BadRequest();
+            }
+            if (request.ProfilePhoto == null)
             {
                 return BadRequest();
             }
@@ -45,7 +65,7 @@ namespace FirePlace.Controllers
             user.Username = request.Username;
             user.Email = request.Email;
             user.Password = request.Password;
-            user.Info = "";
+            user.Info = request.Info;
             user.Role = "User";
             user.ProfilePhoto = request.ProfilePhoto;
 
@@ -55,25 +75,14 @@ namespace FirePlace.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Authorize(Policy = "Admin")]
-        public ActionResult<List<UserRegister>> GetUsers() 
-        {
-            return _dbContext.Users.Select(x => 
-            new UserRegister { Email = x.Email,
-                               Username = x.Username,
-                               Password = x.Password,
-                               ProfilePhoto = x.ProfilePhoto})
-                .ToList();
-        }
         [HttpPost]
-        public ActionResult Login(UserLogin request)
+        public ActionResult<string> Login(UserLogin request)
         {
             var user = _dbContext.Users
                 .Where(x => x.Username == request.Username && x.Password == request.Password)
                 .FirstOrDefault();
 
-            if (user==null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -81,7 +90,11 @@ namespace FirePlace.Controllers
             {
                 return Ok(GenerateJwtToken("Admin"));
             }
-            else return Ok(GenerateJwtToken("User"));
+            else
+            {
+                string token = GenerateJwtToken("User");
+                return Ok(token);
+            }
         }
 
         //generate Token
