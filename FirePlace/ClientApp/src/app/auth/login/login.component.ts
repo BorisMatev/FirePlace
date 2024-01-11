@@ -33,9 +33,12 @@ export class LoginComponent {
       username: this.loginForm.value.username,
       password: this.loginForm.value.password
     };
-    console.log(body);
     this.user.login(body).subscribe({
-      next: (resp) => console.log(resp),
+      next: (resp) => {
+        if (resp !== null) {
+          localStorage.setItem('token',JSON.stringify(resp));
+        }
+      },
       error: (error) => console.log(error)
     });
   }

@@ -1,0 +1,43 @@
+main{
+    background-image: url("/assets/background1.jpg");
+    background-size: 350px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    color: #f3e4c3;
+}
+.mountain{
+    width: 100vw;
+    position: absolute;
+    bottom: 0px;
+    z-index: 0;
+}
+.mountain1{
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    z-index: 0;
+    transform: rotate(180deg);
+}
+.selectFalse{
+    pointer-events: none;
+    user-select: none;
+}
+.container{
+    background-color: #313131e2;
+    max-width: 500px;
+    border-radius: 20px 20px 20px 20px;
+    border: 3px solid #f3e4c3;
+    box-shadow: 0px 0px 100px 15px #323232;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+input{
+    width: 100%;
+}
+.p-inputtext {
+    color: #ffffff;
+    background: #ffffff18;
+    width: 100%;
+}

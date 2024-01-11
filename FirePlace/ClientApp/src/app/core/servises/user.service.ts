@@ -15,6 +15,6 @@ export class UserService {
       Username: request.username,
       Password: request.password
     }
-    return this.http.post(`${this.url}/User/Login`,body);
+    return this.http.post(`${this.url}/User/Login`, body, { responseType:'text' });
   }
 }
