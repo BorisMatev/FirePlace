@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../core/servises/user.service';
 import { RouterLink } from '@angular/router';
+import { PasswordModule } from 'primeng/password';
+
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,8 @@ import { RouterLink } from '@angular/router';
             FormsModule,
             ButtonModule,
             InputTextModule,
-            RouterLink
+            RouterLink,
+            PasswordModule
           ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -24,8 +27,8 @@ export class LoginComponent {
               private user: UserService) { }
 
   loginForm = this.fb.group({
-    username: [''],
-    password: ['']
+    username: ['', Validators.required],
+    password: ['', Validators.required]
   });
 
   onSubmit(){

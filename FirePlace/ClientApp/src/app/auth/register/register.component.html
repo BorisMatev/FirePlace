@@ -1,33 +1,83 @@
 <main>
     <img src="/assets/mountain.png" class="mountain selectFalse">
     <img src="/assets/mountain.png" class="mountain1 selectFalse">
-    <div class="container text-center align-items-center pb-5">
+    <div class="container text-center align-items-center pb-4 mainCon overflow-auto">
         <div class="row">
-            <h1 class="mt-5 selectFalse">Welcome to FirePlace</h1>
+            <h1 class="mt-4 selectFalse">Create account!</h1>
         </div>
         <div class="row">
-            <form>
-                <!-- <span class="p-float-label mt-5">
-                    <input pInputText 
-                           id="username"
-                           formControlName="username"
-                           />
-                    <label for="username" style="color: #f3e4c3;" class="selectFalse">Username</label>
-                </span>
-                <span class="p-float-label mt-5">
-                    <input pInputText 
-                           id="password" 
-                           type="password" 
-                           formControlName="password"
-                           />
-                    <label for="password" style="color: #f3e4c3;" class="selectFalse">Password</label>
-                </span> -->
-                <!-- <div class="d-flex justify-content-center align-items-center mt-5">
-                    <button class="btn btn-success px-5 me-3" (click)="onSubmit()">Log in</button>
-                    <button class="btn btn-outline-success px-5 ms-3" routerLink='/register'  >
-                        <a [routerLink]="['/register']" routerLinkActive="router-link-active" ></a>
-                        Create an account</button>
-                </div> -->
+            <form [formGroup]="registerForm">
+                <div class="container py-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="imgInput rounded-circle">
+                                @if (!img) {
+                                    <i class="pi pi-image" style="font-size: 2.5rem" (click)="fileInput.click()">
+                                    </i>
+                                }
+                                @else {
+                                    <img [src]="img" 
+                                         class="rounded-circle img" 
+                                         (click)="fileInput.click()"
+                                         style="object-fit: cover;">
+                                }
+                                <input #fileInput 
+                                        type="file" 
+                                        (change)="onFileInput($event)"
+                                        style="display:none;"
+                                        formControlName="image" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <span class="p-float-label mt-3">
+                                <input 
+                                    pInputText
+                                    formControlName="username"/>
+                                <label  
+                                    style="color: #f3e4c3;" 
+                                    class="selectFalse"
+                                    >Username</label>
+                            </span>
+                            <span class="p-float-label mt-4">
+                                <textarea
+                                    rows="4" 
+                                    pInputTextarea 
+                                    style="resize: none;"
+                                    formControlName="info"
+                                    ></textarea>
+                                <label style="color: #f3e4c3;" class="selectFalse">Info</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <span class="p-float-label mt-3">
+                            <input pInputText formControlName="email" />
+                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Email</label>
+                        </span>
+                        <span class="p-float-label mt-4">
+                            <p-password 
+                                formControlName="password"
+                                [feedback]="false"
+                                ></p-password>
+                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Password</label>
+                        </span>
+                        <span class="p-float-label mt-4">
+                            <p-password 
+                                formControlName="confPassword"
+                                [feedback]="false"
+                                ></p-password>
+                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Confirm
+                                password</label>
+                        </span>
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            <button class="btn btn-success px-5 me-3" [routerLink]="['/login']">Back</button>
+                            <button class="btn btn-outline-success px-5 ms-3" 
+                                    routerLink='/register'
+                                    (click)="onSubmit()">
+                                Register</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

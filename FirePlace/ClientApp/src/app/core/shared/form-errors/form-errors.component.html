@@ -1,0 +1,7 @@
+@if(!control.valid && control.touched){
+    <div class="text-danger">
+        @if(control.errors?.['required']){
+            <span>{{controlName}} is required!</span>
+        }
+    </div>
+}

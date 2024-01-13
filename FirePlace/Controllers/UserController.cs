@@ -40,12 +40,13 @@ namespace FirePlace.Controllers
         [HttpPost]
         public ActionResult Register(UserRegister request)
         {
-            bool isNotUniqueUsername = _dbContext.Users
-                .Select(x => x.Username)
-                .Contains(request.Username);
-            if (isNotUniqueUsername)
+            if (_dbContext.Users.Any(x => x.Username == request.Username))
             {
                 return BadRequest("This username is already taken!");
+            }
+            if (_dbContext.Users.Any(x => x.Email == request.Email))
+            {
+                return BadRequest("This Email is already taken!");
             }
             if (request.Username.Length < 3 && request.Username.Length > 20)
             {

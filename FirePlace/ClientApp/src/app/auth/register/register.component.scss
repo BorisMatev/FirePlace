@@ -4,7 +4,7 @@ main{
     height: 100vh;
     display: flex;
     align-items: center;
-    color: #f3e4c3;
+    color: var(--text);
 }
 .mountain{
     width: 100vw;
@@ -23,9 +23,9 @@ main{
     pointer-events: none;
     user-select: none;
 }
-.container{
+.mainCon{
     background-color: #313131e2;
-    max-width: 500px;
+    max-width: 800px;
     border-radius: 20px 20px 20px 20px;
     border: 3px solid #f3e4c3;
     box-shadow: 0px 0px 100px 15px #323232;
@@ -33,11 +33,29 @@ main{
     align-items: center;
     justify-content: center;
 }
-input{
-    width: 100%;
-}
 .p-inputtext {
     color: #ffffff;
     background: #ffffff18;
     width: 100%;
+}
+.imgInput{
+    width: 230px;
+    height: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--text);
+    border-radius: 20px;
+}
+.img{
+    width: 230px;
+    height: 230px;
+}
+:host::ng-deep {
+    .p-password,
+    .p-inputtext {
+      width: 100%;
+      color: #ffffff;
+    background: #ffffff18;
+    }
 }
