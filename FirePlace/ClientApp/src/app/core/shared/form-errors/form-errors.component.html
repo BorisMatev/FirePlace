@@ -1,7 +1,13 @@
-@if(!control.valid && control.touched){
+@if(!control!.valid && control!.touched){
     <div class="text-danger">
-        @if(control.errors?.['required']){
+        @if(control!.errors?.['required']){
             <span>{{controlName}} is required!</span>
+        }
+        @if(control!.errors?.['maxLength']){<br>
+            <span>{{controlName}} must be less than {{max}}!</span>
+        }
+        @if(control!.errors?.['minlength']){
+            <span>{{controlName}} must be more than {{min}}!</span>
         }
     </div>
 }

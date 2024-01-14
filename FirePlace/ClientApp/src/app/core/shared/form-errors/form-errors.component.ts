@@ -9,8 +9,8 @@ import { AbstractControl } from '@angular/forms';
   styleUrl: './form-errors.component.scss'
 })
 export class FormErrorsComponent {
-  @Input() control?: AbstractControl;
-  @Input() controlName?: string;
-  @Input() max?: number;
-  @Input() min?: AbstractControl;
+  @Input() control!: AbstractControl;
+  @Input() controlName!: string;
+  @Input() max!: number;
+  @Input() min!: number;
 }

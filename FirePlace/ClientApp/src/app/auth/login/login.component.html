@@ -13,13 +13,11 @@
                            />
                     <label style="color: #f3e4c3;" class="selectFalse">Username</label>
                 </span>
-                @if(loginForm.get('username')!.invalid && loginForm.get('username')!.touched){
-                    <div class="text-danger" style="position: absolute;">
-                        @if(loginForm.get('username')!.errors?.['required']){
-                            <span>Username is required!</span>
-                        }
-                    </div>
-                }
+                <app-form-errors
+                    class="d-flex justify-content-end"
+                    [control]="loginForm.get('username')!"
+                    [controlName]="'Username'"
+                        ></app-form-errors>
                 <span class="p-float-label mt-5">
                            <p-password formControlName="password"
                                        [feedback]="false"
@@ -27,17 +25,17 @@
                                        ></p-password>
                     <label style="color: #f3e4c3;" class="selectFalse">Password</label>
                 </span>
-                @if(loginForm.get('password')!.invalid && loginForm.get('password')!.touched){
-                    <div class="text-danger" style="position: absolute;">
-                        @if(loginForm.get('password')!.errors?.['required']){
-                            <span>Password is required!</span>
-                        }
-                    </div>
-                }
+                <app-form-errors
+                    class="d-flex justify-content-end"
+                    [control]="loginForm.get('password')!"
+                    [controlName]="'Password'"
+                        ></app-form-errors>
                 <div class="d-flex justify-content-center align-items-center mt-5">
-                    <button class="btn btn-success px-5 me-3" (click)="onSubmit()">Log in</button>
-                    <button class="btn btn-outline-success px-5 ms-3" routerLink='/register'  >
-                        <a [routerLink]="['/register']" routerLinkActive="router-link-active" ></a>
+                    <button class="btn btn-success px-5 me-3" 
+                        (click)="onSubmit()"
+                        [disabled]="loginForm.invalid">Log in</button>
+                    <button class="btn btn-outline-success px-5 ms-3" 
+                        routerLink='/register'>
                         Create an account</button>
                 </div>
             </form>
