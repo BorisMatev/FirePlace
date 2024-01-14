@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
+import { UserService } from '../../core/servises/user.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ import { PasswordModule } from 'primeng/password';
 })
 export class RegisterComponent {
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private user: UserService) {
 
   }
   img!: string;
@@ -37,15 +39,11 @@ export class RegisterComponent {
   });
 
   onSubmit(){
-    // const body = {
-    //   image : this.registerForm.get('image')?.value,
-    //   username: this.registerForm.get('username')?.value,
-    //   info: this.registerForm.get('info')?.value,
-    //   email: this.registerForm.get('email')?.value,
-    //   password: this.registerForm.get('password')?.value
-    // }
     const body = this.registerForm.getRawValue();
-    console.log(body);
+    this.user.register(body).subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    });
   }
 
   onFileInput(event: any) {

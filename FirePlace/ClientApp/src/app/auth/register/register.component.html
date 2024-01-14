@@ -16,15 +16,17 @@
                                     </i>
                                 }
                                 @else {
-                                    <img [src]="img" 
-                                         class="rounded-circle img" 
-                                         (click)="fileInput.click()"
-                                         style="object-fit: cover;">
+                                    <img 
+                                        class="rounded-circle img" 
+                                        style="object-fit: cover;"
+                                        [src]="img" 
+                                        (click)="fileInput.click()">
                                 }
-                                <input #fileInput 
-                                        type="file" 
-                                        (change)="onFileInput($event)"
+                                <input type="file" 
+                                        accept="image/png, image/jpeg, image/jpg"
                                         style="display:none;"
+                                        #fileInput 
+                                        (change)="onFileInput($event)"
                                         formControlName="image" />
                             </div>
                         </div>
