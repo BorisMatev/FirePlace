@@ -60,6 +60,8 @@
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('info')!"
                                 [controlName]="'Info'"
+                                [max]="150"
+                                [min]="3"
                                     ></app-form-errors>
                         </div>
                     </div>
@@ -84,6 +86,7 @@
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('password')!"
                                 [controlName]="'Password'"
+                                [min]="8"
                                     ></app-form-errors>
                         <span class="p-float-label mt-4">
                             <p-password 
@@ -97,12 +100,14 @@
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('confPassword')!"
                                 [controlName]="'Confirm password'"
+                                [min]="8"
                                     ></app-form-errors>
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <button class="btn btn-success px-5 me-3" [routerLink]="['/login']">Back</button>
                             <button class="btn btn-outline-success px-5 ms-3" 
                                     routerLink='/register'
-                                    (click)="onSubmit()">
+                                    (click)="onSubmit()"
+                                    [disabled]="registerForm.invalid">
                                 Register</button>
                         </div>
                     </div>

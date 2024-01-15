@@ -3,11 +3,17 @@
         @if(control.errors?.['required']){
             <span>{{controlName}} is required!</span><br>
         }
+        @if(control.errors?.['pattern']){
+            <span>{{controlName}} must contain: 1 capital letter, 1 lower case, 1 number, 1 symbol!</span><br>
+        }
         @if(control.errors?.['maxlength']){
             <span>{{controlName}} must be less than {{max}}!</span>
         }
         @if(control.errors?.['minlength']){
             <span>{{controlName}} must be more than {{min}}!</span>
+        }
+        @if(control.errors?.['email']){
+            <span>{{controlName}} must be in correct form!</span>
         }
     </div>
 }

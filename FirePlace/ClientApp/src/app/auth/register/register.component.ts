@@ -33,11 +33,30 @@ export class RegisterComponent {
 
   registerForm = this.fb.group({
     image: ['',[Validators.required]],
-    username: ['',[Validators.required,Validators.maxLength(30),Validators.minLength(3)]],
-    info: ['',[Validators.required]],
-    email: ['',[Validators.required,Validators.email]],
-    password: ['',[Validators.required]], 
-    confPassword: ['',[Validators.required]]
+    username: ['',[
+      Validators.required,
+      Validators.maxLength(30),
+      Validators.minLength(3)
+    ]],
+    info: ['',[
+      Validators.required,
+      Validators.maxLength(150),
+      Validators.minLength(3)
+    ]],
+    email: ['',[
+      Validators.required,
+      Validators.email
+    ]],
+    password: ['',[
+      Validators.required, 
+      Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
+      Validators.minLength(8)
+    ]], 
+    confPassword: ['',[
+      Validators.required, 
+      Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
+      Validators.minLength(8)
+    ]] 
   });
 
   onSubmit(){
