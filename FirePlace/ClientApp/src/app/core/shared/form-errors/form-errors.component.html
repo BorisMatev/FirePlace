@@ -1,12 +1,12 @@
-@if(!control!.valid && control!.touched){
-    <div class="text-danger">
-        @if(control!.errors?.['required']){
-            <span>{{controlName}} is required!</span>
+@if(!control.valid && (control.dirty || control.touched)){
+    <div class="text-danger text-end">
+        @if(control.errors?.['required']){
+            <span>{{controlName}} is required!</span><br>
         }
-        @if(control!.errors?.['maxLength']){<br>
+        @if(control.errors?.['maxlength']){
             <span>{{controlName}} must be less than {{max}}!</span>
         }
-        @if(control!.errors?.['minlength']){
+        @if(control.errors?.['minlength']){
             <span>{{controlName}} must be more than {{min}}!</span>
         }
     </div>

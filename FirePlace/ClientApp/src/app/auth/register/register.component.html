@@ -40,6 +40,13 @@
                                     class="selectFalse"
                                     >Username</label>
                             </span>
+                            <app-form-errors
+                                class="d-flex justify-content-end"
+                                [control]="registerForm.get('username')!"
+                                [controlName]="'Username'"
+                                [max]="30"
+                                [min]="3"
+                                    ></app-form-errors>
                             <span class="p-float-label mt-4">
                                 <textarea
                                     rows="4" 
@@ -49,6 +56,11 @@
                                     ></textarea>
                                 <label style="color: #f3e4c3;" class="selectFalse">Info</label>
                             </span>
+                            <app-form-errors
+                                class="d-flex justify-content-end"
+                                [control]="registerForm.get('info')!"
+                                [controlName]="'Info'"
+                                    ></app-form-errors>
                         </div>
                     </div>
                     <div class="row">
@@ -56,6 +68,11 @@
                             <input pInputText formControlName="email" />
                             <label style="color: #f3e4c3;" class="selectFalse ms-2">Email</label>
                         </span>
+                        <app-form-errors
+                                class="d-flex justify-content-end"
+                                [control]="registerForm.get('email')!"
+                                [controlName]="'Email'"
+                                    ></app-form-errors>
                         <span class="p-float-label mt-4">
                             <p-password 
                                 formControlName="password"
@@ -63,6 +80,11 @@
                                 ></p-password>
                             <label style="color: #f3e4c3;" class="selectFalse ms-2">Password</label>
                         </span>
+                        <app-form-errors
+                                class="d-flex justify-content-end"
+                                [control]="registerForm.get('password')!"
+                                [controlName]="'Password'"
+                                    ></app-form-errors>
                         <span class="p-float-label mt-4">
                             <p-password 
                                 formControlName="confPassword"
@@ -71,6 +93,11 @@
                             <label style="color: #f3e4c3;" class="selectFalse ms-2">Confirm
                                 password</label>
                         </span>
+                        <app-form-errors
+                                class="d-flex justify-content-end"
+                                [control]="registerForm.get('confPassword')!"
+                                [controlName]="'Confirm password'"
+                                    ></app-form-errors>
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <button class="btn btn-success px-5 me-3" [routerLink]="['/login']">Back</button>
                             <button class="btn btn-outline-success px-5 ms-3" 

@@ -6,6 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
 import { UserService } from '../../core/servises/user.service';
+import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ import { UserService } from '../../core/servises/user.service';
     InputTextModule,
     RouterLink,
     InputTextareaModule,
-    PasswordModule
+    PasswordModule,
+    FormErrorsComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -30,12 +32,12 @@ export class RegisterComponent {
   img!: string;
 
   registerForm = this.fb.group({
-    image: ['',Validators.maxLength(20)],
-    username: [''],
-    info: [''],
-    email: [''],
-    password: [''], 
-    confPassword: ['']
+    image: ['',[Validators.required]],
+    username: ['',[Validators.required,Validators.maxLength(30),Validators.minLength(3)]],
+    info: ['',[Validators.required]],
+    email: ['',[Validators.required,Validators.email]],
+    password: ['',[Validators.required]], 
+    confPassword: ['',[Validators.required]]
   });
 
   onSubmit(){
