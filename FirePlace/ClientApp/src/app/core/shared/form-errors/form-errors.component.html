@@ -15,5 +15,9 @@
         @if(control.errors?.['email']){
             <span>{{controlName}} must be in correct form!</span>
         }
+        @if(control.errors?.['notmatched']){
+            <br>
+            <span>{{controlName}} shoud be the same as password!</span>
+        }
     </div>
 }

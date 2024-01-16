@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -26,40 +26,49 @@ import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.c
 export class RegisterComponent {
 
   constructor(private fb: FormBuilder,
-              private user: UserService) {
+    private user: UserService) {
 
   }
   img!: string;
 
-  registerForm = this.fb.group({
-    image: ['',[Validators.required]],
-    username: ['',[
-      Validators.required,
-      Validators.maxLength(30),
-      Validators.minLength(3)
-    ]],
-    info: ['',[
-      Validators.required,
-      Validators.maxLength(150),
-      Validators.minLength(3)
-    ]],
-    email: ['',[
-      Validators.required,
-      Validators.email
-    ]],
-    password: ['',[
-      Validators.required, 
-      Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
-      Validators.minLength(8)
-    ]], 
-    confPassword: ['',[
-      Validators.required, 
-      Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
-      Validators.minLength(8)
-    ]] 
-  });
+  registerForm: any;
 
-  onSubmit(){
+  ngOnInit() {
+    this.initForm();
+  }
+
+  initForm(): void {
+    this.registerForm = this.fb.group({
+      image: this.fb.control(null, [Validators.required]),
+      username: this.fb.control('', [
+        Validators.required,
+        Validators.maxLength(30),
+        Validators.minLength(3)
+      ]),
+      info: this.fb.control('', [
+        Validators.required,
+        Validators.maxLength(150),
+        Validators.minLength(3)
+      ]),
+      email: this.fb.control('', [
+        Validators.required,
+        Validators.email
+      ]),
+      password: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
+        Validators.minLength(8)
+      ]),
+      confPassword: this.fb.control('', [
+        Validators.required,
+        Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
+        Validators.minLength(8),
+        this.passwordMatchingValidator
+      ])
+    }, { validators: this.passwordMatchingValidator });
+  }
+
+  onSubmit() {
     const body = this.registerForm.getRawValue();
     this.user.register(body).subscribe({
       next: resp => console.log(resp),
@@ -72,10 +81,40 @@ export class RegisterComponent {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      this.img= base64String;
+      this.img = base64String;
     };
     if (file) {
       reader.readAsDataURL(file);
     }
   }
+
+  // validate(control: AbstractControl): ValidationErrors | null {
+  //   let pass = control.get('password');
+  //   let confPass = control.get('confPassword');
+  //   if (pass !== confPass) {
+  //     return { noMatchPassword: true };
+  //   }
+  //   return null;
+  // }
+
+  passwordMatchingValidator: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    console.log(control)
+
+    const password = control.get("password");
+    const confirmPassword = control.get("confPassword");
+
+    if (password?.value !== confirmPassword?.value) {
+      confirmPassword?.setErrors({
+        ...(confirmPassword.errors || {}),
+        notmatched: true,
+      });
+    }
+
+    // return null;
+     return password?.value === confirmPassword?.value
+       ? null
+       : { notmatched: true };
+  };
 }
