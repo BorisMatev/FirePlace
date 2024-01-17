@@ -71,7 +71,11 @@ export class RegisterComponent {
   onSubmit() {
     const body = this.registerForm.getRawValue();
     this.user.register(body).subscribe({
-      next: resp => console.log(resp),
+      next: (resp) => {
+        if (resp !== null) {
+          localStorage.setItem('token',JSON.stringify(resp));
+        }
+      },
       error: error => console.log(error)
     });
   }
@@ -88,19 +92,11 @@ export class RegisterComponent {
     }
   }
 
-  // validate(control: AbstractControl): ValidationErrors | null {
-  //   let pass = control.get('password');
-  //   let confPass = control.get('confPassword');
-  //   if (pass !== confPass) {
-  //     return { noMatchPassword: true };
-  //   }
-  //   return null;
-  // }
 
   passwordMatchingValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
-    console.log(control)
+console.log(control)
 
     const password = control.get("password");
     const confirmPassword = control.get("confPassword");

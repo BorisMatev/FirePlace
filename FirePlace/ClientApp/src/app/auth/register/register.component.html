@@ -27,8 +27,8 @@
                                         style="display:none;"
                                         #fileInput 
                                         (change)="onFileInput($event)"
+                                        formControlName="image" 
                                         />
-                                        <!-- formControlName="image"  -->
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -108,7 +108,7 @@
                             <button class="btn btn-outline-success px-5 ms-3" 
                                     routerLink='/register'
                                     (click)="onSubmit()"
-                                    [disabled]="registerForm.invalid">
+                                    [disabled]="registerForm.invalid ? true : null">
                                 Register</button>
                         </div>
                     </div>

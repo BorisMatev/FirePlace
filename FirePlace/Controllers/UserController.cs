@@ -72,8 +72,9 @@ namespace FirePlace.Controllers
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-
-            return Ok();
+            
+            string token = GenerateJwtToken("User");
+            return Ok(token);
         }
 
         [HttpPost]
