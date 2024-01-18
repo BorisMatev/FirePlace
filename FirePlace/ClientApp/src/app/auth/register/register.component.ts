@@ -7,6 +7,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
 import { UserService } from '../../core/servises/user.service';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.c
     RouterLink,
     InputTextareaModule,
     PasswordModule,
-    FormErrorsComponent
+    FormErrorsComponent,
+    CommonModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
