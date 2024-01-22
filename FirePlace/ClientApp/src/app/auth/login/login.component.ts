@@ -7,6 +7,7 @@ import { UserService } from '../../core/servises/user.service';
 import { RouterLink } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -18,7 +19,8 @@ import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.c
             InputTextModule,
             RouterLink,
             PasswordModule,
-            FormErrorsComponent
+            FormErrorsComponent,
+            CommonModule
           ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

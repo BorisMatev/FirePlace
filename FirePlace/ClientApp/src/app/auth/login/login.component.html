@@ -8,7 +8,11 @@
         <div class="row">
             <form [formGroup]="loginForm">
                 <span class="p-float-label mt-4">
-                    <input pInputText 
+                    <input pInputText
+                           [ngClass]="{
+                                'ng-touched ng-dirty':loginForm.get('username')!.invalid &&
+                                (loginForm.get('username')!.dirty || 
+                                loginForm.get('username')!.touched)}" 
                            formControlName="username"
                            />
                     <label style="color: #f3e4c3;" class="selectFalse">Username</label>
@@ -20,6 +24,10 @@
                         ></app-form-errors>
                 <span class="p-float-label mt-5">
                            <p-password formControlName="password"
+                           [ngClass]="{
+                            'ng-touched ng-dirty':loginForm.get('password')!.invalid &&
+                            (loginForm.get('password')!.dirty || 
+                            loginForm.get('password')!.touched)}"
                                        [feedback]="false"
                                        [toggleMask]="true"
                                        ></p-password>
