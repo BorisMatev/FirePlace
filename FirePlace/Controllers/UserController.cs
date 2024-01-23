@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using FirePlace.Models.Response;
 
 namespace FirePlace.Controllers
 {
@@ -23,18 +24,41 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "Admin")]
-        public ActionResult<List<UserRegister>> GetUsers()
+        [Authorize]
+        public ActionResult<UserInfoResponse> GetUsers()
         {
-            return _dbContext.Users.Select(x =>
-            new UserRegister
+            UserInfoResponse response;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .First();
+            if (user.Photos != null)
             {
-                Email = x.Email,
-                Username = x.Username,
-                Password = x.Password,
-                ProfilePhoto = x.ProfilePhoto
-            })
-            .ToList();
+                response = new UserInfoResponse
+                {
+                    Info = user.Info,
+                    Username = user.Username,
+                    ProfilePhoto = user.ProfilePhoto,
+                    Photos = user.Photos.Select(x => x.Base64String).ToList()
+            };
+            }
+            else
+            {
+                response = new UserInfoResponse
+                {
+                    Info = user.Info,
+                    Username = user.Username,
+                    ProfilePhoto = user.ProfilePhoto,
+                    Photos = new List<string> {""}
+            };
+            }
+            return Ok(response);
+        }
+        [HttpGet]
+        public string GetInfo()
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return userId;
         }
 
         [HttpPost]
@@ -73,7 +97,7 @@ namespace FirePlace.Controllers
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
             
-            string token = GenerateJwtToken("User");
+            string token = GenerateJwtToken("User", user.Id);
             return Ok(token);
         }
 
@@ -90,23 +114,27 @@ namespace FirePlace.Controllers
             }
             else if (user.Role == "Admin")
             {
-                return Ok(GenerateJwtToken("Admin"));
+                string token = GenerateJwtToken("Admin",user.Id);
+                return Ok(token);
             }
             else
             {
-                string token = GenerateJwtToken("User");
+                string token = GenerateJwtToken("User", user.Id);
                 return Ok(token);
             }
         }
 
         //generate Token
-        private string GenerateJwtToken(string role)
+        private string GenerateJwtToken(string role,int id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Role, role) }),
+                Subject = new ClaimsIdentity(new Claim[] { 
+                    new Claim(ClaimTypes.Role, role),
+                    new Claim(ClaimTypes.NameIdentifier, id.ToString())
+                }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _configuration["JwtSettings:Issuer"],
