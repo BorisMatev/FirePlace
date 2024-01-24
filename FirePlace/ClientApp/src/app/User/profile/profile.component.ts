@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../core/servises/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-
+  constructor(private user: UserService) {
+    
+  }
+  ngOnInit(){
+    this.user.getUser().subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    })
+  }
 }

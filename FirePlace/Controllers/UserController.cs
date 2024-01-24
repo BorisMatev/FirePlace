@@ -25,13 +25,16 @@ namespace FirePlace.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult<UserInfoResponse> GetUsers()
+        public ActionResult<UserInfoResponse> GetUser()
         {
             UserInfoResponse response;
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
-                .First();
+                .FirstOrDefault();
+            if(user == null){
+                return  BadRequest();
+            }
             if (user.Photos != null)
             {
                 response = new UserInfoResponse
