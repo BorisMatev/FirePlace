@@ -24,6 +24,14 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "Admin")]
+        public ActionResult<List<User>> GetAll()
+        {
+            return _dbContext.Users
+            .ToList();
+        }
+
+        [HttpGet]
         [Authorize]
         public ActionResult<UserInfoResponse> GetUser()
         {
@@ -56,12 +64,6 @@ namespace FirePlace.Controllers
             };
             }
             return Ok(response);
-        }
-        [HttpGet]
-        public string GetInfo()
-        {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return userId;
         }
 
         [HttpPost]
@@ -102,6 +104,31 @@ namespace FirePlace.Controllers
             
             string token = GenerateJwtToken("User", user.Id);
             return Ok(token);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult AddPhoto(UserAddPhotoRequest request)
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            var photo = new Photo {
+                Base64String = request.Base64String,
+                Lat = request.Lat,
+                Lng = request.Lng,
+                Likes = 0,
+            };
+
+            user.Photos.Add(photo);
+            _dbContext.SaveChanges();
+            return Ok();
+
         }
 
         [HttpPost]

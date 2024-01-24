@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -28,7 +28,8 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
 
   constructor(private fb: FormBuilder,
-    private user: UserService) {
+              private user: UserService,
+              private router: Router) {
 
   }
   img!: string;
@@ -78,7 +79,8 @@ export class RegisterComponent {
           localStorage.setItem('token',JSON.stringify(resp));
         }
       },
-      error: error => console.log(error)
+      error: error => console.log(error),
+      complete: () => this.router.navigate(['/home'])
     });
   }
 

@@ -4,7 +4,7 @@ import { FormBuilder, Validators  } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../core/servises/user.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
 import { CommonModule } from '@angular/common';
@@ -28,7 +28,8 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
 
   constructor(private fb: FormBuilder,
-              private user: UserService) { }
+              private user: UserService,
+              private router: Router) { }
 
   loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -46,7 +47,8 @@ export class LoginComponent {
           localStorage.setItem('token',JSON.stringify(resp));
         }
       },
-      error: (error) => console.log(error)
+      error: (error) => console.log(error),
+      complete: () => this.router.navigate(['/home'])
     });
   }
 }
