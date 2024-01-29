@@ -110,7 +110,12 @@ namespace FirePlace.Controllers
         [Authorize]
         public ActionResult AddPhoto(UserAddPhotoRequest request)
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
                 .FirstOrDefault();
@@ -118,7 +123,8 @@ namespace FirePlace.Controllers
             {
                 return BadRequest();
             }
-            var photo = new Photo {
+            var photo = new Photo
+            {
                 Base64String = request.Base64String,
                 Lat = request.Lat,
                 Lng = request.Lng,
