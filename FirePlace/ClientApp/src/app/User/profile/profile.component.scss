@@ -1,13 +1,37 @@
 .img{
-    width: 230px;
-    height: 230px;
-}
-.imgInput{
-    width: 230px;
-    height: 230px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 270px;
+    height: 270px;
     border: 3px solid var(--text);
-    border-radius: 20px;
 }
+.content{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page{
+    background-color: #212121d4;
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: 5px 5px 40px 10px black;
+    width: 80%;
+    height: 90%;
+}
+.info{
+    background-color: #21212196;
+    padding: 10px 20px;
+    border: solid 1px var(--dark-green);
+    border-radius: 20px;
+    box-shadow: inset 3px 3px 8px 4px black;
+    overflow:scroll;
+    max-height: 170px;
+}
+.info::-webkit-scrollbar {
+    display: none;
+  }
+// .imgInput{
+//     width: 230px;
+//     height: 230px;
+//     border: 3px solid var(--text);
+//     border-radius: 20px;
+// }

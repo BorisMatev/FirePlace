@@ -1,8 +1,58 @@
-<div>
-    <div class="imgInput rounded-circle">
-        <img 
-            class="rounded-circle img" 
-            style="object-fit: cover;" 
-            [src]="userInfo.ProfilePhoto">
+<div class="content">
+    <div class="page container">
+        <div class="row justify-content-between h-100">
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <div style="max-width:350px;">
+                    <div style=" text-align: center;">
+                        @if(userInfo.profilePhoto !== ""){
+                            <div class="rounded-circle">
+                                <img 
+                                    class="rounded-circle img" 
+                                    style="object-fit: cover;" 
+                                    [src]="'data:image/png;base64,'+userInfo.profilePhoto">
+                            </div>
+                        }@else {
+                            <div class="rounded-circle">
+                                <img 
+                                    class="rounded-circle img" 
+                                    style="object-fit: cover;" 
+                                    src="../../../assets/profile.png">
+                            </div>
+                        }
+                        <h1 class="mt-2">{{userInfo.uername}}</h1>
+                    </div>
+                    <div class="info">
+                        <h5>{{userInfo.info}}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                <div class="container">
+                    @for (item of userInfo.photos; track $index) {
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-4"></div>
+                            <div class="col-4"></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="rounded-circle">
+                <img 
+                    class="rounded-circle img" 
+                    style="object-fit: cover;" 
+                    src="../../../assets/profile.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="rounded-circle">
+                <img 
+                    class="rounded-circle img" 
+                    style="object-fit: cover;" 
+                    src="../../../assets/profile.png">
+            </div>
+        </div> -->
     </div>
 </div>

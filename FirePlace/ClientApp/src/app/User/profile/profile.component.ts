@@ -14,12 +14,28 @@ export class ProfileComponent {
     
   }
 
-  userInfo: any;
+  userInfo: UserInfo = {
+    uername: "asdasd",
+    info: "Here i will talk a lot about me and i will say buch of stupid things !",
+    profilePhoto: "",
+    photos: []
+  };
 
   ngOnInit(){
     this.user.getUser().subscribe({
-      next: resp => this.userInfo = resp,
+      next: resp => {
+        // this.userInfo.info = (resp as any).info;
+        // this.userInfo.photos = (resp as any).photos;
+        // this.userInfo.profilePhoto = (resp as any).profilePhoto;
+        // this.userInfo.uername = (resp as any).username;
+      },
       error: error => console.log(error)
     });
   }
+}
+export interface UserInfo{
+  uername: string,
+  info: string,
+  profilePhoto: string,
+  photos: []
 }
