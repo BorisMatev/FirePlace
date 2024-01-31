@@ -1,6 +1,5 @@
 .img{
-    width: 270px;
-    height: 270px;
+    width: 100%;
     border: 3px solid var(--text);
 }
 .content{
@@ -14,8 +13,9 @@
     border: 1px solid black;
     border-radius: 20px;
     box-shadow: 5px 5px 40px 10px black;
-    width: 80%;
-    height: 90%;
+    min-width: 2000px;
+    height: 1000px;
+    color: var(--text);
 }
 .info{
     background-color: #21212196;
