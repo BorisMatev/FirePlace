@@ -12,6 +12,6 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'home', canActivate:[authGuard], component: HomeComponent },
     { path: 'profile', canActivate:[authGuard], component: ProfileComponent },
-    { path: '',   redirectTo: 'log-in', pathMatch: 'full' }, // redirect to 'log-in'
+    { path: '',   redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'
     { path: '**', component: LoginComponent },  // Wildcard route for a 404 page
   ];

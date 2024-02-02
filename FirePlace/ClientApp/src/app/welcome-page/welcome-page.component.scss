@@ -12,7 +12,7 @@
     width: 100vw;
     height: calc(100vh - 116px);
     overflow-y: scroll;
-
+    background-color: black;
 }
 
 .content::-webkit-scrollbar {
@@ -50,22 +50,24 @@
     justify-content: center;
     align-items: center;
     clip-path: polygon(0% 0%, 80% 0%, 100% 100%, 0% 100%);
+    border: 3px solid;
+    border-image: linear-gradient(120deg, purple, var(--dark-green)) 1;
     box-shadow: 0px 0px 100px 100px black;
-}
-main{
-    background-color: rgba(212, 26, 26, 0.79);
 }
 
 .test {
     width: 50%;
+    background-color: rgba(0, 0, 0, 0.71);
 }
 
 .test2 {
-    background: var(--dark-green);
+    background: var(--dark);
     width: 50%;
     height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 20% 100%);
+    border: 3px solid;
+    border-image: linear-gradient(-30deg, purple, var(--dark-green)) 1;
 }

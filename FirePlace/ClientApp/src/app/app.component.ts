@@ -22,7 +22,7 @@ export class AppComponent {
   constructor(router: Router) {
    router.events.subscribe(x=>{
     if (x instanceof NavigationEnd) {
-      if(x.url == '/' || x.url == '/log-in' || x.url == '/register'){
+      if(x.url == '/log-in' || x.url == '/register'){
         this.display = false;
       } else{
         this.display = true;
