@@ -11,6 +11,7 @@ export class WelcomePageComponent {
   images = [
     "../../assets/gallery/bench.jpeg",
     "../../assets/gallery/sky.jpg",
-    "../../assets/gallery/waterfall.jpg"
+    "../../assets/gallery/waterfall.jpg",
+    "../../assets/gallery/lake.jpeg"
   ];
 }

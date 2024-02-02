@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,16 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  url = "http://localhost:5157"
+  url = "http://localhost:5157";
+  isLogged = signal<boolean>(false);
+
+  checkToken(){
+    if (localStorage.getItem('token')) {
+      this.isLogged.set(true);
+    } else {
+      this.isLogged.set(false);
+    }
+  }
 
   login(request: any){
     const body = {
