@@ -24,10 +24,10 @@ export class ProfileComponent {
   ngOnInit(){
     this.user.getUser().subscribe({
       next: resp => {
-        // this.userInfo.info = (resp as any).info;
-        // this.userInfo.photos = (resp as any).photos;
-        // this.userInfo.profilePhoto = (resp as any).profilePhoto;
-        // this.userInfo.uername = (resp as any).username;
+        this.userInfo.info = (resp as any).info;
+        this.userInfo.photos = (resp as any).photos;
+        this.userInfo.profilePhoto = (resp as any).profilePhoto;
+        this.userInfo.uername = (resp as any).username;
       },
       error: error => console.log(error)
     });

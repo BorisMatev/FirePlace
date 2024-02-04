@@ -25,13 +25,6 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> GetAll()
-        {
-            return _dbContext.Users
-            .ToList();
-        }
-
-        [HttpGet]
         public ActionResult<List<UsersListResponse>> GetUsersByName(string username)
         {
             var users = _dbContext.Users.Where(x => x.Username.Contains(username)).ToList();
