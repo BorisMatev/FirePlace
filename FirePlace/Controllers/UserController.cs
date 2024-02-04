@@ -12,6 +12,7 @@ namespace FirePlace.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly FirePlaceDbContext _dbContext;
@@ -24,7 +25,6 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "Admin")]
         public ActionResult<List<User>> GetAll()
         {
             return _dbContext.Users
@@ -32,7 +32,21 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        public ActionResult<List<UsersListResponse>> GetUsersByName(string username)
+        {
+            var users = _dbContext.Users.Where(x => x.Username.Contains(username)).ToList();
+            if (users == null)
+            {
+                return BadRequest("No users with this username!");
+            }
+            return users.Select(x => 
+                new UsersListResponse { 
+                    Name = x.Username, 
+                    Photo = x.ProfilePhoto
+                }).ToList();
+        }
+
+        [HttpGet]
         public ActionResult<UserInfoResponse> GetUser()
         {
             UserInfoResponse response;
@@ -67,6 +81,7 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Register(UserRegister request)
         {
             if (_dbContext.Users.Any(x => x.Username == request.Username))
@@ -107,7 +122,6 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult AddPhoto(UserAddPhotoRequest request)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -129,6 +143,7 @@ namespace FirePlace.Controllers
                 Lat = request.Lat,
                 Lng = request.Lng,
                 Likes = 0,
+                Categories = request.Categories
             };
 
             user.Photos.Add(photo);
@@ -138,6 +153,7 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult<string> Login(UserLogin request)
         {
             var user = _dbContext.Users

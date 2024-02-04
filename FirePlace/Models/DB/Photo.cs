@@ -14,7 +14,7 @@ namespace FirePlace.Models.DB
         public int Likes { get; set; }
 
 
-        //many to many
+        //one to many
         public ICollection<Category> Categories { get; set; }
 
 
