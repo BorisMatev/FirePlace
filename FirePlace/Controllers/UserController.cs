@@ -73,6 +73,42 @@ namespace FirePlace.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        public ActionResult<List<UserFollowersResponse>> GetUserFollowers()
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return user.Followers.Select(x => new UserFollowersResponse()
+            {
+                ProfilePhoto = x.ProfilePhoto,
+                Username = x.Username
+            }).ToList();
+        }
+
+        [HttpGet]
+        public ActionResult<List<UserFollowersResponse>> GetFollowingUsers()
+        {
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return user.Follow.Select(x => new UserFollowersResponse()
+            {
+                ProfilePhoto = x.ProfilePhoto,
+                Username = x.Username
+            }).ToList();
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public ActionResult Register(UserRegister request)
@@ -167,6 +203,34 @@ namespace FirePlace.Controllers
                 string token = GenerateJwtToken("User", user.Id);
                 return Ok(token);
             }
+        }
+
+        [HttpPost]
+        public ActionResult FollowUser(string userName)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var userForFollow = _dbContext.Users
+                .Where(x => x.Username == userName)
+                .FirstOrDefault();
+
+            var followingUser = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+
+
+            if (followingUser == null || userForFollow == null)
+            {
+                return NotFound();
+            }
+
+            userForFollow.Followers.Add(followingUser);
+            followingUser.Follow.Add(userForFollow);
+
+            _dbContext.SaveChanges();
+
+            return Ok();
+            
         }
 
         //generate Token

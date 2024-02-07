@@ -16,6 +16,7 @@ namespace FirePlace.Controllers
             _dbContext = dbContext;
             _configuration = configuration;
         }
+
         [HttpGet]
         public ActionResult<List<string>> GetPhotosByUserId(int id)
         {
@@ -28,5 +29,7 @@ namespace FirePlace.Controllers
 
             return user.Photos.Select(x => x.Base64String).ToList();
         }
+
+
     }
 }
