@@ -7,14 +7,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: scroll;
 }
+.content::-webkit-scrollbar {
+    display: none;
+  }
 .page{
     background-color: #212121d4;
     border: 1px solid black;
     border-radius: 20px;
     box-shadow: 5px 5px 40px 10px black;
-    min-width: 2000px;
-    height: 1000px;
+    min-width: 1000px;
+    height: 550px;
     color: var(--text);
 }
 .info{

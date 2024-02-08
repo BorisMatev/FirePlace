@@ -25,7 +25,7 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<UsersListResponse>> GetUsersByName(string username)
+        public ActionResult<List<UsersListResponse>> GetUsersBySearchedName(string username)
         {
             var users = _dbContext.Users.Where(x => x.Username.Contains(username)).ToList();
             if (users == null)
@@ -34,15 +34,15 @@ namespace FirePlace.Controllers
             }
             return users.Select(x => 
                 new UsersListResponse { 
-                    Name = x.Username, 
+                    Id = x.Id,
+                    Name = x.Username,
                     Photo = x.ProfilePhoto
                 }).ToList();
         }
 
         [HttpGet]
-        public ActionResult<UserInfoResponse> GetUser()
+        public ActionResult<UserInfoResponse> GetUserByJwt()
         {
-            UserInfoResponse response;
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
@@ -52,25 +52,27 @@ namespace FirePlace.Controllers
             }
             if (user.Photos != null)
             {
-                response = new UserInfoResponse
+                return new UserInfoResponse
                 {
                     Info = user.Info,
                     Username = user.Username,
                     ProfilePhoto = user.ProfilePhoto,
+                    FollowersCount = user.Followers.Count,
+                    FollowingCount = user.Follow.Count,
+                    PhotosCount = user.Photos.Count,
                     Photos = user.Photos.Select(x => x.Base64String).ToList()
-            };
+                };
             }
-            else
+            return  new UserInfoResponse
             {
-                response = new UserInfoResponse
-                {
-                    Info = user.Info,
-                    Username = user.Username,
-                    ProfilePhoto = user.ProfilePhoto,
-                    Photos = new List<string> {""}
+                Info = user.Info,
+                Username = user.Username,
+                PhotosCount = 0,
+                ProfilePhoto = user.ProfilePhoto,
+                FollowingCount = user.Follow?.Count,
+                FollowersCount = user.Followers?.Count,
+                Photos = null
             };
-            }
-            return Ok(response);
         }
 
         [HttpGet]
