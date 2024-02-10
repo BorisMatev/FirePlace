@@ -20,22 +20,32 @@ import { Observable } from 'rxjs';
         opacity: 1,
         transform: 'translateX(0px)',
       })),
+      state("left", style({
+        width: '100%',
+        height: '100%'
+      })),
+      state("right", style({
+        width: '90%',
+        height: '80%'
+      })),
       transition('first => second', animate('1s')),
+      transition('left => right', animate('1s'))
     ])
   ]
 })
 export class WelcomePageComponent {
   shown = "first";
+  move = "left";
 
   animation() {
-    this.shown = "second"
+    this.shown = "second";
+    this.move = "right";
   }
 
   @ViewChild('test') testElement!: ElementRef;
 
   isElementInViewport(element: HTMLElement): boolean {
-    const rect = element.getBoundingClientRect();
-    return element.getBoundingClientRect().top <= 400;
+    return element.getBoundingClientRect().top <= 500;
   }
 
 
