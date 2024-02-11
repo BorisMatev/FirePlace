@@ -32,11 +32,8 @@ main{
     z-index: 1;
     align-items: center;
     justify-content: center;
-    overflow:scroll; max-height: 98vh;
+    max-height: 98vh;
 }
-.mainCon::-webkit-scrollbar {
-    display: none;
-  }
 .p-inputtext {
     color: #ffffff;
     background: #ffffff18;

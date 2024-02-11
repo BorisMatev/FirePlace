@@ -7,32 +7,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: scroll;
+    background-image: url('../../../assets/backgrounds/fireplace2.jpg');
+    background-position: center;
+    background-size: cover;
 }
-.content::-webkit-scrollbar {
-    display: none;
-  }
 .page{
     background-color: #212121d4;
-    border: 1px solid black;
+    border: 2px solid var(--dark-purple);
     border-radius: 20px;
-    box-shadow: 5px 5px 40px 10px black;
-    min-width: 1000px;
-    height: 550px;
+    box-shadow: 5px 5px 112px 14px black;
+    min-width: 80%;
+    height: 90%;
     color: var(--text);
 }
 .info{
     background-color: #21212196;
     padding: 10px 20px;
-    border: solid 1px var(--dark-green);
+    border: solid 1px var(--dark-purple);
     border-radius: 20px;
     box-shadow: inset 3px 3px 8px 4px black;
-    overflow:scroll;
     max-height: 170px;
 }
-.info::-webkit-scrollbar {
-    display: none;
-  }
 // .imgInput{
 //     width: 230px;
 //     height: 230px;

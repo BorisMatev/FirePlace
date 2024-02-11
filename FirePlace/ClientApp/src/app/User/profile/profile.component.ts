@@ -15,9 +15,12 @@ export class ProfileComponent {
   }
 
   userInfo: UserInfo = {
-    uername: "asdasd",
-    info: "Here i will talk a lot about me and i will say buch of stupid things !",
-    profilePhoto: "",
+    uername: '',
+    info: '',
+    photosCount: 0,
+    followersCount: 0,
+    followingCount: 0,
+    profilePhoto: '',
     photos: []
   };
 
@@ -36,6 +39,9 @@ export class ProfileComponent {
 export interface UserInfo{
   uername: string,
   info: string,
+  photosCount: number | null,
+  followersCount: number | null,
+  followingCount: number | null,
   profilePhoto: string,
   photos: []
 }

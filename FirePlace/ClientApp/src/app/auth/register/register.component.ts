@@ -100,7 +100,6 @@ export class RegisterComponent {
   passwordMatchingValidator: ValidatorFn = (
     control: AbstractControl
   ): ValidationErrors | null => {
-console.log(control)
 
     const password = control.get("password");
     const confirmPassword = control.get("confPassword");
