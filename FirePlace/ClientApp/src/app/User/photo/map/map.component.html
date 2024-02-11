@@ -1,0 +1,10 @@
+<google-map 
+    height="100%" 
+    width="100vw" 
+    [center]="center" 
+    [zoom]="zoom" 
+    (mapClick)="setMarker($event)">
+        <map-marker 
+            [position]="markerPositiom">
+        </map-marker>
+</google-map>
