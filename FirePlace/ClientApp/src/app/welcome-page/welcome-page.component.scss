@@ -43,8 +43,6 @@
 }
 
 .test1 {
-    // background: var(--dark);
-    position: relative;
     width: 50%;
     height: 400px;
     display: flex;
@@ -59,8 +57,9 @@
     position: absolute;
     clip-path: polygon(0% 0%, 80% 0%, 100% 100%, 0% 100%);
     background: var(--dark-green);
-    width: 100%;
+    width: 50%;
     height: 100%;
+    box-shadow: 0px 0px 50px 50px black;
 }
 
 .test {
@@ -69,7 +68,6 @@
 }
 
 .test2 {
-    // background: var(--dark);
     width: 50%;
     height: 400px;
     display: flex;

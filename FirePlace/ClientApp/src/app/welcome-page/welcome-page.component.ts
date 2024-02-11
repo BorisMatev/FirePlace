@@ -21,12 +21,10 @@ import { Observable } from 'rxjs';
         transform: 'translateX(0px)',
       })),
       state("left", style({
-        width: '100%',
-        height: '100%'
+        transform: 'translateX(-1000px)'
       })),
       state("right", style({
-        width: '90%',
-        height: '80%'
+        transform: 'translateX(0px)'
       })),
       transition('first => second', animate('1s')),
       transition('left => right', animate('1s'))
