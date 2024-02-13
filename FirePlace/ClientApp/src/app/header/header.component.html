@@ -5,5 +5,14 @@
             <button class="btn btn-outline-success" [routerLink]="['/log-in']"> Log in</button>
             <button class="btn btn-success ms-3" [routerLink]="['/register']"> Sigh up</button>
         </div>
+    } @else {
+        <div class="menu">
+            <button class="btn btn-outline-danger"
+                    (click)="route2()"
+                    routerLinkActive="qsx"
+                    [routerLink]="['/welcome']"
+                    [@changeRoute]="first">welcome</button>
+            <button [@changeRoute]="second" class="btn btn-outline-danger" (click)="route1()" routerLinkActive="qsx" [routerLink]="['/profile']">profile</button>
+        </div>
     }
 </div>
