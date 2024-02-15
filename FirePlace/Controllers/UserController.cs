@@ -43,7 +43,7 @@ namespace FirePlace.Controllers
         [HttpGet]
         public ActionResult<UserInfoResponse> GetUserByJwt()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
                 .FirstOrDefault();
@@ -83,6 +83,10 @@ namespace FirePlace.Controllers
                 .Where(x => x.Id == int.Parse(userId))
                 .FirstOrDefault();
             if (user == null)
+            {
+                return BadRequest();
+            }
+            if (user.Followers == null)
             {
                 return BadRequest();
             }

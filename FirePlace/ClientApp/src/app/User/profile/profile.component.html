@@ -21,16 +21,16 @@
                         }
                         <h1 class="mt-2">{{userInfo.uername}}</h1>
                     </div>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-around align-items-center">
                         <div>
-                            <h6 style="color:var(--light-green)">
+                            <h2 style="color:var(--light-green)">
                                 Followers:{{userInfo.followersCount}}
-                            </h6>
+                            </h2>
                         </div>
                         <div>
-                            <h6 style="color:var(--light-green)">
+                            <h2 style="color:var(--light-green)">
                                 Following:{{userInfo.followingCount}}
-                            </h6>
+                            </h2>
                         </div>
                     </div>
                     <div class="info scroll">
@@ -46,6 +46,9 @@
                             <div class="col-4"></div>
                             <div class="col-4"></div>
                         </div>
+                    }
+                    @if (userInfo.photosCount == 0) {
+                        
                     }
                 </div>
             </div>

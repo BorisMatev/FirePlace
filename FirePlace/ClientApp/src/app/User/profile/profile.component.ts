@@ -27,10 +27,15 @@ export class ProfileComponent {
   ngOnInit(){
     this.user.getUser().subscribe({
       next: resp => {
-        // this.userInfo.info = (resp as any).info;
-        // this.userInfo.photos = (resp as any).photos;
-        // this.userInfo.profilePhoto = (resp as any).profilePhoto;
-        // this.userInfo.uername = (resp as any).username;
+        this.userInfo = {
+          info: (resp as any).info,
+          photos: (resp as any).photos,
+          uername: (resp as any).username,
+          profilePhoto: (resp as any).profilePhoto,
+          photosCount: (resp as any).photosCount ? null: 0,
+          followersCount: (resp as any).followersCount ? null: 0,
+          followingCount: (resp as any).followingCount ? null: 0
+        }
       },
       error: error => console.log(error)
     });
@@ -43,5 +48,5 @@ export interface UserInfo{
   followersCount: number | null,
   followingCount: number | null,
   profilePhoto: string,
-  photos: []
+  photos: [] | null
 }

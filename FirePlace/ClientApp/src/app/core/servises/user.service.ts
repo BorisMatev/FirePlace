@@ -37,6 +37,6 @@ export class UserService {
       return this.http.post(`${this.url}/User/Register`,body);
   }
   getUser(){
-    return this.http.get(`${this.url}/User/GetUser`);
+    return this.http.get(`${this.url}/User/GetUserByJwt `,);
   }
 }
