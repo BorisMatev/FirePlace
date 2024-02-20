@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
@@ -38,5 +38,19 @@ export class UserService {
   }
   getUser(){
     return this.http.get(`${this.url}/User/GetUserByJwt `,);
+  }
+  getUserByUsername(username: string){
+    let params = new HttpParams();
+    params = params.append("username",username);
+    return this.http.get(`${this.url}/User/GetUsersBySearchedName`,{params})
+  }
+  addPhoto(request: any){
+    const body = {
+      photo: request.photo,
+      lat: request.lat,
+      lng: request.lng,
+      categories: request.categories 
+    }
+    return this.http.post(`${this.url}/Photo/AddPhoto`, body )
   }
 }

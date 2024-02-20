@@ -4,6 +4,7 @@ using FirePlace;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirePlace.Migrations
 {
     [DbContext(typeof(FirePlaceDbContext))]
-    partial class FirePlaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240219091048_Changes")]
+    partial class Changes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,15 +116,15 @@ namespace FirePlace.Migrations
 
             modelBuilder.Entity("UserUser", b =>
                 {
+                    b.Property<int>("FollowId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FollowersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FollowingId")
-                        .HasColumnType("int");
+                    b.HasKey("FollowId", "FollowersId");
 
-                    b.HasKey("FollowersId", "FollowingId");
-
-                    b.HasIndex("FollowingId");
+                    b.HasIndex("FollowersId");
 
                     b.ToTable("UserUser");
                 });
@@ -149,13 +151,13 @@ namespace FirePlace.Migrations
                 {
                     b.HasOne("FirePlace.Models.DB.User", null)
                         .WithMany()
-                        .HasForeignKey("FollowersId")
+                        .HasForeignKey("FollowId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FirePlace.Models.DB.User", null)
                         .WithMany()
-                        .HasForeignKey("FollowingId")
+                        .HasForeignKey("FollowersId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

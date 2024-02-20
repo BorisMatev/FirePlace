@@ -58,7 +58,7 @@ namespace FirePlace.Controllers
                     Username = user.Username,
                     ProfilePhoto = user.ProfilePhoto,
                     FollowersCount = user.Followers.Count,
-                    FollowingCount = user.Follow.Count,
+                    FollowingCount = user.Following.Count,
                     PhotosCount = user.Photos.Count,
                     Photos = user.Photos.Select(x => x.Base64String).ToList()
                 };
@@ -69,7 +69,7 @@ namespace FirePlace.Controllers
                 Username = user.Username,
                 PhotosCount = 0,
                 ProfilePhoto = user.ProfilePhoto,
-                FollowingCount = user.Follow?.Count,
+                FollowingCount = user.Following?.Count,
                 FollowersCount = user.Followers?.Count,
                 Photos = null
             };
@@ -108,7 +108,7 @@ namespace FirePlace.Controllers
             {
                 return BadRequest();
             }
-            return user.Follow.Select(x => new UserFollowersResponse()
+            return user.Following.Select(x => new UserFollowersResponse()
             {
                 ProfilePhoto = x.ProfilePhoto,
                 Username = x.Username
@@ -148,6 +148,10 @@ namespace FirePlace.Controllers
             user.Info = request.Info;
             user.Role = "User";
             user.ProfilePhoto = request.ProfilePhoto;
+
+            user.Followers = new List<User>() { };
+            user.Following = new List<User>() { };
+            user.Photos = new List<Photo>() { };
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
@@ -216,6 +220,11 @@ namespace FirePlace.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
             var userForFollow = _dbContext.Users
                 .Where(x => x.Username == userName)
                 .FirstOrDefault();
@@ -229,9 +238,16 @@ namespace FirePlace.Controllers
             {
                 return NotFound();
             }
-
+            if (userForFollow.Followers == null)
+            {
+                userForFollow.Followers = new List<User>() { };
+            }
+            if (followingUser.Following == null)
+            {
+                followingUser.Following = new List<User>() { };
+            }
             userForFollow.Followers.Add(followingUser);
-            followingUser.Follow.Add(userForFollow);
+            followingUser.Following.Add(userForFollow);
 
             _dbContext.SaveChanges();
 

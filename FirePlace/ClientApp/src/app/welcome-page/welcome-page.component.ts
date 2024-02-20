@@ -47,7 +47,7 @@ export class WelcomePageComponent {
   }
 
 
-  @HostListener('document:mousewheel')
+  @HostListener('mousewheel')
   onScroll(): void {
     const element = this.testElement.nativeElement;
     if (this.isElementInViewport(element)) {

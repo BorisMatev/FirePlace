@@ -1,5 +1,5 @@
 <div class="content d-flex justify-content-between align-items-center p-4">
-    <h1>FirePlace</h1>
+    <h1 [routerLink]="['/welcome']">FirePlace</h1>
     @if(!isLogged){
         <div>
             <button class="btn btn-outline-success" [routerLink]="['/log-in']"> Log in</button>
@@ -10,8 +10,8 @@
             <button class="btn btn-outline-danger"
                     (click)="route2()"
                     routerLinkActive="qsx"
-                    [routerLink]="['/welcome']"
-                    [@changeRoute]="first">welcome</button>
+                    [routerLink]="['/home']"
+                    [@changeRoute]="first">Home</button>
             <button [@changeRoute]="second" class="btn btn-outline-danger" (click)="route1()" routerLinkActive="qsx" [routerLink]="['/profile']">profile</button>
         </div>
     }
