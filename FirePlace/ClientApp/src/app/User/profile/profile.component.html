@@ -1,7 +1,7 @@
 <div class="content">
     <div class="page scroll">
         <div class="row justify-content-between h-100">
-            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <div >
                     <div style=" text-align: center;">
                         @if(userInfo.profilePhoto !== ""){
@@ -21,7 +21,7 @@
                         }
                         <h1 class="mt-2">{{userInfo.uername}}</h1>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-center gap-3 align-items-center">
                         <div>
                             <h2 style="color:var(--light-green)">
                                 Followers:{{userInfo.followersCount}}
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <div class="d-flex flex-wrap">
                     @for (item of userInfo.photos; track $index) {
                         <div class="item">
@@ -46,7 +46,8 @@
                         </div>
                     }
                     @if (userInfo.photosCount == 0) {
-                        <div class="addImageBtn d-flex justify-content-center align-items-center">
+                        <div class="addImageBtn d-flex justify-content-center align-items-center"
+                            [routerLink]="['/add-photo']" >
                             <h2>Add photo</h2>
                         </div>
                     }

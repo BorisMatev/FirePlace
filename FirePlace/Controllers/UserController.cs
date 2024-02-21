@@ -100,7 +100,7 @@ namespace FirePlace.Controllers
         [HttpGet]
         public ActionResult<List<UserFollowersResponse>> GetFollowingUsers()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
                 .FirstOrDefault();
@@ -161,37 +161,6 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddPhoto(UserAddPhotoRequest request)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-            {
-                return BadRequest();
-            }
-
-            var user = _dbContext.Users
-                .Where(x => x.Id == int.Parse(userId))
-                .FirstOrDefault();
-            if (user == null)
-            {
-                return BadRequest();
-            }
-            var photo = new Photo
-            {
-                Base64String = request.Base64String,
-                Lat = request.Lat,
-                Lng = request.Lng,
-                Likes = 0,
-                Categories = request.Categories
-            };
-
-            user.Photos.Add(photo);
-            _dbContext.SaveChanges();
-            return Ok();
-
-        }
-
-        [HttpPost]
         [AllowAnonymous]
         public ActionResult<string> Login(UserLogin request)
         {
@@ -225,14 +194,18 @@ namespace FirePlace.Controllers
                 return BadRequest();
             }
 
+            // the user to follow
             var userForFollow = _dbContext.Users
                 .Where(x => x.Username == userName)
                 .FirstOrDefault();
 
+            // me
             var followingUser = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
                 .FirstOrDefault();
 
+
+            int count = followingUser.Followers.Count();
 
             if (followingUser == null || userForFollow == null)
             {
@@ -246,6 +219,7 @@ namespace FirePlace.Controllers
             {
                 followingUser.Following = new List<User>() { };
             }
+
             userForFollow.Followers.Add(followingUser);
             followingUser.Following.Add(userForFollow);
 

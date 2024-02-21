@@ -1,0 +1,18 @@
+.content{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../assets/backgrounds/fireplace2.jpg');
+    background-position: center;
+    background-size: cover;
+}
+.page{
+    background-color: #212121d4;
+    border: 2px solid var(--dark-purple);
+    border-radius: 20px;
+    box-shadow: 5px 5px 112px 14px black;
+    min-width: 70%;
+    height: 90%;
+    color: var(--text);
+}

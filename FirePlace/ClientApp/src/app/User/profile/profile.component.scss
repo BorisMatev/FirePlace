@@ -1,5 +1,5 @@
 .img{
-    max-width: 1000px;
+    max-width: 25rem;
     border: 3px solid var(--text);
 }
 .content{
@@ -20,6 +20,7 @@
     height: 90%;
     color: var(--text);
 }
+
 .info{
     background-color: #21212196;
     padding: 10px 20px;
@@ -44,6 +45,11 @@
 .item{
     width: 50px;
 }
+@media only screen and (max-width: 900px) {
+    .img{
+        max-width: 15rem;
+    }
+  }
 // .imgInput{
 //     width: 230px;
 //     height: 230px;

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../core/servises/user.service';
 import { HeaderComponent } from '../../header/header.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent,RouterLink],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
