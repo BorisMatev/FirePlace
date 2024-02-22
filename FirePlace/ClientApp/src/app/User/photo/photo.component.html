@@ -1,5 +1,62 @@
 <div class="content">
-    <div class="">
-
+    <div class="page d-flex scroll">
+        <div class="left-and-right d-flex flex-column align-items-center justify-content-center">
+            @if(false){
+                <div class="imageDiv">
+                    <div class="">
+                        <img 
+                            class=" img" 
+                            style="object-fit: cover;" 
+                            [src]="'data:image/png;base64,'">
+                    </div>
+                </div>
+                <div class="userInfo mt-3">
+                    <div class="d-flex gap-5 justify-content-between align-items-center">
+                        <div class="ms-3 d-flex align-items-center">
+                            <img 
+                            class=" img" 
+                            style="object-fit: cover;" 
+                            [src]="'data:image/png;base64,'">
+                            <h3>username</h3>
+                        </div>
+                        <button class="btn btn-outline-success">Like</button>
+                    </div>
+                </div>
+            }
+            @else {
+                <div class="imageDiv">
+                    <p-skeleton size="100%" styleClass="mb-2" borderRadius="10px"></p-skeleton>
+                </div>
+                <div class="userInfo mt-3">
+                    <div class="d-flex gap-5">
+                        <div class="ms-3 d-flex">
+                            <p-skeleton shape="circle" size="4rem" styleClass="me-2"></p-skeleton>
+                            <div>
+                                <p-skeleton width="10rem" styleClass="my-2"></p-skeleton>
+                                <p-skeleton width="5rem"></p-skeleton>
+                            </div>
+                        </div>
+                        <p-skeleton width="4rem" height="2rem" styleClass="mt-3"></p-skeleton>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="left-and-right d-flex flex-column align-items-center justify-content-center">
+            @if(false){
+                <div class="map">
+                    <app-map [lat]="12" [lng]="12" [canTouch]="true"></app-map>
+                </div>
+                <div class="categories">
+                </div>
+            }
+            @else {
+                <div class="map">
+                    <p-skeleton width="100%" height="100%" styleClass="mb-2" borderRadius="10px"></p-skeleton>
+                </div>
+                <div class="categories">
+                    <p-skeleton width="100%" height="100%" styleClass="mb-2" borderRadius="10px"></p-skeleton>
+                </div>
+            }
+        </div>
     </div>
 </div>

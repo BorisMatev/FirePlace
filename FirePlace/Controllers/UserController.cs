@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using FirePlace.Models.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirePlace.Controllers
 {
@@ -32,8 +33,8 @@ namespace FirePlace.Controllers
             {
                 return BadRequest("No users with this username!");
             }
-            return users.Select(x => 
-                new UsersListResponse { 
+            return users.Select(x =>
+                new UsersListResponse {
                     Id = x.Id,
                     Name = x.Username,
                     Photo = x.ProfilePhoto
@@ -41,16 +42,31 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<UserInfoResponse> GetUserByJwt()
+        public ActionResult<List<Photo>> GetUserByJwt()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = _dbContext.Users
-                .Where(x => x.Id == int.Parse(userId))
-                .FirstOrDefault();
-            if(user == null){
-                return  BadRequest();
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest();
             }
-            if (user.Photos != null)
+
+            /*var user = _dbContext.Users
+                .FirstOrDefault(x => x.Id == int.Parse(userId));
+
+            int y = 3002;
+            var photos = _dbContext.Photos.Where(x => x.UserId == y).ToList();*/
+            var user = _dbContext.Users.Include(u => u.Photos).FirstOrDefault(u => u.Id == 3002);
+
+            
+
+            return user.Photos.ToList();
+
+
+            /*if (user == null) {
+                return BadRequest();
+            }
+            if (photos != null)
             {
                 return new UserInfoResponse
                 {
@@ -59,11 +75,11 @@ namespace FirePlace.Controllers
                     ProfilePhoto = user.ProfilePhoto,
                     FollowersCount = user.Followers.Count,
                     FollowingCount = user.Following.Count,
-                    PhotosCount = user.Photos.Count,
-                    Photos = user.Photos.Select(x => x.Base64String).ToList()
+                    PhotosCount = photos.Count,
+                    Photos = photos.Select(x => x.Base64String).ToList()
                 };
             }
-            return  new UserInfoResponse
+            return new UserInfoResponse
             {
                 Info = user.Info,
                 Username = user.Username,
@@ -72,7 +88,7 @@ namespace FirePlace.Controllers
                 FollowingCount = user.Following?.Count,
                 FollowersCount = user.Followers?.Count,
                 Photos = null
-            };
+            };*/
         }
 
         [HttpGet]
@@ -113,6 +129,15 @@ namespace FirePlace.Controllers
                 ProfilePhoto = x.ProfilePhoto,
                 Username = x.Username
             }).ToList();
+        }
+
+        [HttpGet]
+        public ActionResult<List<Category>> SearchCategory(string name)
+        {
+            List<Category> cat = _dbContext.Categories
+                .Where(x => x.Name.Contains(name) || name.Contains(x.Name))
+                .ToList();
+            return cat;
         }
 
         [HttpPost]
