@@ -45,13 +45,13 @@
 }
 
 .addImageBtn{
-    width: 45%;
-    height: 45%;
+    width: 50%;
+    aspect-ratio: 1/1;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.502);
     transition: 1s;
 }
 .addImageBtn:hover{
-    border-radius: 330px;
-    background-color: var(--light-purple);
+    border-radius: 330px !important;
+    background-color: var(--light-purple) !important;
 }

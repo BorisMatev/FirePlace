@@ -8,7 +8,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  url = "http://localhost:5157";
+  url = "http://localhost:5157/User";
   isLogged = signal<boolean>(false);
 
   checkToken(){
@@ -24,7 +24,7 @@ export class UserService {
       Username: request.username,
       Password: request.password
     }
-    return this.http.post(`${this.url}/User/Login`, body, { responseType:'text' });
+    return this.http.post(`${this.url}/Login`, body, { responseType:'text' });
   }
   register(request: any){
     const body = {
@@ -34,23 +34,14 @@ export class UserService {
         Email: request.email,
         Password: request.password
       }
-      return this.http.post(`${this.url}/User/Register`,body);
+      return this.http.post(`${this.url}/Register`,body);
   }
   getUser(){
-    return this.http.get(`${this.url}/User/GetUserByJwt `,);
+    return this.http.get(`${this.url}/GetUserByJwt `,);
   }
   getUserByUsername(username: string){
     let params = new HttpParams();
     params = params.append("username",username);
-    return this.http.get(`${this.url}/User/GetUsersBySearchedName`,{params})
-  }
-  addPhoto(request: any){
-    const body = {
-      photo: request.photo,
-      lat: request.lat,
-      lng: request.lng,
-      categories: request.categories 
-    }
-    return this.http.post(`${this.url}/Photo/AddPhoto`, body )
+    return this.http.get(`${this.url}/GetUsersBySearchedName`,{params})
   }
 }

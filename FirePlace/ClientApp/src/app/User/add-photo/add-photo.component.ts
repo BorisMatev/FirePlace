@@ -9,16 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './add-photo.component.scss',
   animations: [
     trigger("onLoad", [
-      state("right", style({
-        transform: 'translateX(210%)',
-        backgroundColor: 'var(--light-purple)',
-        borderRadius: '330px'
-      })),
-      state("left", style({
-        transform: 'translateX(0px)',
-        backgroundColor: 'rgba(0, 0, 0, 0.502)',
-        borderRadius: '20px'
-      })),
       state("first", style({
         opacity: 0,
         transform: 'scale(0.2)'
@@ -27,24 +17,43 @@ import { Component } from '@angular/core';
         opacity: 1,
         transform: 'scale(1)'
       })),
+      state("right", style({
+        transform: 'translateX(305%)',
+        height: '210px',
+        width: '210px',
+        backgroundColor: 'var(--light-purple)',
+        borderRadius: '330px'
+      })),
+      state("left", style({
+        transform: 'translateX(0px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.502)',
+        borderRadius: '20px',
+        width: '60%'
+      })),
+
       transition('right => *', [
         animate("1s", keyframes([
           style({
             transform: 'translateX(220%)',
             backgroundColor: 'var(--light-purple)',
             borderRadius: '330px',
+            width: '210px',
+            height: '210px',
             offset: 0
           }),
           style({
             transform: 'translateX(50%)',
             backgroundColor: 'rgba(123, 42, 78, 0.502)',
-            borderRadius: '100px',
-            offset: 0.7 
+            borderRadius: '50px',
+            width: '40%',
+            offset: 0.7
           }),
           style({
             transform: 'translateX(0px)',
             backgroundColor: 'rgba(0, 0, 0, 0.502)',
             borderRadius: '20px',
+            width: '60%',
+            height: '50%',
             offset: 1
           })
         ]))
