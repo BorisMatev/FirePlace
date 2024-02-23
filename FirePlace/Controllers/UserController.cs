@@ -48,19 +48,17 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest();
+                throw new Exception("Error");
             }
 
             /*var user = _dbContext.Users
-                .FirstOrDefault(x => x.Id == int.Parse(userId));
+                .FirstOrDefault(x => x.Id == int.Parse(userId));*/
 
-            int y = 3002;
-            var photos = _dbContext.Photos.Where(x => x.UserId == y).ToList();*/
-            var user = _dbContext.Users.Include(u => u.Photos).FirstOrDefault(u => u.Id == 3002);
+            var photos = _dbContext.Photos.Where(x => x.UserId == int.Parse(userId)).ToList();
 
-            
 
-            return user.Photos.ToList();
+
+            return new OkObjectResult(photos);
 
 
             /*if (user == null) {

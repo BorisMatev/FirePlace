@@ -1,5 +1,6 @@
 ﻿using FirePlace.Models.DB;
 using FirePlace.Models.Request;
+using FirePlace.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -39,17 +40,23 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<string>> GetPhotosByUserId(int id)
+        public ActionResult<List<PhotoListResponse>> GetPhotosByUserId(int id)
         {
-            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
+            var photos = _dbContext.Photos.Where(x => x.UserId == id);
 
-            if (user == null)
+            if (photos == null)
             {
                 return NotFound();
             }
 
-            List<string> photos = user.Photos!.Select(x => x.Base64String).ToList();
-            return photos;
+            List<PhotoListResponse> photosList = photos.Select(x => new PhotoListResponse()
+            {
+                Id = x.Id,
+                UserId = x.UserId,
+                Base64String = x.Base64String
+            }).ToList();
+
+            return photosList;
         }
 
         [HttpPost]
