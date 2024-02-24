@@ -129,14 +129,14 @@ namespace FirePlace.Controllers
             }).ToList();
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult<List<Category>> SearchCategory(string name)
         {
             List<Category> cat = _dbContext.Categories
                 .Where(x => x.Name.Contains(name) || name.Contains(x.Name))
                 .ToList();
             return cat;
-        }
+        }*/
 
         [HttpPost]
         [AllowAnonymous]

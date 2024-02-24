@@ -1,3 +1,7 @@
+ :host ::ng-deep .chip .p-chip { 
+    background: var(--dark-purple) !important; 
+    color: var(--text); 
+}
 .content {
     height: 100%;
     display: flex;
@@ -13,7 +17,8 @@
     border: 2px solid var(--dark-purple);
     border-radius: 20px;
     box-shadow: 5px 5px 112px 14px black;
-    min-width: 70%;
+    width: 70%;
+    max-width: 70%;
     height: 90%;
     color: var(--text);
 }
@@ -26,18 +31,18 @@
 .map{
     width: 90%;
     height: 50%;
-    box-shadow: 10px 12px 100px 0px black;
-    z-index: 3;
 }
 .imageDiv{
     width: 100%;
     height: 100%;
 }
 .categories{
-    width: 60%;
+    width: 80%;
+    max-width: 80%;
     height: 30%;
-    background-color: rgb(169, 169, 169);
-    border-radius: 0px 0px 20px 20px;
+    background-color: rgba(169, 169, 169, 0.397);
+    border: 2px solid var(--dark-green);
+    border-radius: 20px;
 }
 .userInfo{
     width: 80%;
@@ -45,13 +50,21 @@
 }
 
 .addImageBtn{
-    width: 50%;
+    max-width: 90%;
     aspect-ratio: 1/1;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.502);
-    transition: 1s;
 }
-.addImageBtn:hover{
-    border-radius: 330px !important;
-    background-color: var(--light-purple) !important;
+
+.asd{
+    background-color: rgba(0, 0, 0, 0.326);
+}
+.addMapBtn{
+    box-shadow: inset 2px 2px 5px 5px black;
+}
+
+.img{
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 20px;
 }

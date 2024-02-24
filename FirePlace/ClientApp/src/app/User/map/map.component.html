@@ -1,0 +1,13 @@
+<google-map 
+    height="100%" 
+    width="100%" 
+    [center]="center" 
+    [zoom]="zoom" 
+    [draggable]="'false'"
+    (mapClick)="setMarker($event)">
+        @if (isMarked) {
+            <map-marker 
+                [position]="markerPositiom">
+            </map-marker>
+        }
+</google-map>

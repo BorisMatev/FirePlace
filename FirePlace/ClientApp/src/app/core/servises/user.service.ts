@@ -37,7 +37,7 @@ export class UserService {
       return this.http.post(`${this.url}/Register`,body);
   }
   getUser(){
-    return this.http.get(`${this.url}/GetUserByJwt `,);
+    return this.http.get(`${this.url}/GetUserByJwt`,);
   }
   getUserByUsername(username: string){
     let params = new HttpParams();

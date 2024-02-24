@@ -22,7 +22,7 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Photo>> GetAllPhotosOfUser() 
+        public ActionResult<List<PhotoListResponse>> GetAllPhotosOfUser() 
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -31,12 +31,16 @@ namespace FirePlace.Controllers
                 return BadRequest();
             }
 
-            var user = _dbContext.Users
-                .FirstOrDefault(x => x.Id == int.Parse(userId));
-
             var photos = _dbContext.Photos.Where(x => x.UserId == int.Parse(userId)).ToList();
 
-            return _dbContext.Photos.Where(x => x.UserId == 3002).ToList();
+            List<PhotoListResponse> photosList = photos.Select(x => new PhotoListResponse()
+            {
+                Id = x.Id,
+                UserId = x.UserId,
+                Base64String = x.Base64String
+            }).ToList();
+
+            return Ok(photosList);
         }
 
         [HttpGet]
@@ -57,6 +61,19 @@ namespace FirePlace.Controllers
             }).ToList();
 
             return photosList;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Category>> SearchCategory(string name)
+        {
+            List<Category> cat = _dbContext.Categories
+                .Where(x => x.Name.Contains(name) || name.Contains(x.Name))
+                .ToList();
+            if (cat.Count < 1)
+            {
+                return BadRequest("No categories with this name!");
+            }
+            return cat;
         }
 
         [HttpPost]

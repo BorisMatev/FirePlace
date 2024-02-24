@@ -2,16 +2,74 @@
     <div class="page d-flex scroll">
         <div class="left-and-right ">
             <div class="imageDiv d-flex align-items-center justify-content-center">
-                <div [@onLoad]="addPhotoBtn" class="addImageBtn d-flex justify-content-center align-items-center">
-                    <h2>Add photo</h2>
-                </div>
+                @if (form.value.base64string == '') {
+                    
+                    <div [@onLoad]="addPhotoBtn" 
+                        class="addImageBtn d-flex justify-content-center align-items-center"
+                        (click)="fileInput.click()">
+                        <h2>Add photo</h2>
+                    </div>
+                }
+                @else {
+                    <img 
+                        class="img d-flex justify-content-center align-items-center" 
+                        style="object-fit: cover;"
+                        [src]="form.value.base64string" 
+                        (click)="fileInput.click()">
+                }
+                <input type="file" 
+                        accept="image/png, image/jpeg, image/jpg"
+                        style="display:none;"
+                        #fileInput 
+                        (change)="onFileInput($event)"
+                        />
             </div>
         </div>
-        <div [@onLoad]="info" class="left-and-right d-flex flex-column align-items-center justify-content-center">
+        <div [@onLoad]="info" class="left-and-right d-flex flex-column align-items-center justify-content-center gap-2">
             <div class="map">
-                <!-- <app-map [lat]="12" [lng]="12" [canTouch]="true"></app-map> -->
+                @if(addLoc){
+                    <app-map (sendCordinates)="setCordinates($event)" 
+                                [zoom]="6" 
+                                [canTouch]="true" 
+                                [canSeeMarker]="false">
+                        </app-map>
+                    }
+                    @else {
+                        <div class="d-flex justify-content-center align-items-center h-100 asd">
+                            <button class="btn btn-success addMapBtn" (click)="addLoc = true">Choose location</button>
+                        </div>
+                    }
             </div>
-            <div class="categories">
+            <div class="categories d-flex gap-2 flex-column align-items-center justify-content-center position-relative">
+                <div class="d-flex gap-2 mt-2">
+                    <input type="text" 
+                            class="form-control" 
+                            [(ngModel)]="categoryInput">
+                    <button class="btn btn-success" 
+                            (click)="getCat()" 
+                            [disabled]="categoryInput==''">Serach</button>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
+                @if(catrgories != 0){
+                        @for (item of catrgories; track $index) {
+                            <p-chip [label]="item" 
+                                    [removable]="true" 
+                                    (onRemove)="removeItem($index)"
+                                    class="chip"
+                                    ></p-chip>
+                        }
+                }
+                @if(categoryResponse != 0){
+                        @for (item of categoryResponse; track item) {
+                            <p-chip [label]="item.name" 
+                                    (click)="addChip(item)"></p-chip>
+                        }
+                }
+                </div>
+            </div>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-danger" (click)="clearForm()">Remove location!</button>
+                <button class="btn btn-success" (click)="save()">Save photo!</button>
             </div>
         </div>
     </div>
