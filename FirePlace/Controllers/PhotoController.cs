@@ -92,16 +92,16 @@ namespace FirePlace.Controllers
                 return BadRequest();
             }
 
-            List<Category> cat = new List<Category>() { };
-            cat = request.Categories.Select(x => new Category() { Name = x}).ToList();
+            List<Category> cat = _dbContext.Categories
+                .Where(x => request.Categories.Contains(x.Name))
+                .ToList();
 
-            Photo photo = new Photo() { };
             
-            photo = new Photo
+            Photo photo = new Photo
             {
                 Base64String = request.Base64String,
-                Lat = (double)request.Lat!,
-                Lng = (double)request.Lng!,
+                Lat = (double)request.Lat,
+                Lng = (double)request.Lng,
                 Likes = 0,
                 Categories = cat
             };

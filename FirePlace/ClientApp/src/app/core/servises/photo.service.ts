@@ -17,7 +17,12 @@ export class PhotoService {
       'Content-Type': 'application/json',
       'accept': 'text/plain'
     })
-    const body = request;
+    const body = {
+      base64String: request.base64String,
+      lat: request.lat,
+      lng: request.lng,
+      categories: request.categories
+    }
     return this.http.post(`${this.url}/AddPhoto`, body,{headers});
   }
 

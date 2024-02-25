@@ -1,8 +1,10 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 
-import { FormArray, FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { ChipModule } from 'primeng/chip';
+import { ToastModule } from 'primeng/toast';
+// import { MessageService } from 'primeng/api';
 
 import { PhotoService } from '../../core/servises/photo.service';
 import { MapComponent } from '../map/map.component';
@@ -10,7 +12,7 @@ import { MapComponent } from '../map/map.component';
 @Component({
   selector: 'app-add-photo',
   standalone: true,
-  imports: [FormsModule, ChipModule, MapComponent],
+  imports: [FormsModule, ChipModule, MapComponent,ToastModule],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
   animations: [
@@ -78,21 +80,22 @@ export class AddPhotoComponent {
 
   private photoServise = inject(PhotoService);
   private fb = inject(FormBuilder);
+  // private message = inject(MessageService);
 
   addPhotoBtn = "right";
   info = "first";
 
   categoryInput: string = "";
-  catrgories: any = [];
+  categories: any = [];
   categoryResponse: any = [];
 
   addLoc = false;
 
   form = this.fb.group({
-    base64string: this.fb.control(''),
+    base64String: this.fb.control(''),
     lat: this.fb.control(0),
     lng: this.fb.control(0),
-    catrgories: this.fb.array([])
+    categories: this.fb.array([])
   });
 
   constructor() {
@@ -109,7 +112,7 @@ export class AddPhotoComponent {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      this.form.value.base64string = base64String;
+      this.form.value.base64String = base64String;
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -131,38 +134,39 @@ export class AddPhotoComponent {
 
   removeItem(index: any) {
     console.log(1)
-    this.catrgories.slice(index, 1);
-    console.log(this.catrgories)
+    this.categories.slice(index, 1);
+    console.log(this.categories)
   }
 
   addChip(item: any) {
     this.categoryResponse = [];
     this.categoryInput = ""
-    if (this.catrgories.length >= 8) {
+    if (this.categories.length >= 8) {
       return;
     }
-    this.catrgories.push(item.name);
+    this.categories.push(item.name);
   }
 
   clearForm(){
-    this.form.value.base64string =  '';
+    this.form.value.base64String =  '';
     this.form.value.lat = 0;
     this.form.value.lng = 0;
-    this.form.value.catrgories = [];
+    this.form.value.categories = [];
   }
   save(){
-    this.form.value.catrgories = this.catrgories;
+    this.form.value.categories = this.categories;
     const body = {
-      base64string: this.form.value.base64string,
+      base64String: this.form.value.base64String,
       lat: this.form.value.lat,
       lng: this.form.value.lng,
-      catrgories: this.form.value.catrgories
+      categories: this.form.value.categories
     };
     this.photoServise.addPhoto(body)
     .subscribe({
       next: resp => console.log(resp),
-      error: error => console.log(error)
+      error: error => console.log(error),
     });
+    // this.message.add({ severity: 'success', summary: 'Successasdasd', detail: 'Message asdadsContent' });
   }
 }
 
