@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, HostListener, effect, inject } from '@angular/core';
 import { UserService } from '../core/servises/user.service';
 import { RouterModule } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -41,6 +41,7 @@ export class HeaderComponent {
   private user = inject(UserService);
 
   isLogged = false;
+  showMenuBtn = false;
 
   constructor(){
     this.user.checkToken();
@@ -54,4 +55,12 @@ export class HeaderComponent {
     }
   }
 
+  @HostListener("window:resize", []) 
+  updateDays() {
+    if (window.innerWidth >= 900) {
+      this.showMenuBtn = true; 
+    } else {
+      this.showMenuBtn = false;
+    }
+  }
 }

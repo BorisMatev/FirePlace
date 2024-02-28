@@ -4,17 +4,19 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
-// import { MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 import { PhotoService } from '../../core/servises/photo.service';
 import { MapComponent } from '../map/map.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-photo',
   standalone: true,
-  imports: [FormsModule, ChipModule, MapComponent,ToastModule],
+  imports: [FormsModule, ChipModule, MapComponent, ToastModule],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
+  providers: [MessageService],
   animations: [
     trigger("onLoad", [
       state("first", style({
@@ -78,9 +80,10 @@ import { MapComponent } from '../map/map.component';
 })
 export class AddPhotoComponent {
 
-  private photoServise = inject(PhotoService);
   private fb = inject(FormBuilder);
-  // private message = inject(MessageService);
+  private router = inject(Router);
+  private photoServise = inject(PhotoService);
+  private messageService = inject(MessageService);
 
   addPhotoBtn = "right";
   info = "first";
@@ -147,11 +150,19 @@ export class AddPhotoComponent {
     this.categories.push(item.name);
   }
 
-  clearForm(){
-    this.form.value.base64String =  '';
-    this.form.value.lat = 0;
-    this.form.value.lng = 0;
-    this.form.value.categories = [];
+  clearForm() {
+    // this.form.value.base64String = '';
+    // this.form.value.lat = 0;
+    // this.form.value.lng = 0;
+    // this.form.value.categories = [];
+
+    // this.messageService.add({
+    //   key: 'tc',
+    //   severity: 'error',
+    //   summary: 'Error',
+    //   detail: `The page you are looking for is not found`,
+    //   life: 4000,
+    // });
   }
   save(){
     this.form.value.categories = this.categories;
@@ -162,17 +173,31 @@ export class AddPhotoComponent {
       categories: this.form.value.categories
     };
     this.photoServise.addPhoto(body)
-    .subscribe({
-      next: resp => console.log(resp),
-      error: error => console.log(error),
-    });
-    // this.message.add({ severity: 'success', summary: 'Successasdasd', detail: 'Message asdadsContent' });
+      .subscribe({
+        next: () => {},
+        error: () => this.errorMesage(),
+        complete: () => {
+          this.successMesage();
+          setTimeout(()=>{
+            this.router.navigate(['/profile']);
+          },1000)
+        }
+      });
   }
-}
 
-export interface Photo {
-  base64String: string,
-  lat: number,
-  lng: number,
-  categories: string[]
+  successMesage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Успех',
+      detail: 'Снимката беше запазена успешно!'
+    });
+  }
+
+  errorMesage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Грешка',
+      detail: 'Възникна грешка при запазването!'
+    });
+  }
 }

@@ -40,16 +40,17 @@
             </div>
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <div class="d-flex flex-wrap">
-                    @for (item of userInfo.photos; track $index) {
-                        <div class="item">
-                            <img [src]="'data:image/png;base64,'+item">
-                        </div>
-                    }
-                    @if (userInfo.photosCount == 0) {
+                    @if (true) {
                         <div class="addImageBtn d-flex justify-content-center align-items-center"
-                            [routerLink]="['/add-photo']" >
-                            <h2>Add photo</h2>
-                        </div>
+                        [routerLink]="['/add-photo']" >
+                        <h2>Add photo</h2>
+                    </div>
+                } @else {
+                        @for (item of userInfo.photos; track $index) {
+                            <div class="item">
+                                <img [src]="'data:image/png;base64,'+item">
+                            </div>
+                        }
                     }
                 </div>
             </div>
