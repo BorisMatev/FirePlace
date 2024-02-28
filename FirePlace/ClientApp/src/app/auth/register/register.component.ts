@@ -42,7 +42,7 @@ export class RegisterComponent {
 
   initForm(): void {
     this.registerForm = this.fb.group({
-      image: this.fb.control(null, [Validators.required]),
+      image: this.fb.control('', [Validators.required]),
       username: this.fb.control('', [
         Validators.required,
         Validators.maxLength(30),
@@ -72,7 +72,16 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    const body = this.registerForm.getRawValue();
+    // console.log(this.img)
+    this.registerForm.value.image = this.img;
+    console.log(this.registerForm.value.image)
+    const body = {
+      image: this.img,
+      username: this.registerForm.get('username').value,
+      info: this.registerForm.get('info').value,
+      email: this.registerForm.get('email').value,
+      password: this.registerForm.get('password').value
+    };
     this.user.register(body).subscribe({
       next: (resp) => {
         if (resp !== null) {
@@ -89,7 +98,8 @@ export class RegisterComponent {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      this.img = base64String;
+      this.registerForm.value.image = base64String;
+      this.img = base64String
     };
     if (file) {
       reader.readAsDataURL(file);

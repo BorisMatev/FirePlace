@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import { Injectable, signal } from '@angular/core';
 export class UserService {
 
   constructor(private http: HttpClient) {}
+
+  private router = inject(Router);
 
   url = "http://localhost:5157/User";
   isLogged = signal<boolean>(false);
@@ -16,6 +19,7 @@ export class UserService {
       this.isLogged.set(true);
     } else {
       this.isLogged.set(false);
+      this.router.navigate(['/welcome'])
     }
   }
 

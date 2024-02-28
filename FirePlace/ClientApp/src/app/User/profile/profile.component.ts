@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserService } from '../../core/servises/user.service';
 import { HeaderComponent } from '../../header/header.component';
 import { RouterLink } from '@angular/router';
@@ -11,43 +11,34 @@ import { RouterLink } from '@angular/router';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  constructor(private user: UserService) {
-    
-  }
+  
+  private user = inject(UserService);
 
-  userInfo: UserInfo = {
-    uername: '',
-    info: '',
-    photosCount: 0,
+  userInfo: any = {
+    info: "",
+    username: "",
+    profilePhoto: "",
     followersCount: 0,
     followingCount: 0,
-    profilePhoto: '',
+    photosCount: 0,
     photos: []
   };
 
+  logout(){
+    // localStorage.removeItem("token");
+    // this.user.checkToken();
+    console.log(this.userInfo)
+  }
+
   ngOnInit(){
+    this.fetchUser();
+  }
+  
+  fetchUser(){
     this.user.getUser().subscribe({
-      next: resp => {
-        this.userInfo = {
-          info: (resp as any).info,
-          photos: (resp as any).photos,
-          uername: (resp as any).username,
-          profilePhoto: (resp as any).profilePhoto,
-          photosCount: (resp as any).photosCount ? null: 0,
-          followersCount: (resp as any).followersCount ? null: 0,
-          followingCount: (resp as any).followingCount ? null: 0
-        }
-      },
-      error: error => console.log(error)
+      next: resp => this.userInfo = resp,
+      error: error => console.log(error),
+      complete: ()=> console.log(this.userInfo)
     });
   }
-}
-export interface UserInfo{
-  uername: string,
-  info: string,
-  photosCount: number | null,
-  followersCount: number | null,
-  followingCount: number | null,
-  profilePhoto: string,
-  photos: [] | null
 }

@@ -56,21 +56,22 @@ namespace FirePlace.Controllers
                 .Include(x => x.Photos)
                 .Include(x => x.Following)
                 .Include(x => x.Followers)
-                .Select(x => new UserInfoResponse
+                .FirstOrDefault();
+                var userResp = new UserInfoResponse
                 {
-                    Username = x.Username,
-                    ProfilePhoto = x.ProfilePhoto,
-                    Info = x.Info,
-                    Photos = x.Photos
+                    Username = user.Username,
+                    ProfilePhoto = user.ProfilePhoto,
+                    Info = user.Info,
+                    Photos = user.Photos
                         .Select(x => x.Base64String)
                         .ToList(),
-                    FollowersCount = x.Followers.Count,
-                    FollowingCount = x.Following.Count,
-                    PhotosCount = x.Photos.Count
-                });
+                    FollowersCount = user.Followers.Count,
+                    FollowingCount = user.Following.Count,
+                    PhotosCount = user.Photos.Count
+                };
 
 
-            return Ok(user);
+            return Ok(userResp);
         }
 
         [HttpGet]
@@ -231,12 +232,13 @@ namespace FirePlace.Controllers
                 .FirstOrDefault();
 
 
-            /*int count = followingUser.Followers.Count;
+            /*int count = followingUser.Followers.Count;*/
 
             if (followingUser == null || userForFollow == null)
             {
                 return NotFound();
             }
+            /*
             if (userForFollow.Followers == null)
             {
                 userForFollow.Followers = new List<User>() { };
