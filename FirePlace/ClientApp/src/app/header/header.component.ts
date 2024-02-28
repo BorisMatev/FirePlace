@@ -41,7 +41,7 @@ export class HeaderComponent {
   private user = inject(UserService);
 
   isLogged = false;
-  showMenuBtn = false;
+  showMenuBtn = true;
 
   constructor(){
     this.user.checkToken();

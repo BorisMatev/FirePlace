@@ -6,55 +6,37 @@
         <button class="btn btn-success ms-3" [routerLink]="['/register']"> Sigh up</button>
     </div>
     } @else {
-    <!-- <div class="menu">
-            <button class="btn btn-outline-danger"
-                    (click)="route2()"
-                    routerLinkActive="qsx"
-                    [routerLink]="['/home']"
-                    [@changeRoute]="first">Home</button>
-            <button [@changeRoute]="second" class="btn btn-outline-danger" (click)="route1()" routerLinkActive="qsx" [routerLink]="['/profile']">profile</button>
-        </div> -->
-    <div class="header">
-        <nav class="navbar">
-            <ul class="navbar__menu">
-                <!-- <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['/']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['/']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li> -->
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['/home']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['add-photo']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="#" class="navbar__link" [routerLink]="['/profile']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+        @if(showMenuBtn){
+            <div class="header">
+                <nav class="navbar">
+                    <ul class="navbar__menu">
+                        <li class="navbar__item">
+                            <a href="#" class="navbar__link" [routerLink]="['/home']" routerLinkActive="asd">
+                                <i class="pi pi-home" style="font-size: 1.5rem"></i>
+                                <span>Начало</span>
+                            </a>
+                        </li>
+                        <li class="navbar__item">
+                            <a href="#" class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="asd">
+                                <i class="pi pi-user" style="font-size: 1rem"></i>
+                                <span>Моя профил</span>
+                            </a>
+                        </li>
+                        <li class="navbar__item">
+                            <a href="#" class="navbar__link" [routerLink]="['add-photo']" routerLinkActive="asd">
+                                <i class="pi pi-user" style="font-size: 1rem"></i>
+                                <span>Моя профил</span>
+                            </a>
+                        </li>
+                        <li class="navbar__item">
+                            <a href="#" class="navbar__link" [routerLink]="['/profile']" routerLinkActive="asd">
+                                <i class="pi pi-user" style="font-size: 1.5rem"></i>
+                                <span>Моя профил</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        }
     }
 </div>
