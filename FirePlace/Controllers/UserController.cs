@@ -42,60 +42,52 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Photo>> GetUserByJwt()
+        public ActionResult<UserInfoResponse> GetUserByJwt()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(userId))
             {
-                throw new Exception("Error");
+                return NotFound();
             }
 
-            /*var user = _dbContext.Users
-                .FirstOrDefault(x => x.Id == int.Parse(userId));*/
-
-            var photos = _dbContext.Photos.Where(x => x.UserId == int.Parse(userId)).ToList();
-
-
-
-            return new OkObjectResult(photos);
-
-
-            /*if (user == null) {
-                return BadRequest();
-            }
-            if (photos != null)
-            {
-                return new UserInfoResponse
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .Include(x => x.Photos)
+                .Include(x => x.Following)
+                .Include(x => x.Followers)
+                .Select(x => new UserInfoResponse
                 {
-                    Info = user.Info,
-                    Username = user.Username,
-                    ProfilePhoto = user.ProfilePhoto,
-                    FollowersCount = user.Followers.Count,
-                    FollowingCount = user.Following.Count,
-                    PhotosCount = photos.Count,
-                    Photos = photos.Select(x => x.Base64String).ToList()
-                };
-            }
-            return new UserInfoResponse
-            {
-                Info = user.Info,
-                Username = user.Username,
-                PhotosCount = 0,
-                ProfilePhoto = user.ProfilePhoto,
-                FollowingCount = user.Following?.Count,
-                FollowersCount = user.Followers?.Count,
-                Photos = null
-            };*/
+                    Username = x.Username,
+                    ProfilePhoto = x.ProfilePhoto,
+                    Info = x.Info,
+                    Photos = x.Photos
+                        .Select(x => x.Base64String)
+                        .ToList(),
+                    FollowersCount = x.Followers.Count,
+                    FollowingCount = x.Following.Count,
+                    PhotosCount = x.Photos.Count
+                });
+
+
+            return Ok(user);
         }
 
         [HttpGet]
         public ActionResult<List<UserFollowersResponse>> GetUserFollowers()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound();
+            }
+
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
+                .Include(x => x.Followers)
                 .FirstOrDefault();
+
             if (user == null)
             {
                 return BadRequest();
@@ -114,14 +106,23 @@ namespace FirePlace.Controllers
         [HttpGet]
         public ActionResult<List<UserFollowersResponse>> GetFollowingUsers()
         {
-            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound();
+            }
+
             var user = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
+                .Include(x => x.Following)
                 .FirstOrDefault();
+
             if (user == null)
             {
                 return BadRequest();
             }
+
             return user.Following.Select(x => new UserFollowersResponse()
             {
                 ProfilePhoto = x.ProfilePhoto,
@@ -212,23 +213,25 @@ namespace FirePlace.Controllers
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (userId == null)
+            if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest();
+                return NotFound();
             }
 
             // the user to follow
             var userForFollow = _dbContext.Users
                 .Where(x => x.Username == userName)
+                .Include(x => x.Followers)
                 .FirstOrDefault();
 
             // me
             var followingUser = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
+                .Include(x=> x.Following)
                 .FirstOrDefault();
 
 
-            int count = followingUser.Followers.Count();
+            /*int count = followingUser.Followers.Count;
 
             if (followingUser == null || userForFollow == null)
             {
@@ -241,7 +244,7 @@ namespace FirePlace.Controllers
             if (followingUser.Following == null)
             {
                 followingUser.Following = new List<User>() { };
-            }
+            }*/
 
             userForFollow.Followers.Add(followingUser);
             followingUser.Following.Add(userForFollow);
