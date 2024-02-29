@@ -3,25 +3,47 @@
     <span class="p-input-icon-left d-flex gap-3">
       <i class="pi pi-search"></i>
       <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
-      <button class="btn btn-danger" (click)="searchUser()">Serach</button>
+      <button class="btn btn-danger"
+             (click)="!checked ? searchUser() : searchCategory()"
+             [disabled]="value == ''"
+             >Serach</button>
     </span>
   </div>
   <main class="scroll">
-    <div style="background-color: aquamarine; " class="d-flex justify-content-center">
-      <button>
-        switch
-      </button>
-    </div>
     <div class="list scroll mt-4">
-      @for (item of usersList; track item) {
-      <div class="d-flex justify-content-between align-items-center mt-3 userElement px-2">
-        <div class="d-flex justify-content-start align-items-center">
-          <img [src]="item.photoString">
-          <h1>{{item.name}}</h1>
-        </div>
-        <button class="btn btn-outline-danger">Open</button>
+      <div class="d-flex sticky-top justify-content-center align-items-center py-3 searchBy">
+        <h3>Search by:</h3>
+        <p-toggleButton 
+          [(ngModel)]="checked" 
+          class="ps-3"
+          onLabel="Category" 
+          offLabel="Username" 
+          [onIcon]="'pi pi-book'" 
+          offIcon="pi pi-users" 
+          [style]="{ width: '10em' }" 
+          (click)="changeSerach()"></p-toggleButton>
       </div>
-      }
+      <div class="px-2">
+        @if(usersList.length > 0){
+          @for (item of usersList; track item) {
+          <div class="d-flex justify-content-between align-items-center mt-3 userElement px-2 py-2">
+            <div class="d-flex justify-content-start align-items-center">
+              <img
+                class="rounded-circle img" 
+                style="object-fit: cover;"
+                [src]="item.photo.includes('data:image') ? item.photo : '../../assets/profile.png'"
+                >
+              <h1 class="ms-3">{{item.name}}</h1>
+            </div>
+            <button class="btn btn-outline-success">Open</button>
+          </div>
+          }
+        } @else if(usersList.length == 0 && showNotFound) {
+          <div class="d-flex justify-content-center align-items-center mt-3 userElement px-2 py-2">
+              <h1 class="ms-3 text-danger ">No elements!</h1>
+          </div>
+        }
+      </div>
     </div>
   </main>
 </div>

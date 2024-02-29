@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { UserService } from '../core/servises/user.service';
-import { catchError, map, throwError } from 'rxjs';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, InputTextModule],
+  imports: [FormsModule, InputTextModule,ToggleButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -17,52 +17,39 @@ export class HomeComponent {
 
   private userServise: UserService = inject(UserService);
   value: string = "";
+  checked: boolean = false;
+  showNotFound: boolean = false;
 
-  usersList: UserInfo[] = [
-    {
-      userId: 1,
-      photoString: "aqswdawd",
-      name:"asdasd"
-    },
-    {
-      userId: 1,
-      photoString: "aqswdawd",
-      name:"asdasd"
-    },
-    {
-      userId: 1,
-      photoString: "aqswdawd",
-      name:"asdasd"
-    },
-    {
-      userId: 1,
-      photoString: "aqswdawd",
-      name:"asdasd"
-    },
-  ]
+  usersList: any = []
 
+  changeSerach(){
+    this.usersList = [];
+    this.showNotFound = false;
+    this.value = "";
+  }
 
   searchUser() {
     const body = this.value;
+    this.userServise.getUserByUsername(body)
+    .subscribe({
+      next: resp => {
+        this.usersList = resp;
+        this.showNotFound = true;
+      },
+      error: error => console.log(error)
+    })
+  }
 
-    this.userServise.getUserByUsername(body).pipe(
-      map(resp => {
-        return resp;
-      }),
-      catchError(error => {
-        return error; // From 'rxjs'
-      })
-    )
-    // .subscribe({
-    //   next: resp => console.log(resp),
-    //   error: error => console.log(error)
-    // })
+  searchCategory(){
+    const body = this.value;
+
+    
   }
 }
 
-export interface UserInfo {
-  name: string,
-  userId: number,
-  photoString: string,
+// export interface UserInfo {
+//   name: string,
+//   userId: number,
+//   photoString: string,
 
-}
+// }
