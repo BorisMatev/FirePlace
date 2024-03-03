@@ -2,8 +2,8 @@
     <h1 [routerLink]="['/welcome']">FirePlace</h1>
     @if(!isLogged){
     <div>
-        <button class="btn btn-outline-success" [routerLink]="['/log-in']"> Log in</button>
-        <button class="btn btn-success ms-3" [routerLink]="['/register']"> Sigh up</button>
+        <button class="btn btn-outline-success" [routerLink]="['/log-in']"> Вход</button>
+        <button class="btn btn-success ms-3" [routerLink]="['/register']"> Регистрация</button>
     </div>
     } @else {
         @if(showMenuBtn){

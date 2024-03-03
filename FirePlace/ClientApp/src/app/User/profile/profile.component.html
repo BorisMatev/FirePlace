@@ -24,12 +24,12 @@
                     <div class="d-flex justify-content-center gap-3 align-items-center">
                         <div>
                             <h2 style="color:var(--light-green)">
-                                Followers:{{userInfo.followersCount}}
+                                Последователи:{{userInfo.followersCount}}
                             </h2>
                         </div>
                         <div>
                             <h2 style="color:var(--light-green)">
-                                Following: {{userInfo.followingCount}}
+                                Следвани: {{userInfo.followingCount}}
                             </h2>
                         </div>
                     </div>
@@ -43,12 +43,12 @@
                     @if (userInfo.photosCount < 1) {
                         <div class="addImageBtn d-flex justify-content-center align-items-center"
                         [routerLink]="['/add-photo']" >
-                        <h2>Add photo</h2>
+                        <h2>Добави снимка</h2>
                     </div>
                 } @else {
                         @for (item of userInfo.photos; track $index) {
                             <div class="item">
-                                <img [src]="'data:image/png;base64,'+item">
+                                <img [src]="item">
                             </div>
                         }
                     }

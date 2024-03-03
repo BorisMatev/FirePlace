@@ -7,7 +7,7 @@
                     <div [@onLoad]="addPhotoBtn" 
                         class="addImageBtn d-flex justify-content-center align-items-center"
                         (click)="fileInput.click()">
-                        <h2>Add photo</h2>
+                        <h2>Добави снимка</h2>
                     </div>
                 }
                 @else {
@@ -36,7 +36,7 @@
                     }
                     @else {
                         <div class="d-flex justify-content-center align-items-center h-100 asd">
-                            <button class="btn btn-success addMapBtn" (click)="addLoc = true">Choose location</button>
+                            <button class="btn btn-success addMapBtn" (click)="addLoc = true">Избери местоположение</button>
                         </div>
                     }
             </div>
@@ -47,7 +47,7 @@
                             [(ngModel)]="categoryInput">
                     <button class="btn btn-success" 
                             (click)="getCat()" 
-                            [disabled]="categoryInput==''">Serach</button>
+                            [disabled]="categoryInput==''">Търси</button>
                 </div>
                 <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
                 @if(categories != 0){
@@ -69,7 +69,7 @@
             </div>
             <div class="d-flex justify-content-center gap-3">
                 <button class="btn btn-danger" (click)="clearForm()">Remove location!</button>
-                <button class="btn btn-success" (click)="save()">Save photo!</button>
+                <button class="btn btn-success" (click)="save()">Запази</button>
             </div>
         </div>
     </div>
