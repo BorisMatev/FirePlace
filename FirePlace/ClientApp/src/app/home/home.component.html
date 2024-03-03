@@ -4,7 +4,7 @@
       <i class="pi pi-search"></i>
       <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
       <button class="btn btn-danger"
-             (click)="!checked ? searchUser() : searchCategory()"
+             (click)="!checked ? searchUser() : searchPhotosByCategory()"
              [disabled]="value == ''"
              >Търси</button>
     </span>

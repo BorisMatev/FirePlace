@@ -1,6 +1,6 @@
 ﻿using FirePlace.Models.DB;
 using FirePlace.Models.Request;
-using FirePlace.Models.Response;
+using FirePlace.Models.Response.Photo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -61,6 +61,33 @@ namespace FirePlace.Controllers
             }).ToList();
 
             return photosList;
+        }
+
+        [HttpGet]
+        public ActionResult<List<PhotoByCategoryResponse>> GetPhotosByCategory(string category)
+        {
+            var photos = _dbContext.Photos
+                             .Where(p => p.Categories
+                                .Any(c => c.Name.Contains(category) || 
+                                category.Contains(c.Name)))
+                             .OrderBy(x => x.Likes)
+                             .ThenBy(x => x.UserId)
+                             .Take(10)
+                             .ToList();
+
+            if (photos == null)
+            {
+                return BadRequest();
+            }
+
+            List<PhotoByCategoryResponse> resp = photos.Select(x => new PhotoByCategoryResponse()
+            {
+                Base64String = x.Base64String,
+                Likes = x.Likes,
+                Id = x.Id
+            }).ToList();
+
+            return resp;
         }
 
         [HttpGet]

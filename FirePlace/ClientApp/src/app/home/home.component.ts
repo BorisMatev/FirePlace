@@ -5,6 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 
 import { UserService } from '../core/servises/user.service';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { PhotoService } from '../core/servises/photo.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 export class HomeComponent {
 
   private userServise: UserService = inject(UserService);
+  private photoServise: PhotoService = inject(PhotoService);
+
   value: string = "";
   checked: boolean = false;
   showNotFound: boolean = false;
@@ -40,9 +43,12 @@ export class HomeComponent {
     })
   }
 
-  searchCategory(){
+  searchPhotosByCategory(){
     const body = this.value;
-
+    this.photoServise.getPhotosByCategories(body).subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    })
     
   }
 }

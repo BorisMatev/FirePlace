@@ -1,6 +1,6 @@
 ﻿using FirePlace.Models.DB;
 
-namespace FirePlace.Models.Response
+namespace FirePlace.Models.Response.Photo
 {
     public class PhotoResponse
     {

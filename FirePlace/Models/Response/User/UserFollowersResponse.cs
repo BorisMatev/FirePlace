@@ -1,4 +1,4 @@
-﻿namespace FirePlace.Models.Response
+﻿namespace FirePlace.Models.Response.User
 {
     public class UserFollowersResponse
     {
