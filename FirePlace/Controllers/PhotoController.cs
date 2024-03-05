@@ -44,6 +44,30 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
+        public ActionResult<PhotoResponse> GetPhotosById(int id)
+        {
+            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == id);
+
+            if (photo == null)
+            {
+                return NotFound();
+            }
+
+            PhotoResponse resp = new PhotoResponse()
+            {
+                Id = photo.Id,
+                Base64String = photo.Base64String,
+                Lat = photo.Lat,
+                Lng = photo.Lng,
+                Likes = photo.Likes,
+                Categories = photo.Categories.ToList(),
+
+            };
+
+            return resp;
+        }
+
+        [HttpGet]
         public ActionResult<List<PhotoListResponse>> GetPhotosByUserId(int id)
         {
             var photos = _dbContext.Photos.Where(x => x.UserId == id);

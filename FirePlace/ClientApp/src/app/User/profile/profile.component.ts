@@ -38,7 +38,7 @@ export class ProfileComponent {
     this.user.getUser().subscribe({
       next: resp => this.userInfo = resp,
       error: error => console.log(error),
-      complete: ()=> console.log(this.userInfo)
+      complete: ()=> {}
     });
   }
 }
