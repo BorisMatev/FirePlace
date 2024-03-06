@@ -1,7 +1,15 @@
 import { Component, HostListener, effect, inject } from '@angular/core';
-import { UserService } from '../core/servises/user.service';
-import { RouterModule } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { UserService } from '../core/services/user.service';
+import { Router, RouterModule } from '@angular/router';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { ProfileDataService } from '../User/profile/profile.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,56 +17,77 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   imports: [RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
-  animations:[
-    trigger('changeRoute',[
-      state("unselectd", style({
-        backgroundColor: 'black',
-        borderBottom: '1px solid black'
-      })),
-      state("selected", style({
-        backgroundColor: 'red'
-      })),
+  animations: [
+    trigger('changeRoute', [
+      state(
+        'unselectd',
+        style({
+          backgroundColor: 'black',
+          borderBottom: '1px solid black',
+        })
+      ),
+      state(
+        'selected',
+        style({
+          backgroundColor: 'red',
+        })
+      ),
       transition('left => selected', animate('1s')),
-      transition('* => selected', animate('1s ease-out', style({transform: 'translateX(-80%)'}))),
-      transition('selected => *', animate('1s ease-out', style({transform: 'translateX(80%)'}))),
-      transition('selected => left', animate('1s'))
-    ])
-  ]
+      transition(
+        '* => selected',
+        animate('1s ease-out', style({ transform: 'translateX(-80%)' }))
+      ),
+      transition(
+        'selected => *',
+        animate('1s ease-out', style({ transform: 'translateX(80%)' }))
+      ),
+      transition('selected => left', animate('1s')),
+    ]),
+  ],
 })
 export class HeaderComponent {
+  private readonly router: Router = inject(Router);
+  private readonly profileDataService: ProfileDataService =
+    inject(ProfileDataService);
 
-  first = "selectd";
+  first = 'selectd';
   second = 'unselectd';
-  route1(){
+  route1() {
     this.first = 'unselectd';
-    this.second = "selected";
+    this.second = 'selected';
   }
 
-  route2(){
+  route2() {
     this.second = 'unselectd';
-    this.first = "selected";
+    this.first = 'selected';
   }
-  private user = inject(UserService);
+  private user: UserService = inject(UserService);
 
   isLogged = false;
   showMenuBtn = true;
 
-  constructor(){
+  constructor() {
     this.user.checkToken();
-    effect(() => this.isLogged = this.user.isLogged());
+    effect(() => (this.isLogged = this.user.isLogged()));
   }
 
-  logOut(){
+  logOut() {
     if (localStorage.getItem('token')) {
       localStorage.removeItem('token');
       this.user.checkToken();
     }
   }
 
-  @HostListener("window:resize", []) 
+  onRouteChange(): void {
+    this.user.getUser().subscribe((resp: any) => {
+      this.profileDataService.setUser(resp);
+    });
+  }
+
+  @HostListener('window:resize', [])
   updateDays() {
     if (window.innerWidth >= 900) {
-      this.showMenuBtn = true; 
+      this.showMenuBtn = true;
     } else {
       this.showMenuBtn = false;
     }

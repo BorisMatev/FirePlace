@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, Validators  } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { UserService } from '../../core/servises/user.service';
+import { UserService } from '../../core/services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { PasswordModule } from 'primeng/password';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';

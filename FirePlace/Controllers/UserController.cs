@@ -40,6 +40,38 @@ namespace FirePlace.Controllers
                     Photo = x.ProfilePhoto
                 }).ToList();
         }
+        [HttpGet]
+
+        public ActionResult<UserInfoResponse> GetUserByUsername(string name)
+        {
+            var user = _dbContext.Users
+                .Where(x => x.Username == name)
+                .Include(x => x.Photos)
+                .Include(x => x.Following)
+                .Include(x => x.Followers)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            } 
+
+            var userResp = new UserInfoResponse
+            {
+                Username = user.Username,
+                ProfilePhoto = user.ProfilePhoto,
+                Info = user.Info,
+                Photos = user.Photos
+                    .Select(x => x.Base64String)
+                    .ToList(),
+                FollowersCount = user.Followers.Count,
+                FollowingCount = user.Following.Count,
+                PhotosCount = user.Photos.Count
+            };
+
+
+            return Ok(userResp);
+        }
 
         [HttpGet]
         public ActionResult<UserInfoResponse> GetUserByJwt()

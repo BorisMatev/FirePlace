@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
-import { UserService } from '../../core/servises/user.service';
+import { UserService } from '../../core/services/user.service';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
 import { CommonModule } from '@angular/common';
 

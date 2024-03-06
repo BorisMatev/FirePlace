@@ -6,7 +6,7 @@ import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
-import { PhotoService } from '../../core/servises/photo.service';
+import { PhotoService } from '../../core/services/photo.service';
 import { MapComponent } from '../map/map.component';
 import { Router } from '@angular/router';
 

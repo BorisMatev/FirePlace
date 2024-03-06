@@ -1,44 +1,39 @@
 import { Component, inject } from '@angular/core';
-import { UserService } from '../../core/servises/user.service';
 import { HeaderComponent } from '../../header/header.component';
 import { RouterLink } from '@angular/router';
+import { ProfileDataService } from './profile.service';
+import { EMPTY, Observable } from 'rxjs';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [HeaderComponent,RouterLink],
+  imports: [HeaderComponent, RouterLink, NgIf, AsyncPipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  
-  private user = inject(UserService);
+  private readonly profileDataService: ProfileDataService = inject(ProfileDataService)
 
-  userInfo: any = {
-    info: "",
-    username: "",
-    profilePhoto: "",
-    followersCount: 0,
-    followingCount: 0,
-    photosCount: 0,
-    photos: []
-  };
+  user$: Observable<any> = EMPTY;
 
-  logout(){
+  logout() {
     // localStorage.removeItem("token");
     // this.user.checkToken();
-    console.log(this.userInfo)
+    // console.log(this.userInfo)
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.fetchUser();
   }
-  
-  fetchUser(){
-    this.user.getUser().subscribe({
-      next: resp => this.userInfo = resp,
-      error: error => console.log(error),
-      complete: ()=> {}
-    });
+
+  fetchUser() {
+    // this.user.getUser().subscribe({
+    //   next: resp => this.userInfo = resp,
+    //   error: error => console.log(error),
+    //   complete: () => console.log(this.userInfo)
+    // });
+
+    this.user$ = this.profileDataService.user;
   }
 }
