@@ -7,15 +7,28 @@ import { ProfileComponent } from './User/profile/profile.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { PhotoComponent } from './User/photo/photo.component';
 import { AddPhotoComponent } from './User/add-photo/add-photo.component';
+import { UsersListComponent } from './User/users-list/users-list.component';
 
 export const routes: Routes = [
-    { path: 'welcome', component: WelcomePageComponent },
-    { path: 'log-in', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'home', canActivate:[authGuard], component: HomeComponent },
-    { path: 'profile', canActivate:[authGuard], component: ProfileComponent },
-    { path: 'add-photo', canActivate:[authGuard], component: AddPhotoComponent },
-    { path: 'photo', canActivate:[authGuard], component: PhotoComponent },
-    { path: '',   redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'
-    { path: '**', component: WelcomePageComponent },  // Wildcard route for a 404 page
-  ];
+  { path: 'welcome', component: WelcomePageComponent },
+  { path: 'log-in', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'home', canActivate: [authGuard], component: HomeComponent },
+  { path: 'profile', canActivate: [authGuard], component: ProfileComponent },
+  {
+    path: 'user', 
+    canActivate: [authGuard], 
+    component: ProfileComponent,
+    children: [
+      {
+        path: 'list',
+        canActivate: [authGuard],
+        component: UsersListComponent
+      }
+    ]
+  },
+  { path: 'add-photo', canActivate: [authGuard], component: AddPhotoComponent },
+  { path: 'photo', canActivate: [authGuard], component: PhotoComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'
+  { path: '**', component: WelcomePageComponent },  // Wildcard route for a 404 page
+];

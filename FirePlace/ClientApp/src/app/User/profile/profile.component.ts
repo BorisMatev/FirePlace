@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProfileDataService } from './profile.service';
 import { EMPTY, Observable } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -13,27 +13,26 @@ import { AsyncPipe, NgIf } from '@angular/common';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  private readonly profileDataService: ProfileDataService = inject(ProfileDataService)
+  private readonly profileDataService: ProfileDataService = inject(ProfileDataService);
+  private readonly router: Router = inject(Router);
 
   user$: Observable<any> = EMPTY;
-
-  logout() {
-    // localStorage.removeItem("token");
-    // this.user.checkToken();
-    // console.log(this.userInfo)
-  }
+  isOwned: boolean = false;
 
   ngOnInit() {
     this.fetchUser();
+    this.checkRoute();
   }
 
   fetchUser() {
-    // this.user.getUser().subscribe({
-    //   next: resp => this.userInfo = resp,
-    //   error: error => console.log(error),
-    //   complete: () => console.log(this.userInfo)
-    // });
-
     this.user$ = this.profileDataService.user;
+  }
+
+  checkRoute(): void {
+    if (this.router.url == '/profile') {
+      this.isOwned = true;
+    } else {
+      this.isOwned = false;
+    }
   }
 }

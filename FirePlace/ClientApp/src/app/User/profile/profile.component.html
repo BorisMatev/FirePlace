@@ -1,7 +1,7 @@
-<ng-container *ngIf="user$ | async as user">
-    <div class="content">
-        <div class="page scroll">
-            <div class="row justify-content-between h-100">
+<div class="content">
+    <ng-container *ngIf="user$ | async as user; else asd" >
+    <div class="page scroll">
+        <div class="row justify-content-between h-100">
                 <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                     <div>
                         <div style=" text-align: center;">
@@ -29,16 +29,21 @@
                         @for (item of user.photos; track $index) {
                         <img class="rounded item" [src]="item">
                         }
-                        <div class="addImageBtn rounded d-flex justify-content-center align-items-center"
-                            [routerLink]="['/add-photo']">
-                            <div class="d-flex flex-column justify-content-center">
-                                <h2>Добави</h2>
-                                <h2>снимка</h2>
+                        @if(isOwned){
+                            <div class="addImageBtn rounded d-flex justify-content-center align-items-center"
+                                [routerLink]="['/add-photo']">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h2>Добави</h2>
+                                    <h2>снимка</h2>
+                                </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</ng-container>
+    </ng-container>
+    <ng-template #asd>
+        <h1 style='color: red;'>Грешка опитаите отново!</h1>
+    </ng-template>
+</div>
