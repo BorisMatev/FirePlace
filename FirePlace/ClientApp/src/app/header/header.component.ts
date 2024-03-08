@@ -46,29 +46,31 @@ import { switchMap } from 'rxjs';
   ],
 })
 export class HeaderComponent {
+  private user: UserService = inject(UserService);
   private readonly router: Router = inject(Router);
   private readonly profileDataService: ProfileDataService =
     inject(ProfileDataService);
 
   first = 'selectd';
   second = 'unselectd';
+  isLogged = false;
+  isAdmin = false;
+  showMenuBtn = true;
+
   route1() {
     this.first = 'unselectd';
     this.second = 'selected';
   }
-
   route2() {
     this.second = 'unselectd';
     this.first = 'selected';
   }
-  private user: UserService = inject(UserService);
 
-  isLogged = false;
-  showMenuBtn = true;
 
   constructor() {
     this.user.checkToken();
     effect(() => (this.isLogged = this.user.isLogged()));
+    effect(() => (this.isAdmin = this.user.isAdmin()));
   }
 
   logOut() {

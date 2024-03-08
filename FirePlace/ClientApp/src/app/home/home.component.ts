@@ -57,7 +57,7 @@ export class HomeComponent {
     this.userServise.getInfoByUsername(name).subscribe({
       next: resp => this.profileDataService.setUser(resp),
       error: error => console.log(error),
-      complete: () => this.router.navigate(['/user',name])
+      complete: () => this.router.navigate(['/user'])
     });
   }
 }

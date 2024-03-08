@@ -34,6 +34,14 @@
                         <span>Моя профил</span>
                     </a>
                 </li>
+                @if(isAdmin){
+                    <li class="navbar__item">
+                        <a class="navbar__link" [routerLink]="['admin']" routerLinkActive="asd">
+                            <i class="pi pi-user" style="font-size: 1.5rem"></i>
+                            <span>Админ</span>
+                        </a>
+                    </li>
+                }
             </ul>
         </nav>
     </div>

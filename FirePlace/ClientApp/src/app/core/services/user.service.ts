@@ -7,21 +7,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private router = inject(Router);
 
   url = 'http://localhost:5157/User';
   isLogged = signal<boolean>(false);
-
-  checkToken() {
-    if (localStorage.getItem('token')) {
-      this.isLogged.set(true);
-    } else {
-      this.isLogged.set(false);
-      this.router.navigate(['/welcome']);
-    }
-  }
+  isAdmin = signal<boolean>(false);
 
   login(request: any) {
     const body = {
@@ -55,5 +47,31 @@ export class UserService {
     let params = new HttpParams();
     params = params.append('username', username);
     return this.http.get(`${this.url}/GetUsersBySearchedName`, { params });
+  }
+
+  checkToken() {
+    if (localStorage.getItem('token')) {
+      this.isLogged.set(true);
+      this.isAdmin.set( 
+        this.chechAdmin()
+        );
+    } else {
+      this.isLogged.set(false);
+      this.router.navigate(['/welcome']);
+    }
+  }
+
+  chechAdmin(): boolean {
+    let jwt = localStorage.getItem('token');
+    jwt = JSON.stringify(jwt);
+    let jwtData = jwt.split('.')[1];
+    let decodedJwtJsonData = window.atob(jwtData);
+    let decodedJwtData = JSON.parse(decodedJwtJsonData);
+    let role = decodedJwtData.role;
+    if (role === "Admin") {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
