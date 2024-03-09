@@ -1,7 +1,7 @@
 <div class="content">
-    <ng-container *ngIf="user$ | async as user; else asd" >
-    <div class="page scroll">
-        <div class="row justify-content-between h-100">
+    <ng-container *ngIf="user$ | async as user; else asd">
+        <div class="page scroll">
+            <div class="row justify-content-between h-100">
                 <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                     <div>
                         <div style=" text-align: center;">
@@ -25,18 +25,18 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">
-                    <div class=" d-flex flex-wrap gap-3 photos">
+                    <div class=" d-flex flex-wrap gap-3 photos py-3">
                         @for (item of user.photos; track $index) {
                         <img class="rounded item" [src]="item">
                         }
                         @if(isOwned){
-                            <div class="addImageBtn rounded d-flex justify-content-center align-items-center"
-                                [routerLink]="['/add-photo']">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <h2>Добави</h2>
-                                    <h2>снимка</h2>
-                                </div>
+                        <div class="addImageBtn rounded d-flex justify-content-center align-items-center"
+                            [routerLink]="['/add-photo']">
+                            <div class="d-flex flex-column justify-content-center">
+                                <h2>Добави</h2>
+                                <h2>снимка</h2>
                             </div>
+                        </div>
                         }
                     </div>
                 </div>
@@ -44,6 +44,39 @@
         </div>
     </ng-container>
     <ng-template #asd>
-        <h1 style='color: red;'>Грешка опитаите отново!</h1>
+        <div class="page scroll" style="min-width: 1000px;">
+            <div class="row justify-content-between h-100">
+                <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+                    <div>
+                        <div style=" text-align: center;">
+                            <p-skeleton shape="circle" size="15rem"></p-skeleton>
+                            <p-skeleton styleClass="my-2" height="2rem" borderRadius="16px"></p-skeleton>
+                        </div>
+                        <div class="d-flex flex-column justify-content-start gap-3 align-items-start">
+                            <div class="d-flex justify-content-center gap-3 mt-2">
+                                <p-skeleton width="12rem" height="2rem"></p-skeleton>
+                                <p-skeleton size="2rem" shape="circle"></p-skeleton>
+                            </div>
+                            <div class="d-flex justify-content-center gap-3 mb-3">
+                                <p-skeleton width="10rem" height="2rem"></p-skeleton>
+                                <p-skeleton size="2rem" shape="circle"></p-skeleton>
+                            </div>
+                        </div>
+                        <p-skeleton height="4rem"></p-skeleton>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">
+                    <div class=" d-flex flex-wrap gap-3 photos">
+                        <!-- @for (item of user.photos; track $index) {
+                            <img class="rounded item" [src]="item">
+                            } -->
+                        <p-skeleton size="14rem"></p-skeleton>
+                        <p-skeleton size="14rem"></p-skeleton>
+                        <p-skeleton size="14rem"></p-skeleton>
+                        <p-skeleton size="14rem"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ng-template>
 </div>

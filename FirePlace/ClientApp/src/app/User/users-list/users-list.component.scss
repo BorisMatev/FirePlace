@@ -1,0 +1,64 @@
+:host ::ng-deep {
+    .p-togglebutton.p-button.p-highlight {
+      background: var(--light-purple);
+      border-color: var(--dark-purple);
+      color: #ffffff;
+    }
+    .p-button:focus {
+      box-shadow: none;
+  }
+  }
+  
+  .content {
+    height: 100%;
+    background-image: url('../../../assets/backgrounds/fireplace4.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  main {
+    height: calc(100% - 80px);
+    color: var(--text);
+  }
+  
+  .searchBar {
+    background-color: rgba(32, 32, 32, 0.616);
+    border-bottom: 1px solid black;
+    height: 80px;
+    width: 100vw;
+    box-shadow: inset 20px 20px 60px #141414,
+      inset -20px -20px 60px #454545;
+  }
+  
+  .list {
+    background-color: #0000009c;
+    max-width: 600px;
+    height: 80%;
+    max-height: 1000px !important;
+    margin: 0px auto;
+    border-radius: 20px;
+    border: 3px solid rgb(255, 255, 255);
+  }
+  
+  .userElement {
+    width: 100%;
+    min-height: 60px;
+    border-radius: 8px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #000000, #2323233f);
+    box-shadow: 12px 12px 24px #1c1c1c,
+      -12px -12px 24px #262626;
+  }
+  
+  .img {
+    height: 80px;
+    border: var(--text) 1px solid;
+  }
+  
+  .searchBy {
+    border-radius: 0px 0px;
+    background: #212121;
+    box-shadow: 20px 20px 60px #1c1c1c,
+      -20px -20px 60px #262626;
+  }

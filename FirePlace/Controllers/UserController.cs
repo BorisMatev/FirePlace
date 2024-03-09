@@ -107,28 +107,21 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<UserFollowersResponse>> GetUserFollowers()
+        public ActionResult<List<UserFollowersResponse>> GetFollowers(string username)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                return NotFound();
-            }
-
             var user = _dbContext.Users
-                .Where(x => x.Id == int.Parse(userId))
+                .Where(x => x.Username == username)
                 .Include(x => x.Followers)
                 .FirstOrDefault();
 
             if (user == null)
             {
                 return BadRequest();
-            }
+            }/*
             if (user.Followers == null)
             {
                 return BadRequest();
-            }
+            }*/
             return user.Followers.Select(x => new UserFollowersResponse()
             {
                 ProfilePhoto = x.ProfilePhoto,

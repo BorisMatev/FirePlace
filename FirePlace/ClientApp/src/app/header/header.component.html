@@ -11,21 +11,15 @@
         <nav class="navbar">
             <ul class="navbar__menu">
                 <li class="navbar__item">
-                    <a class="navbar__link" [routerLink]="['/home']" routerLinkActive="asd">
+                    <a class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="asd">
                         <i class="pi pi-home" style="font-size: 1.5rem"></i>
                         <span>Начало</span>
                     </a>
                 </li>
                 <li class="navbar__item">
-                    <a class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a class="navbar__link" [routerLink]="['add-photo']" routerLinkActive="asd">
-                        <i class="pi pi-user" style="font-size: 1rem"></i>
-                        <span>Моя профил</span>
+                    <a class="navbar__link" [routerLink]="['/home']" routerLinkActive="asd">
+                        <i class="pi pi-search" style="font-size: 1.5rem"></i>
+                        <span>Търси</span>
                     </a>
                 </li>
                 <li class="navbar__item">
@@ -34,10 +28,16 @@
                         <span>Моя профил</span>
                     </a>
                 </li>
+                <li class="navbar__item">
+                    <a class="navbar__link"  routerLinkActive="asd">
+                        <i class="pi pi-cog" style="font-size: 1.5rem"></i>
+                        <span>Настройки</span>
+                    </a>
+                </li>
                 @if(isAdmin){
                     <li class="navbar__item">
                         <a class="navbar__link" [routerLink]="['admin']" routerLinkActive="asd">
-                            <i class="pi pi-user" style="font-size: 1.5rem"></i>
+                            <i class="pi pi-shield" style="font-size: 1.5rem"></i>
                             <span>Админ</span>
                         </a>
                     </li>
