@@ -13,10 +13,10 @@
                         </div>
                         <div class="d-flex flex-column justify-content-start gap-3 align-items-start">
                             <h2 style="color:var(--light-green)">
-                                Последователи: <span>{{user.followersCount}}</span>
+                                Последователи: <span (click)="loadFollowers(user.username)">{{user.followersCount}}</span>
                             </h2>
                             <h2 style="color:var(--light-green)">
-                                Последвани: <span>{{user.followingCount}}</span>
+                                Последвани: <span (click)="loadFollowers(user.username)">{{user.followingCount}}</span>
                             </h2>
                         </div>
                         <div class="info scroll">

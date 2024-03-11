@@ -18,16 +18,15 @@ import { ProfileDataService } from '../profile/profile.service';
 export class UsersListComponent {
 
   private readonly userServise: UserService = inject(UserService);
-  private readonly photoServise: PhotoService = inject(PhotoService);
+  // private readonly photoServise: PhotoService = inject(PhotoService);
   private readonly profileDataService: ProfileDataService = inject(ProfileDataService);
-  private readonly activatedroute: ActivatedRoute = inject(ActivatedRoute);
+  private readonly activeRoute: ActivatedRoute = inject(ActivatedRoute);
   private readonly router: Router = inject(Router);
 
   value: string = '';
   checked: boolean = false;
   showNotFound: boolean = false;
 
-  username: any = {};
   followers: any = [];
 
   changeState() {
@@ -37,8 +36,26 @@ export class UsersListComponent {
   }
 
   ngOnInit() {
+    this.fetchUsers()
   }
 
+  fetchUsers(): void{
+    let username = this.activeRoute.snapshot.paramMap.get('name');
+
+    this.userServise.getFollowers(username!).subscribe({
+      next: resp => this.followers = resp,
+      error: error => console.log(error)
+    })
+  }
+
+
+  openUser(name: string): void {
+    this.userServise.getInfoByUsername(name).subscribe({
+      next: resp => this.profileDataService.setUser(resp),
+      error: error => console.log(error),
+      complete: () => this.router.navigate(['/user',name])
+    });
+  }
   // fetchFollowers() {
   //   this.userServise.getFollowers().subscribe({
   //     next: (resp) => {
@@ -57,11 +74,4 @@ export class UsersListComponent {
   //   });
   // }
 
-  // openUser(name: string): void {
-  //   this.userServise.getInfoByUsername(name).subscribe({
-  //     next: resp => this.profileDataService.setUser(resp),
-  //     error: error => console.log(error),
-  //     complete: () => this.router.navigate(['/user'])
-  //   });
-  // }
 }

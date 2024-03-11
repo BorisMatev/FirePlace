@@ -33,7 +33,7 @@ export class UserService {
     return this.http.post(`${this.url}/Register`, body);
   }
 
-  getUser(): Observable<any> {
+  getUser() {
     return this.http.get(`${this.url}/GetUserByJwt`);
   }
 
@@ -49,12 +49,18 @@ export class UserService {
     return this.http.get(`${this.url}/GetUsersBySearchedName`, { params });
   }
 
+  getFollowers(username: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.http.get<any>(`${this.url}/GetFollowers`, { params })
+  }
+
   checkToken() {
     if (localStorage.getItem('token')) {
       this.isLogged.set(true);
-      this.isAdmin.set( 
+      this.isAdmin.set(
         this.chechAdmin()
-        );
+      );
     } else {
       this.isLogged.set(false);
       this.router.navigate(['/welcome']);

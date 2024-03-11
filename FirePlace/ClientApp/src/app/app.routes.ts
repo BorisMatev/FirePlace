@@ -16,12 +16,12 @@ export const routes: Routes = [
   { path: 'log-in', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', canActivate: [authGuard], component: HomeComponent },
-  { path: 'list', canActivate: [authGuard], component: UsersListComponent },
+  { path: 'list/:name', canActivate: [authGuard], component: UsersListComponent },
   { path: 'photo', canActivate: [authGuard], component: PhotoComponent },
-  { path: 'user', canActivate: [authGuard], component: ProfileComponent },
+  { path: 'user/:name', canActivate: [authGuard], component: ProfileComponent },
   { path: 'profile', canActivate: [authGuard], component: ProfileComponent },
   { path: 'add-photo', canActivate: [authGuard], component: AddPhotoComponent },
-  { path: 'admin', canActivate: [authGuard,adminGuard], component: AdminComponent},
+  { path: 'admin', canActivate: [authGuard, adminGuard], component: AdminComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'
   { path: '**', component: WelcomePageComponent },  // Wildcard route for a 404 page
 ];

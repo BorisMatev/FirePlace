@@ -20,11 +20,11 @@
                 <img
                   class="rounded-circle img" 
                   style="object-fit: cover;"
-                  [src]="item.photo.includes('data:image') ? item.photo : '../../assets/profile.png'"
+                  [src]="item.profilePhoto.includes('data:image') ? item.profilePhoto : '../../assets/profile.png'"
                   >
-                <h1 class="ms-3">{{item.name}}</h1>
+                <h1 class="ms-3">{{item.username}}</h1>
               </div>
-              <!-- <button class="btn btn-outline-success" (click)="openUser(item.name)">Посети</button> -->
+              <button class="btn btn-outline-success" (click)="openUser(item.username)">Посети</button>
             </div>
             }
           } @else if(followers.length == 0 && showNotFound) {
