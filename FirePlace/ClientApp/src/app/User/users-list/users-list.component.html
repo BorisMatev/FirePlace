@@ -5,16 +5,16 @@
           <p-toggleButton 
             [(ngModel)]="checked" 
             class="ps-3"
-            onLabel="Последователи" 
-            offLabel="Последвани"
-            [onIcon]="'pi pi-book'" 
+            [onLabel]="'Последователи ('+followers.length+')'" 
+            [offLabel]="'Последвани ('+following.length+')'"
+            [onIcon]="'pi pi-users'" 
             offIcon="pi pi-users" 
-            [style]="{ width: '12em' }" 
+            [style]="{ width: '14em' }" 
             (click)="changeState()"></p-toggleButton>
         </div>
         <div class="px-2">
-          @if(followers.length > 0){
-            @for (item of followers; track item) {
+          @if(checked ? followers.length : following.length > 0){
+            @for (item of checked ? followers : following; track item) {
             <div class="d-flex justify-content-between align-items-center mt-3 userElement px-2 py-2">
               <div class="d-flex justify-content-start align-items-center">
                 <img
@@ -27,9 +27,9 @@
               <button class="btn btn-outline-success" (click)="openUser(item.username)">Посети</button>
             </div>
             }
-          } @else if(followers.length == 0 && showNotFound) {
+          } @else if(followers.length == 0) {
             <div class="d-flex justify-content-center align-items-center mt-3 userElement px-2 py-2">
-                <h1 class="ms-3 text-danger ">Няма намерени елементи!</h1>
+                <h1 class="ms-3 text-danger ">Няма потребители !</h1>
             </div>
           }
         </div>

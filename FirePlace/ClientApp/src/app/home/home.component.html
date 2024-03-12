@@ -1,11 +1,18 @@
 <div class="content">
   <div class="searchBar d-flex justify-content-center align-items-center">
     <span class="p-input-icon-left d-flex gap-3">
-      <i class="pi pi-search"></i>
-      <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
+      @if(!checked){
+        <i class="pi pi-search"></i>
+        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
+      } @else {
+        <p-dropdown [options]="resp" 
+                    [(ngModel)]="value" 
+                    [showClear]="true" 
+                    placeholder="Избери категория"></p-dropdown>
+      }
       <button class="btn btn-danger"
              (click)="!checked ? searchUser() : searchPhotosByCategory()"
-             [disabled]="value == ''"
+             [disabled]="value == '' || value == null"
              >Търси</button>
     </span>
   </div>

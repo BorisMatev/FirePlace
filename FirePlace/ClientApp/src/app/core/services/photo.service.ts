@@ -33,7 +33,7 @@ export class PhotoService {
 
   getPhotosByCategories(name: string) {
     let params = new HttpParams();
-    params = params.append('name', name);
+    params = params.append('category', name);
     return this.http.get(`${this.url}/GetPhotosByCategory`, { params });
   }
 }

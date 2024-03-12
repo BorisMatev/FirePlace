@@ -27,7 +27,7 @@ span:hover{
     border: 2px solid var(--dark-purple);
     border-radius: 20px;
     box-shadow: 5px 5px 112px 14px black;
-    max-width: 70%;
+    width: 70%;
     height: 90%;
     color: var(--text);
 }
@@ -72,6 +72,9 @@ span:hover{
         overflow-y: hidden;
         padding-left: 10px;
         padding-top: 30px;
+    }
+    .page{
+        width: 100%;
     }
   }
 // .imgInput{

@@ -7,6 +7,10 @@
   .p-button:focus {
     box-shadow: none;
 }
+ol,
+ul {
+  padding-left: 0rem !important;
+}
 }
 
 .content {
@@ -58,6 +62,7 @@ main {
 }
 
 .searchBy {
+  z-index: 0;
   border-radius: 0px 0px;
   background: #212121;
   box-shadow: 20px 20px 60px #1c1c1c,

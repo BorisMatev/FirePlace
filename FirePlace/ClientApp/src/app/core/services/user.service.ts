@@ -55,6 +55,18 @@ export class UserService {
     return this.http.get<any>(`${this.url}/GetFollowers`, { params })
   }
 
+  getFollowing(username: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.http.get<any>(`${this.url}/GetFollowing`, { params })
+  }
+
+  followUser(username: string): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('username', username);
+    return this.http.post<any>(`${this.url}/FollowUser`, { params })
+  }
+
   checkToken() {
     if (localStorage.getItem('token')) {
       this.isLogged.set(true);

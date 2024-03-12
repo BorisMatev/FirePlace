@@ -127,6 +127,12 @@ namespace FirePlace.Controllers
             return cat;
         }
 
+        [HttpGet]
+        public ActionResult<List<Category>> GetAllCategory()
+        {
+            return _dbContext.Categories.ToList();
+        }
+
         [HttpPost]
         public ActionResult AddPhoto(UserAddPhotoRequest request)
         {
@@ -166,6 +172,38 @@ namespace FirePlace.Controllers
             _dbContext.SaveChanges();
             return Ok();
 
+        }
+
+        [HttpPost]
+        public ActionResult Like(int photoId)
+        {
+            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null)
+            {
+                return BadRequest();
+            }
+
+            photo.Likes++;
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult Dislike(int photoId)
+        {
+            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == photoId);
+
+            if (photo == null)
+            {
+                return BadRequest();
+            }
+
+            photo.Likes--;
+            _dbContext.SaveChanges();
+
+            return Ok();
         }
     }
 }

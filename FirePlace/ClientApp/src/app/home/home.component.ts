@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { DropdownModule } from 'primeng/dropdown';
 
 import { UserService } from '../core/services/user.service';
-import { ToggleButtonModule } from 'primeng/togglebutton';
 import { PhotoService } from '../core/services/photo.service';
 import { ProfileDataService } from '../User/profile/profile.service';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ToggleButtonModule],
+  imports: [FormsModule, InputTextModule, ToggleButtonModule,DropdownModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -27,6 +28,14 @@ export class HomeComponent {
   showNotFound: boolean = false;
 
   usersList: any = [];
+
+  resp = [
+    'Sky',
+    'Forset',
+    'London',
+    'Istanbul',
+    'Paris'
+];
 
   changeSerach() {
     this.usersList = [];

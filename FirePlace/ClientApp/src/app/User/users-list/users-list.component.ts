@@ -28,11 +28,10 @@ export class UsersListComponent {
   showNotFound: boolean = false;
 
   followers: any = [];
+  following: any = [];
 
-  changeState() {
-    this.followers = [];
+  changeState() { 
     this.showNotFound = false;
-    this.value = '';
   }
 
   ngOnInit() {
@@ -44,6 +43,11 @@ export class UsersListComponent {
 
     this.userServise.getFollowers(username!).subscribe({
       next: resp => this.followers = resp,
+      error: error => console.log(error)
+    })
+
+    this.userServise.getFollowing(username!).subscribe({
+      next: resp => this.following = resp,
       error: error => console.log(error)
     })
   }
