@@ -27,7 +27,7 @@
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">
                 <div class=" d-flex flex-wrap gap-3 photos py-3">
                     @for (item of user.photos; track $index) {
-                    <img class="rounded item" [src]="item.photo">
+                    <img class="rounded item" [src]="item.photo" (click)="reviewPhoto(item.id)">
                     }
                     @if(isOwned){
                     <div class="addImageBtn rounded d-flex justify-content-center align-items-center"

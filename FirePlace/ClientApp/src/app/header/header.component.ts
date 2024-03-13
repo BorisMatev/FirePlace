@@ -69,6 +69,7 @@ export class HeaderComponent {
 
   constructor() {
     this.user.checkToken();
+    this.checkScreenSize();
     effect(() => (this.isLogged = this.user.isLogged()));
     effect(() => (this.isAdmin = this.user.isAdmin()));
   }
@@ -87,7 +88,7 @@ export class HeaderComponent {
   }
 
   @HostListener('window:resize', [])
-  updateDays() {
+  checkScreenSize() {
     if (window.innerWidth >= 900) {
       this.showMenuBtn = true;
     } else {

@@ -49,6 +49,10 @@ export class ProfileComponent {
     this.router.navigate(['/list',username])
   }
 
+  reviewPhoto(id: number){
+    this.router.navigate(['/photo',id])
+  }
+
   checkRoute(): void {
     if (this.router.url == '/profile') {
       this.isOwned = true;

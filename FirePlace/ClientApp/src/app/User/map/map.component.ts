@@ -27,7 +27,7 @@ export class MapComponent {
       lng: this.lng,
     };
     if (this.canSeeMarker == true) {
-      console.log(1);
+      this.isMarked = true;
       this.markerPositiom = {
         lat: this.lat,
         lng: this.lng,

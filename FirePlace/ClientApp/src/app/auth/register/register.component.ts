@@ -74,7 +74,7 @@ export class RegisterComponent {
   onSubmit() {
     // console.log(this.img)
     this.registerForm.value.image = this.img;
-    console.log(this.registerForm.value.image)
+    
     const body = {
       image: this.img,
       username: this.registerForm.get('username').value,
@@ -89,7 +89,10 @@ export class RegisterComponent {
         }
       },
       error: error => console.log(error),
-      complete: () => this.router.navigate(['/home'])
+      complete: () => {
+        localStorage.setItem('name', body.username)
+        this.router.navigate(['/home'])
+      }
     });
   }
 

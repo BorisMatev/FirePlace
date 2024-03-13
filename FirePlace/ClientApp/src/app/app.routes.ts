@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', canActivate: [authGuard], component: HomeComponent },
   { path: 'list/:name', canActivate: [authGuard], component: UsersListComponent },
-  { path: 'photo', canActivate: [authGuard], component: PhotoComponent },
+  { path: 'photo/:id', canActivate: [authGuard], component: PhotoComponent },
   { path: 'user/:name', canActivate: [authGuard], component: ProfileComponent },
   { path: 'profile', canActivate: [authGuard], component: ProfileComponent },
   { path: 'add-photo', canActivate: [authGuard], component: AddPhotoComponent },

@@ -3,6 +3,7 @@ using FirePlace.Models.Request;
 using FirePlace.Models.Response.Photo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace FirePlace.Controllers
@@ -44,17 +45,29 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
-        public ActionResult<PhotoResponse> GetPhotosById(int id)
+        public ActionResult<PhotoResponse> GetPhotoById(int id)
         {
-            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == id);
+            var photo = _dbContext.Photos
+                .Where(x => x.Id == id)
+                .Include(x => x.Categories)
+                .FirstOrDefault();
 
             if (photo == null)
             {
                 return NotFound();
             }
 
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == photo.UserId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             PhotoResponse resp = new PhotoResponse()
             {
+                ProfilePhoto = user.ProfilePhoto,
+                Username = user.Username,
                 Id = photo.Id,
                 Base64String = photo.Base64String,
                 Lat = photo.Lat,

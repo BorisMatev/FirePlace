@@ -1,13 +1,14 @@
 <div class="content">
     <div class="page d-flex scroll">
         <div class="left-and-right d-flex flex-column align-items-center justify-content-center">
-            @if(false){
+            @if(photo$ | async; as photo){
                 <div class="imageDiv">
                     <div class="">
                         <img 
                             class=" img" 
+                            width="200px"
                             style="object-fit: cover;" 
-                            [src]="'data:image/png;base64,'">
+                            [src]="photo.base64String">
                     </div>
                 </div>
                 <div class="userInfo mt-3">
@@ -15,9 +16,10 @@
                         <div class="ms-3 d-flex align-items-center">
                             <img 
                             class=" img" 
+                            width="20px"
                             style="object-fit: cover;" 
-                            [src]="'data:image/png;base64,'">
-                            <h3>username</h3>
+                            [src]="photo.profilePhoto">
+                            <h3>{{photo.username}}</h3>
                         </div>
                         <button class="btn btn-outline-success">Like</button>
                     </div>
@@ -42,11 +44,14 @@
             }
         </div>
         <div class="left-and-right d-flex flex-column align-items-center justify-content-center">
-            @if(false){
+            @if(photo$ | async; as photo){
                 <div class="map">
-                    <app-map [lat]="12" [lng]="12" [canTouch]="true" [canSeeMarker]="false"></app-map>
+                    <app-map [lat]="photo.lat" [lng]="photo.lng" [canTouch]="false" [canSeeMarker]="true"></app-map>
                 </div>
                 <div class="categories">
+                    @for (item of photo.categories; track $index) {
+
+                    }
                 </div>
             }
             @else {

@@ -48,7 +48,10 @@ export class LoginComponent {
         }
       },
       error: (error) => console.log(error),
-      complete: () => this.router.navigate(['/home'])
+      complete: () => {
+        localStorage.setItem('name', body.username!);
+        this.router.navigate(['/home'])
+      }
     });
   }
 }
