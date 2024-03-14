@@ -4,13 +4,19 @@
     border-color: var(--dark-purple);
     color: #ffffff;
   }
+
   .p-button:focus {
     box-shadow: none;
-}
-ol,
-ul {
-  padding-left: 0rem !important;
-}
+  }
+
+  ol,
+  ul {
+    padding-left: 0rem !important;
+  }
+
+  .p-dropdown{
+    width: 200px;
+  }
 }
 
 .content {
@@ -56,8 +62,14 @@ main {
     -12px -12px 24px #262626;
 }
 
-.img {
+.profileImage {
   height: 80px;
+  border: var(--text) 1px solid;
+}
+
+.img{
+  height: 250px;
+  aspect-ratio: 1/1;
   border: var(--text) 1px solid;
 }
 

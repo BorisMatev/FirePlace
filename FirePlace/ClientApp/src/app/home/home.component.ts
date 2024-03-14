@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, InputTextModule, ToggleButtonModule,DropdownModule],
+  imports: [FormsModule, InputTextModule, ToggleButtonModule, DropdownModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -28,19 +28,11 @@ export class HomeComponent {
   showNotFound: boolean = false;
 
   usersList: any = [];
+  photos: any = [];
+  categories: any = [];
 
-  resp = [
-    'Sky',
-    'Forset',
-    'London',
-    'Istanbul',
-    'Paris'
-];
-
-  changeSerach() {
-    this.usersList = [];
-    this.showNotFound = false;
-    this.value = '';
+  ngOnInit() {
+    this.fetchCategories();
   }
 
   searchUser() {
@@ -55,9 +47,13 @@ export class HomeComponent {
   }
 
   searchPhotosByCategory() {
-    const body = this.value;
-    this.photoServise.getPhotosByCategories(body).subscribe({
-      next: (resp) => console.log(resp),
+    const body: any = this.value;
+    this.photoServise.getPhotosByCategories(body.name).subscribe({
+      next: (resp) => {
+        console.log(resp)
+        this.photos = resp;
+        this.showNotFound = true;
+      },
       error: (error) => console.log(error),
     });
   }
@@ -66,7 +62,28 @@ export class HomeComponent {
     this.userServise.getInfoByUsername(name).subscribe({
       next: resp => this.profileDataService.setUser(resp),
       error: error => console.log(error),
-      complete: () => this.router.navigate(['/user/',name])
+      complete: () => this.router.navigate(['/user/', name])
     });
+  }
+
+  like(id: number){
+    this.photoServise.like(id).subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    })
+  }
+
+  clear(): void {
+    this.usersList = [];
+    this.photos = []
+    this.showNotFound = false;
+    this.value = '';
+  }
+
+  fetchCategories(): void {
+    this.photoServise.getAllCategories().subscribe({
+      next: resp => this.categories = resp,
+      error: error => console.log(error)
+    })
   }
 }

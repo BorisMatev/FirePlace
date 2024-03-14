@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhotoService {
-  constructor() {}
+  constructor() { }
 
   private http: HttpClient = inject(HttpClient);
 
@@ -25,6 +26,10 @@ export class PhotoService {
     return this.http.post(`${this.url}/AddPhoto`, body, { headers });
   }
 
+  getAllCategories(): Observable<any> {
+    return this.http.get<any>(`${this.url}/GetAllCategory`);
+  }
+
   getCategories(name: string) {
     let params = new HttpParams();
     params = params.append('name', name);
@@ -41,5 +46,11 @@ export class PhotoService {
     let params = new HttpParams();
     params = params.append('category', name);
     return this.http.get(`${this.url}/GetPhotosByCategory`, { params });
+  }
+  
+  like(id: number): Observable<any>{
+    let params = new HttpParams();
+    params = params.append('photoId', id);
+    return this.http.post(`${this.url}/Like`, { params })
   }
 }
