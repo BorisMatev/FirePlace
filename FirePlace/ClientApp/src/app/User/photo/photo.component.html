@@ -48,10 +48,16 @@
                 <div class="map">
                     <app-map [lat]="photo.lat" [lng]="photo.lng" [canTouch]="false" [canSeeMarker]="true"></app-map>
                 </div>
-                <div class="categories">
-                    @for (item of photo.categories; track $index) {
-
+                <div class="categories d-flex gap-2 flex-column align-items-center justify-content-center position-relative">
+                    <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
+                    @if(photo.categories != 0){
+                            @for (item of photo.categories; track $index) {
+                                <p-chip [label]="item.name"
+                                        class="chip"
+                                        ></p-chip>
+                            }
                     }
+                    </div>
                 </div>
             }
             @else {

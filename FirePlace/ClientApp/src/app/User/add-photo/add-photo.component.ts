@@ -9,11 +9,12 @@ import { MessageService } from 'primeng/api';
 import { PhotoService } from '../../core/services/photo.service';
 import { MapComponent } from '../map/map.component';
 import { Router } from '@angular/router';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-add-photo',
   standalone: true,
-  imports: [FormsModule, ChipModule, MapComponent, ToastModule],
+  imports: [FormsModule, ChipModule, MapComponent, ToastModule, DropdownModule],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
   providers: [MessageService],
@@ -88,10 +89,12 @@ export class AddPhotoComponent {
   addPhotoBtn = "right";
   info = "first";
 
-  categoryInput: string = "";
+  categoryInput: any = "";
   categories: any = [];
-  categoryResponse: any = [];
 
+  allCategories: any = [];
+
+  
   addLoc = false;
 
   form = this.fb.group({
@@ -106,6 +109,10 @@ export class AddPhotoComponent {
       this.addPhotoBtn = "left";
       this.info = "second"
     }, 0);
+  }
+
+  ngOnInit(){
+    this.fetchCategories();
   }
 
   onFileInput(event: any) {
@@ -125,27 +132,25 @@ export class AddPhotoComponent {
     this.form.value.lng = event.lng;
   }
 
-  getCat() {
-    this.photoServise.getCategories(this.categoryInput).subscribe({
-      next: resp => this.categoryResponse = resp,
+  fetchCategories(): void {
+    this.photoServise.getAllCategories().subscribe({
+      next: resp => this.allCategories = resp,
       error: error => console.log(error)
     })
   }
 
 
   removeItem(index: any) {
-    console.log(1)
-    this.categories.slice(index, 1);
-    console.log(this.categories)
+    this.categories.splice(index, 1);
   }
 
-  addChip(item: any) {
-    this.categoryResponse = [];
-    this.categoryInput = ""
+  addChip() {
     if (this.categories.length >= 8) {
       return;
     }
-    this.categories.push(item.name);
+    this.categories.push(this.categoryInput.name);
+    this.categoryInput = ""
+    console.log(this.categories)
   }
 
   clearForm() {

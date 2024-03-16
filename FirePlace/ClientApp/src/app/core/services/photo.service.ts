@@ -49,8 +49,9 @@ export class PhotoService {
   }
   
   like(id: number): Observable<any>{
-    let params = new HttpParams();
-    params = params.append('photoId', id);
-    return this.http.post(`${this.url}/Like`, { params })
+    const body = {
+      photoId: id
+    }
+    return this.http.post(`${this.url}/Like`, body)
   }
 }

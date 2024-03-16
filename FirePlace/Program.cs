@@ -15,6 +15,9 @@ builder.Services.AddDbContext<FirePlaceDbContext>(options => options.UseSqlServe
 builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 
 builder.Services.AddControllers();

@@ -1,7 +1,28 @@
- :host ::ng-deep .chip .p-chip { 
-    background: var(--dark-purple) !important; 
-    color: var(--text); 
-}
+:host ::ng-deep {
+    .p-togglebutton.p-button.p-highlight {
+      background: var(--light-purple);
+      border-color: var(--dark-purple);
+      color: #ffffff;
+    }
+
+    .chip .p-chip { 
+        background: var(--dark-purple) !important; 
+        color: var(--text); 
+    }
+  
+    .p-button:focus {
+      box-shadow: none;
+    }
+  
+    ol,
+    ul {
+      padding-left: 0rem !important;
+    }
+  
+    .p-dropdown{
+      width: 200px;
+    }
+  }
 .content {
     height: 100%;
     display: flex;

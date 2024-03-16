@@ -73,11 +73,10 @@ namespace FirePlace.Controllers
                 Lat = photo.Lat,
                 Lng = photo.Lng,
                 Likes = photo.Likes,
-                Categories = photo.Categories.ToList(),
-
+                Categories = photo.Categories.ToList()
             };
 
-            return resp;
+            return Ok(resp);
         }
 
         [HttpGet]
@@ -104,18 +103,15 @@ namespace FirePlace.Controllers
         public ActionResult<List<PhotoByCategoryResponse>> GetPhotosByCategory(string category)
         {
             var photos = _dbContext.Photos
-                             .Where(p => p.Categories
-                                .Any(c => c.Name.Contains(category) || 
-                                category.Contains(c.Name)))
-                             .OrderBy(x => x.Likes)
-                             .ThenBy(x => x.UserId)
-                             .Take(10)
-                             .ToList();
+                .Include(x => x.Categories)
+                .Where(x => x.Categories.Any(c => c.Name == category))
+                .ToList();
 
             if (photos == null)
             {
                 return BadRequest();
             }
+
 
             List<PhotoByCategoryResponse> resp = photos.Select(x => new PhotoByCategoryResponse()
             {
@@ -188,9 +184,9 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
-        public ActionResult Like(int photoId)
+        public ActionResult Like(PhotoId id)
         {
-            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == photoId);
+            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == id.photoId);
 
             if (photo == null)
             {
@@ -204,9 +200,9 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
-        public ActionResult Dislike(int photoId)
+        public ActionResult Dislike(PhotoId id)
         {
-            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == photoId);
+            var photo = _dbContext.Photos.FirstOrDefault(x => x.Id == id.photoId);
 
             if (photo == null)
             {

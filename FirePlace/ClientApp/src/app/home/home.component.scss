@@ -15,7 +15,13 @@
   }
 
   .p-dropdown{
-    width: 200px;
+    width: 248px;
+    height: 48px;
+  }
+
+  input{
+    width: 248px;
+    height: 48px;
   }
 }
 
@@ -34,6 +40,7 @@ main {
 
 .searchBar {
   background-color: rgba(32, 32, 32, 0.616);
+  color: #ffffff;
   border-bottom: 1px solid black;
   height: 80px;
   width: 100vw;

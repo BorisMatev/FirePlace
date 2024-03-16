@@ -42,27 +42,23 @@
             </div>
             <div class="categories d-flex gap-2 flex-column align-items-center justify-content-center position-relative">
                 <div class="d-flex gap-2 mt-2">
-                    <input type="text" 
-                            class="form-control" 
-                            [(ngModel)]="categoryInput">
-                    <button class="btn btn-success" 
-                            (click)="getCat()" 
-                            [disabled]="categoryInput==''">Търси</button>
+                    <p-dropdown [options]="allCategories" 
+                                [(ngModel)]="categoryInput" 
+                                optionLabel="name"
+                                width="100px"
+                                placeholder="Избери категория"></p-dropdown>
+                    <button class="btn btn-outline-success" 
+                            (click)="addChip()" 
+                            [disabled]="categoryInput==''">Добави</button>
                 </div>
                 <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
                 @if(categories != 0){
                         @for (item of categories; track $index) {
                             <p-chip [label]="item" 
                                     [removable]="true" 
-                                    (onRemove)="removeItem($index)"
+                                    (click)="removeItem($index)"
                                     class="chip"
                                     ></p-chip>
-                        }
-                }
-                @if(categoryResponse != 0){
-                        @for (item of categoryResponse; track item) {
-                            <p-chip [label]="item.name" 
-                                    (click)="addChip(item)"></p-chip>
                         }
                 }
                 </div>

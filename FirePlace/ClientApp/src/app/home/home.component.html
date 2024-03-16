@@ -1,35 +1,35 @@
 <div class="content">
   <div class="searchBar d-flex justify-content-center align-items-center">
-    <span class="p-input-icon-left d-flex gap-3">
-      @if(!checked){
-        <i class="pi pi-search"></i>
-        <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
-      } @else {
-        <p-dropdown [options]="categories" 
-                    [(ngModel)]="value" 
-                    optionLabel="name"
-                    width="100px"
-                    placeholder="Избери категория"></p-dropdown>
-      }
-      <button class="btn btn-danger"
-             (click)="!checked ? searchUser() : searchPhotosByCategory()"
-             [disabled]="value == '' || value == null"
-             >Търси</button>
-    </span>
+    <h3>Търси по:</h3>
+    <p-toggleButton 
+      [(ngModel)]="checked" 
+      class="ps-3"
+      onLabel="Категория" 
+      offLabel="Име" 
+      [onIcon]="'pi pi-book'" 
+      offIcon="pi pi-users" 
+      (click)="clear()"></p-toggleButton>
   </div>
   <main class="scroll">
     <div class="list scroll mt-4">
       <div class="d-flex sticky-top justify-content-center align-items-center py-3 searchBy">
-        <h3>Търси по:</h3>
-        <p-toggleButton 
-          [(ngModel)]="checked" 
-          class="ps-3"
-          onLabel="Категория" 
-          offLabel="Име" 
-          [onIcon]="'pi pi-book'" 
-          offIcon="pi pi-users" 
-          [style]="{ width: '10em' }" 
-          (click)="clear()"></p-toggleButton>
+        <span class="p-input-icon-left d-flex gap-3">
+          @if(!checked){
+            <i class="pi pi-search"></i>
+            <input type="text" class="p-inputtext-sm" pInputText [(ngModel)]="value" />
+          } @else {
+            <p-dropdown [options]="categories" 
+                        [(ngModel)]="value" 
+                        optionLabel="name"
+                        emptyFilterMessage="No Matched please try again" 
+                        [dropdownIcon]="categories.length > 0 ? 'pi pi-chevron-down' : 'pi pi-spinner pi-spin'"
+                        placeholder="Избери категория"></p-dropdown>
+          }
+          <button class="btn btn-danger"
+                 (click)="!checked ? searchUser() : searchPhotosByCategory()"
+                 [disabled]="value == '' || value == null"
+                 >Търси</button>
+        </span>
       </div>
       <div class="px-2">
         @if(!checked){

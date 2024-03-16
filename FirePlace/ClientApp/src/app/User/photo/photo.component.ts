@@ -1,4 +1,5 @@
 import { SkeletonModule } from 'primeng/skeleton';
+import { ChipModule } from 'primeng/chip';
 
 import { Component, inject } from '@angular/core';
 import { MapComponent } from '../map/map.component';
@@ -10,7 +11,7 @@ import { AsyncPipe } from '@angular/common';
 @Component({
   selector: 'app-photo',
   standalone: true,
-  imports: [SkeletonModule,MapComponent, AsyncPipe],
+  imports: [SkeletonModule,MapComponent, AsyncPipe,ChipModule],
   templateUrl: './photo.component.html',
   styleUrl: './photo.component.scss'
 })
@@ -28,5 +29,6 @@ export class PhotoComponent {
   fetchPhoto(){
     let id = this.activeRoute.snapshot.paramMap.get('id')!;
     this.photo$ = this.photoService.getById(Number(id));
+    // this.photoService.getById(Number(id)).subscribe(resp => console.log(resp));
   }
 }
