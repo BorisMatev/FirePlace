@@ -12,6 +12,7 @@ span:hover{
 .img{
     width: 15rem;
     border: 3px solid var(--text);
+    object-fit: cover;
 }
 .content{
     height: 100%;

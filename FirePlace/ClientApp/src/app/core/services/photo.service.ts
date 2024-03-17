@@ -19,6 +19,7 @@ export class PhotoService {
     });
     const body = {
       base64String: request.base64String,
+      info: request.info,
       lat: request.lat,
       lng: request.lng,
       categories: request.categories,

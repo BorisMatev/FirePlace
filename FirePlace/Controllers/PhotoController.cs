@@ -70,6 +70,7 @@ namespace FirePlace.Controllers
                 Username = user.Username,
                 Id = photo.Id,
                 Base64String = photo.Base64String,
+                Info = photo.Info,
                 Lat = photo.Lat,
                 Lng = photo.Lng,
                 Likes = photo.Likes,
@@ -166,6 +167,7 @@ namespace FirePlace.Controllers
             Photo photo = new Photo
             {
                 Base64String = request.Base64String,
+                Info = request.Info,
                 Lat = (double)request.Lat,
                 Lng = (double)request.Lng,
                 Likes = 0,

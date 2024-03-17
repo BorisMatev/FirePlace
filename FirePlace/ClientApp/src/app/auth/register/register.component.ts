@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validat
 import { Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
 import { UserService } from '../../core/services/user.service';
 import { FormErrorsComponent } from '../../core/shared/form-errors/form-errors.component';
@@ -17,7 +16,6 @@ import { CommonModule } from '@angular/common';
     ButtonModule,
     InputTextModule,
     RouterLink,
-    InputTextareaModule,
     PasswordModule,
     FormErrorsComponent,
     CommonModule
@@ -48,11 +46,6 @@ export class RegisterComponent {
         Validators.maxLength(30),
         Validators.minLength(3)
       ]),
-      info: this.fb.control('', [
-        Validators.required,
-        Validators.maxLength(150),
-        Validators.minLength(3)
-      ]),
       email: this.fb.control('', [
         Validators.required,
         Validators.email
@@ -64,7 +57,6 @@ export class RegisterComponent {
       ]),
       confPassword: this.fb.control('', [
         Validators.required,
-        Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
         Validators.minLength(8),
         this.passwordMatchingValidator
       ])
@@ -78,7 +70,6 @@ export class RegisterComponent {
     const body = {
       image: this.img,
       username: this.registerForm.get('username').value,
-      info: this.registerForm.get('info').value,
       email: this.registerForm.get('email').value,
       password: this.registerForm.get('password').value
     };

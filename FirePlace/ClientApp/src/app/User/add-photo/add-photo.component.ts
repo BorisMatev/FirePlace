@@ -1,20 +1,31 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
 
 import { PhotoService } from '../../core/services/photo.service';
 import { MapComponent } from '../map/map.component';
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-photo',
   standalone: true,
-  imports: [FormsModule, ChipModule, MapComponent, ToastModule, DropdownModule],
+  imports: [ 
+            CommonModule,
+            FormsModule, 
+            ChipModule, 
+            MapComponent, 
+            ToastModule, 
+            DropdownModule,
+            InputTextareaModule,
+            ReactiveFormsModule
+          ],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
   providers: [MessageService],
@@ -94,7 +105,7 @@ export class AddPhotoComponent {
 
   allCategories: any = [];
 
-  
+  infoInput: string = '';
   addLoc = false;
 
   form = this.fb.group({
@@ -150,7 +161,6 @@ export class AddPhotoComponent {
     }
     this.categories.push(this.categoryInput.name);
     this.categoryInput = ""
-    console.log(this.categories)
   }
 
   clearForm() {
@@ -170,14 +180,16 @@ export class AddPhotoComponent {
   save(){
     this.form.value.categories = this.categories;
     const body = {
+      info: this.infoInput,
       base64String: this.form.value.base64String,
       lat: this.form.value.lat,
       lng: this.form.value.lng,
       categories: this.form.value.categories
     };
+    console.log(body)
     this.photoServise.addPhoto(body)
       .subscribe({
-        next: () => {},
+        next: (resp) => {console.log(resp)},
         error: () => this.errorMesage(),
         complete: () => {
           this.successMesage();

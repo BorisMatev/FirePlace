@@ -99,7 +99,6 @@ namespace FirePlace.Controllers
             {
                 Username = user.Username,
                 ProfilePhoto = user.ProfilePhoto,
-                Info = user.Info,
                 Photos = user.Photos
                     .Select(x => new Image(){
                         Id = x.Id, 
@@ -135,7 +134,6 @@ namespace FirePlace.Controllers
                 {
                     Username = user.Username,
                     ProfilePhoto = user.ProfilePhoto,
-                    Info = user.Info,
                     Photos = user.Photos
                         .Select(x => new Image()
                         {
@@ -228,7 +226,6 @@ namespace FirePlace.Controllers
             user.Username = request.Username;
             user.Email = request.Email;
             user.Password = request.Password;
-            user.Info = request.Info;
             user.Role = "User";
             user.ProfilePhoto = request.ProfilePhoto;
 

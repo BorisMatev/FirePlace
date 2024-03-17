@@ -52,7 +52,7 @@
                                 [max]="30"
                                 [min]="3"
                                     ></app-form-errors>
-                            <span class="p-float-label mt-5">
+                            <span class="p-float-label mt-4">
                                 <input 
                                     pInputText 
                                     formControlName="email"
@@ -63,14 +63,14 @@
                                      />
                                 <label style="color: #f3e4c3;" class="selectFalse ms-2">Имейл</label>
                             </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <app-form-errors
+                            <app-form-errors
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('email')!"
                                 [controlName]="'имейл'"
                                     ></app-form-errors>
+                        </div>
+                    </div>
+                    <div class="row">
                         <span class="p-float-label mt-4">
                             <p-password 
                                 formControlName="password"

@@ -8,6 +8,9 @@ namespace FirePlace.Models.DB
         public int Id { get; set; }
         [Required]
         public string Base64String { get; set; }
+
+        [Required]
+        public string Info { get; set; }
         public double Lat { get; set; }
         public double Lng { get; set; }
 
