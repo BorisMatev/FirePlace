@@ -1,22 +1,22 @@
 @if(!control.valid && (control.dirty || control.touched)){
     <div class="text-danger text-end">
         @if(control.errors?.['required']){
-            <span>{{controlName}} is required!</span><br>
+            <span>Въведете {{controlName}}!</span><br>
         }
         @if(control.errors?.['pattern']){
-            <span>{{controlName}} must contain: 1 capital letter, 1 lower case, 1 number, 1 symbol!</span><br>
+            <span>Полето {{controlName}} трябва да съдържа: главна буква, малка буква, число и специален символ!</span><br>
         }
         @if(control.errors?.['maxlength']){
-            <span>{{controlName}} must be less than {{max}}!</span>
+            <span>Полето {{controlName}} трябва да е по-малка от {{max}}!</span>
         }
         @if(control.errors?.['minlength']){
-            <span>{{controlName}} must be more than {{min}}!</span><br>
+            <span>Полето {{controlName}} трябва да е по-голяма от {{min}}!</span><br>
         }
         @if(control.errors?.['email']){
-            <span>{{controlName}} must be in correct form!</span>
+            <span>Полето {{controlName}} не е в правилен формат!</span>
         }
         @if(control.errors?.['notmatched']){
-            <span>{{controlName}} shoud be the same as password!</span>
+            <span>Полето {{controlName}} трябва да е еднакво с Парола!</span>
         }
     </div>
 }

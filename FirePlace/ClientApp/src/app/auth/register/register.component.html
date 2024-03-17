@@ -3,7 +3,7 @@
     <img src="/assets/mountain.png" class="mountain1 selectFalse">
     <div class="container text-center align-items-center pb-4 mainCon scroll">
         <div class="row">
-            <h1 class="mt-4 selectFalse">Create account!</h1>
+            <h1 class="mt-4 selectFalse">Създай своя акаунт!</h1>
         </div>
         <div class="row">
             <form [formGroup]="registerForm">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <span class="p-float-label mt-3">
+                            <span class="p-float-label mt-5">
                                 <input 
                                     pInputText
                                     formControlName="username"
@@ -43,53 +43,33 @@
                                 <label  
                                     style="color: #f3e4c3;" 
                                     class="selectFalse"
-                                    >Username</label>
+                                    >Потребителско име</label>
                             </span>
                             <app-form-errors
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('username')!"
-                                [controlName]="'Username'"
+                                [controlName]="'потребителско име'"
                                 [max]="30"
                                 [min]="3"
                                     ></app-form-errors>
-                            <span class="p-float-label mt-4">
-                                <textarea
-                                    rows="4" 
-                                    pInputTextarea 
-                                    style="resize: none;"
-                                    formControlName="info"
+                            <span class="p-float-label mt-5">
+                                <input 
+                                    pInputText 
+                                    formControlName="email"
                                     [ngClass]="{
-                                        'ng-touched ng-dirty':registerForm.get('info')!.invalid &&
-                                        (registerForm.get('info')!.dirty || 
-                                        registerForm.get('info')!.touched)}"
-                                    ></textarea>
-                                <label style="color: #f3e4c3;" class="selectFalse">Info</label>
+                                        'ng-touched ng-dirty':registerForm.get('email')!.invalid &&
+                                        (registerForm.get('email')!.dirty || 
+                                        registerForm.get('email')!.touched)}"
+                                     />
+                                <label style="color: #f3e4c3;" class="selectFalse ms-2">Имейл</label>
                             </span>
-                            <app-form-errors
-                                class="d-flex justify-content-end"
-                                [control]="registerForm.get('info')!"
-                                [controlName]="'Info'"
-                                [max]="150"
-                                [min]="3"
-                                    ></app-form-errors>
                         </div>
                     </div>
                     <div class="row">
-                        <span class="p-float-label mt-3">
-                            <input 
-                                pInputText 
-                                formControlName="email"
-                                [ngClass]="{
-                                    'ng-touched ng-dirty':registerForm.get('email')!.invalid &&
-                                    (registerForm.get('email')!.dirty || 
-                                    registerForm.get('email')!.touched)}"
-                                 />
-                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Email</label>
-                        </span>
                         <app-form-errors
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('email')!"
-                                [controlName]="'Email'"
+                                [controlName]="'имейл'"
                                     ></app-form-errors>
                         <span class="p-float-label mt-4">
                             <p-password 
@@ -100,12 +80,12 @@
                                     (registerForm.get('password')!.dirty || 
                                     registerForm.get('password')!.touched)}"
                                 ></p-password>
-                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Password</label>
+                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Парола</label>
                         </span>
                         <app-form-errors
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('password')!"
-                                [controlName]="'Password'"
+                                [controlName]="'парола'"
                                 [min]="8"
                                     ></app-form-errors>
                         <span class="p-float-label mt-4">
@@ -117,22 +97,21 @@
                                     (registerForm.get('confPassword')!.dirty || 
                                     registerForm.get('confPassword')!.touched)}"
                                 ></p-password>
-                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Confirm
-                                password</label>
+                            <label style="color: #f3e4c3;" class="selectFalse ms-2">Потвърди парола</label>
                         </span>
                         <app-form-errors
                                 class="d-flex justify-content-end"
                                 [control]="registerForm.get('confPassword')!"
-                                [controlName]="'Confirm password'"
+                                [controlName]="'потвърди парола'"
                                 [min]="8"
                                     ></app-form-errors>
                         <div class="d-flex justify-content-center align-items-center mt-4">
-                            <button class="btn btn-success px-5 me-3" [routerLink]="['/log-in']">Back</button>
-                            <button class="btn btn-outline-success px-5 ms-3" 
+                            <button class="btn btn-outline-success px-5 me-3" [routerLink]="['/log-in']">Вход</button>
+                            <button class="btn btn-success px-5 ms-3" 
                                     routerLink='/register'
                                     (click)="onSubmit()"
                                     [disabled]="registerForm.invalid ? true : null">
-                                Register</button>
+                                Регистрирай се</button>
                         </div>
                     </div>
                 </div>
