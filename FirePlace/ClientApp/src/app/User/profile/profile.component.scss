@@ -1,20 +1,88 @@
-span{
+h2 > span {
     background-color: #131313;
     border: 2px solid black;
     padding: 5px 10px;
     border-radius: 15px;
 }
-span:hover{
+
+h2 > span:hover {
     background-color: #13131350;
     border: 2px solid var(--text);
-    color:  var(--text);
+    color: var(--text);
 }
-.img{
+
+.tooltip-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s;
+    padding: 11px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.svgIcon {
+    width: 16px;
+    height: auto;
+}
+
+.tooltip {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.3em 0.6em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    background-color: rgb(255, 255, 255);
+    border-radius: 12px;
+    color: rgb(34, 34, 34);
+}
+
+.tooltip::before {
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    background-color: rgb(255, 255, 255);
+}
+
+.tooltip-container:hover {
+    background-color: var(--dark-purple);
+}
+
+.tooltip-container:hover .tooltip {
+    top: -100%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.img {
     width: 15rem;
     border: 3px solid var(--text);
     object-fit: cover;
 }
-.content{
+
+.content {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -23,7 +91,8 @@ span:hover{
     background-position: center;
     background-size: cover;
 }
-.page{
+
+.page {
     background-color: #212121d4;
     border: 2px solid var(--dark-purple);
     border-radius: 20px;
@@ -33,7 +102,7 @@ span:hover{
     color: var(--text);
 }
 
-.info{
+.info {
     background-color: #21212196;
     padding: 10px 20px;
     border: solid 1px var(--dark-purple);
@@ -41,43 +110,52 @@ span:hover{
     box-shadow: inset 3px 3px 8px 4px black;
     max-height: 170px;
 }
-.addImageBtn{
+
+.addImageBtn {
     // min-width: 200px;
     width: 45%;
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.502);
     transition: 1s;
 }
-.addImageBtn:hover{
+
+.addImageBtn:hover {
     border-radius: 330px;
     background-color: var(--light-purple);
 }
-.item{
+
+.item {
     width: 45%;
     aspect-ratio: 1/1;
     object-fit: cover;
 }
-.photos{
+
+.photos {
     max-height: 100%;
     overflow-y: scroll;
 }
+
 .photos::-webkit-scrollbar {
     display: none;
-  }
+}
+
 @media only screen and (max-width: 900px) {
-    .img{
+    .img {
         margin-top: 30px;
-    }   
-    .photos{
+    }
+
+    .photos {
         max-height: 100%;
         overflow-y: hidden;
         padding-left: 10px;
         padding-top: 30px;
     }
-    .page{
+
+    .page {
         width: 100%;
     }
-  }
+}
+
 // .imgInput{
 //     width: 230px;
 //     height: 230px;

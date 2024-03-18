@@ -45,6 +45,12 @@ export class ProfileComponent {
     }
   }
 
+  follow(username: string){
+    this.userService.followUnfollow(username).subscribe({
+      complete: () => {}
+    })
+  }
+
   loadFollowers(username: string): void{
     this.router.navigate(['/list',username])
   }

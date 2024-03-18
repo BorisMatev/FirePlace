@@ -7,7 +7,7 @@ namespace FirePlace.Models.Response.User
         public string Username { get; set; }
         public string Info { get; set; }
         public string ProfilePhoto { get; set; }
-
+        public bool Follow { get; set; }
         public List<Image> Photos { get; set; }
         public int PhotosCount { get; set; }
         public int FollowersCount { get; set; }

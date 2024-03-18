@@ -63,8 +63,8 @@ namespace FirePlace.Controllers
             }
 
             var users = _dbContext.Users
-                .Where(x => 
-                    x.Username.Contains(username) && 
+                .Where(x =>
+                    x.Username.Contains(username) &&
                     x.Username != user.Username
                 ).ToList();
 
@@ -73,7 +73,8 @@ namespace FirePlace.Controllers
                 return BadRequest("No users with this username!");
             }
             return users.Select(x =>
-                new UsersListResponse {
+                new UsersListResponse
+                {
                     Id = x.Id,
                     Name = x.Username,
                     Photo = x.ProfilePhoto
@@ -93,18 +94,31 @@ namespace FirePlace.Controllers
             if (user == null)
             {
                 return NotFound();
-            } 
+            }
+
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var me = _dbContext.Users
+                .FirstOrDefault(x => x.Id == int.Parse(userId!));
+
+            bool follow = false;
+
+            if (user.Followers.Contains(me!))
+            {
+                follow = true; 
+            }
 
             var userResp = new UserInfoResponse
             {
                 Username = user.Username,
                 ProfilePhoto = user.ProfilePhoto,
                 Photos = user.Photos
-                    .Select(x => new Image(){
-                        Id = x.Id, 
+                    .Select(x => new Image()
+                    {
+                        Id = x.Id,
                         Photo = x.Base64String
                     })
                     .ToList(),
+                Follow = follow,
                 FollowersCount = user.Followers.Count,
                 FollowingCount = user.Following.Count,
                 PhotosCount = user.Photos.Count
@@ -130,21 +144,21 @@ namespace FirePlace.Controllers
                 .Include(x => x.Following)
                 .Include(x => x.Followers)
                 .FirstOrDefault();
-                var userResp = new UserInfoResponse
-                {
-                    Username = user.Username,
-                    ProfilePhoto = user.ProfilePhoto,
-                    Photos = user.Photos
-                        .Select(x => new Image()
-                        {
-                            Id = x.Id,
-                            Photo = x.Base64String
-                        })
-                        .ToList(),
-                    FollowersCount = user.Followers.Count,
-                    FollowingCount = user.Following.Count,
-                    PhotosCount = user.Photos.Count
-                };
+            var userResp = new UserInfoResponse
+            {
+                Username = user.Username,
+                ProfilePhoto = user.ProfilePhoto,
+                Photos = user.Photos
+                    .Select(x => new Image()
+                    {
+                        Id = x.Id,
+                        Photo = x.Base64String
+                    })
+                    .ToList(),
+                FollowersCount = user.Followers.Count,
+                FollowingCount = user.Following.Count,
+                PhotosCount = user.Photos.Count
+            };
 
 
             return Ok(userResp);
@@ -235,7 +249,7 @@ namespace FirePlace.Controllers
 
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-            
+
             string token = GenerateJwtToken("User", user.Id);
             return Ok(token);
         }
@@ -254,7 +268,7 @@ namespace FirePlace.Controllers
             }
             else if (user.Role == "Admin")
             {
-                string token = GenerateJwtToken("Admin",user.Id);
+                string token = GenerateJwtToken("Admin", user.Id);
                 return Ok(token);
             }
             else
@@ -265,7 +279,7 @@ namespace FirePlace.Controllers
         }
 
         [HttpPost]
-        public ActionResult FollowUser(string username)
+        public ActionResult FollowAndUnfollow(UsernameRequest request)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -276,50 +290,51 @@ namespace FirePlace.Controllers
 
             // the user to follow
             var userForFollow = _dbContext.Users
-                .Where(x => x.Username == username)
+                .Where(x => x.Username == request.Username)
                 .Include(x => x.Followers)
                 .FirstOrDefault();
 
             // me
             var followingUser = _dbContext.Users
                 .Where(x => x.Id == int.Parse(userId))
-                .Include(x=> x.Following)
+                .Include(x => x.Following)
                 .FirstOrDefault();
-
-
-            /*int count = followingUser.Followers.Count;*/
 
             if (followingUser == null || userForFollow == null)
             {
                 return NotFound();
             }
-            /*
-            if (userForFollow.Followers == null)
-            {
-                userForFollow.Followers = new List<User>() { };
-            }
-            if (followingUser.Following == null)
-            {
-                followingUser.Following = new List<User>() { };
-            }*/
 
-            userForFollow.Followers.Add(followingUser);
-            followingUser.Following.Add(userForFollow);
+            if (followingUser.Following.Contains(userForFollow))
+            {
+                followingUser.Following = followingUser.Following
+                    .Where(x => x.Username != userForFollow.Username)
+                    .ToList();
+
+                userForFollow.Followers = userForFollow.Followers
+                    .Where(x => x.Username != followingUser.Username)
+                    .ToList();
+            }
+            else
+            {
+                userForFollow.Followers.Add(followingUser);
+                followingUser.Following.Add(userForFollow);
+            }
 
             _dbContext.SaveChanges();
 
             return Ok();
-            
+
         }
 
         //generate Token
-        private string GenerateJwtToken(string role,int id)
+        private string GenerateJwtToken(string role, int id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JwtSettings:Key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] { 
+                Subject = new ClaimsIdentity(new Claim[] {
                     new Claim(ClaimTypes.Role, role),
                     new Claim(ClaimTypes.NameIdentifier, id.ToString())
                 }),

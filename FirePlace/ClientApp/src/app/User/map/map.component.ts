@@ -28,7 +28,7 @@ export class MapComponent {
     };
     if (this.canSeeMarker == true) {
       this.isMarked = true;
-      this.markerPositiom = {
+      this.markerPosition = {
         lat: this.lat,
         lng: this.lng,
       };
@@ -41,7 +41,7 @@ export class MapComponent {
   };
 
   isMarked = false;
-  markerPositiom = {
+  markerPosition = {
     lat: 0,
     lng: 0,
   };
@@ -50,9 +50,11 @@ export class MapComponent {
   setMarker(event: google.maps.MapMouseEvent) {
     this.isMarked = true;
     if (event.latLng != null && this.canTouch) {
-      this.markerPositiom = event.latLng.toJSON();
+      this.markerPosition = event.latLng.toJSON();
+    } else{
+      window.open(`https://www.google.com/maps?q=${this.markerPosition.lat},${this.markerPosition.lng}`, '_blank');
     }
-    this.sendCordinates.emit(this.markerPositiom);
+    this.sendCordinates.emit(this.markerPosition);
   }
 }
 export interface Marker {

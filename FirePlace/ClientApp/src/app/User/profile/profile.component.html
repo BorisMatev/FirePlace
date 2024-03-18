@@ -11,17 +11,27 @@
                         </div>
                         <h1 class="mt-2">{{user.username}}</h1>
                     </div>
-                    <div class="d-flex flex-column justify-content-start gap-3 align-items-start">
-                        <h2 style="color:var(--light-green)">
-                            Последователи: <span (click)="loadFollowers(user.username)">{{user.followersCount}}</span>
-                        </h2>
-                        <h2 style="color:var(--light-green)">
-                            Последвани: <span (click)="loadFollowers(user.username)">{{user.followingCount}}</span>
-                        </h2>
-                    </div>
-                    <div class="info scroll">
-                        <h5>{{user.info}}</h5>
-                    </div>
+                    @if(isOwned){
+                        <div class="d-flex flex-column justify-content-start gap-3 align-items-start">
+                            <h2 style="color:var(--light-green)">
+                                Последователи: <span (click)="loadFollowers(user.username)">{{user.followersCount}}</span>
+                            </h2>
+                            <h2 style="color:var(--light-green)">
+                                Последвани: <span (click)="loadFollowers(user.username)">{{user.followingCount}}</span>
+                            </h2>
+                        </div>
+                    } @else {
+                        <div class="tooltip-container mt-3">
+                            <span class="tooltip">{{user.followersCount}} последователи</span>
+                            <span class="text" (click)="follow(user.username); user.follow = !user.follow">
+                                @if (!user.follow) {
+                                    Последвай
+                                } @else {
+                                    Отпоследвай
+                                }
+                            </span>
+                        </div>
+                    }   
                 </div>
             </div>
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">

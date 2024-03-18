@@ -65,10 +65,11 @@ export class UserService {
     return this.http.get<any>(`${this.url}/GetFollowing`, { params })
   }
 
-  followUser(username: string): Observable<any>{
-    let params = new HttpParams();
-    params = params.append('username', username);
-    return this.http.post<any>(`${this.url}/FollowUser`, { params })
+  followUnfollow(username: string): Observable<any>{
+    const body = {
+      username: username
+    }
+    return this.http.post<any>(`${this.url}/FollowAndUnfollow`, body)
   }
 
   checkToken() {

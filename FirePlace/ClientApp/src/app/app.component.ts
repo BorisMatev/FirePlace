@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from './header/header.component';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +13,8 @@ import { HeaderComponent } from './header/header.component';
     imports: [
       CommonModule, 
       RouterOutlet, 
-      HeaderComponent
+      HeaderComponent,
+      ToastModule
     ]
 })
 export class AppComponent {

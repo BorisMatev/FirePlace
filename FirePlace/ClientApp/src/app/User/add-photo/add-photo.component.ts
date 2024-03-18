@@ -1,9 +1,7 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, inject } from '@angular/core';
 
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChipModule } from 'primeng/chip';
-import { ToastModule } from 'primeng/toast';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
 
@@ -19,16 +17,14 @@ import { CommonModule } from '@angular/common';
   imports: [ 
             CommonModule,
             FormsModule, 
-            ChipModule, 
             MapComponent, 
-            ToastModule, 
             DropdownModule,
             InputTextareaModule,
             ReactiveFormsModule
           ],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
-  providers: [MessageService],
+  providers: [],
   animations: [
     trigger("onLoad", [
       state("first", style({
@@ -109,10 +105,10 @@ export class AddPhotoComponent {
   addLoc = false;
 
   form = this.fb.group({
-    base64String: this.fb.control(''),
-    lat: this.fb.control(0),
-    lng: this.fb.control(0),
-    categories: this.fb.array([])
+    base64String: ['', Validators.required],
+    lat:[0, Validators.required],
+    lng: [0, Validators.required],
+    categories: [[], Validators.required],
   });
 
   constructor() {
@@ -163,20 +159,6 @@ export class AddPhotoComponent {
     this.categoryInput = ""
   }
 
-  clearForm() {
-    // this.form.value.base64String = '';
-    // this.form.value.lat = 0;
-    // this.form.value.lng = 0;
-    // this.form.value.categories = [];
-
-    // this.messageService.add({
-    //   key: 'tc',
-    //   severity: 'error',
-    //   summary: 'Error',
-    //   detail: `The page you are looking for is not found`,
-    //   life: 4000,
-    // });
-  }
   save(){
     this.form.value.categories = this.categories;
     const body = {
@@ -186,11 +168,9 @@ export class AddPhotoComponent {
       lng: this.form.value.lng,
       categories: this.form.value.categories
     };
-    console.log(body)
     this.photoServise.addPhoto(body)
       .subscribe({
-        next: (resp) => {console.log(resp)},
-        error: () => this.errorMesage(),
+        next: () => {},
         complete: () => {
           this.successMesage();
           setTimeout(()=>{
@@ -201,18 +181,11 @@ export class AddPhotoComponent {
   }
 
   successMesage() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Успех',
-      detail: 'Снимката беше запазена успешно!'
-    });
-  }
-
-  errorMesage() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Грешка',
-      detail: 'Възникна грешка при запазването!'
+    this.messageService.add({ 
+      key: 'toast', 
+      severity: 'success', 
+      summary: 'Успех', 
+      detail: 'Снимката беше запазена успешно!' 
     });
   }
 }
