@@ -11,32 +11,32 @@
         <nav class="navbar">
             <ul class="navbar__menu">
                 <li class="navbar__item">
-                    <a class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="asd">
+                    <a class="navbar__link" [routerLink]="['/welcome']" routerLinkActive="active">
                         <i class="pi pi-home" style="font-size: 1.5rem"></i>
                         <span>Начало</span>
                     </a>
                 </li>
                 <li class="navbar__item">
-                    <a class="navbar__link" [routerLink]="['/home']" routerLinkActive="asd">
+                    <a class="navbar__link" [routerLink]="['/home']" routerLinkActive="active">
                         <i class="pi pi-search" style="font-size: 1.5rem"></i>
                         <span>Търси</span>
                     </a>
                 </li>
                 <li class="navbar__item">
-                    <a class="navbar__link" (click)="onRouteChange()" [routerLink]="['profile']" routerLinkActive="asd">
+                    <a class="navbar__link" [routerLink]="['/add-photo']" routerLinkActive="active">
+                        <i class="pi pi-camera" style="font-size: 1.5rem"></i>
+                        <span>Добави</span>
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a class="navbar__link" (click)="onRouteChange()" [routerLink]="['profile']" routerLinkActive="active">
                         <i class="pi pi-user" style="font-size: 1.5rem"></i>
                         <span>Моя профил</span>
                     </a>
                 </li>
-                <li class="navbar__item">
-                    <a class="navbar__link"  routerLinkActive="asd">
-                        <i class="pi pi-cog" style="font-size: 1.5rem"></i>
-                        <span>Настройки</span>
-                    </a>
-                </li>
                 @if(isAdmin){
                     <li class="navbar__item">
-                        <a class="navbar__link" [routerLink]="['admin']" routerLinkActive="asd">
+                        <a class="navbar__link" [routerLink]="['admin']" routerLinkActive="active">
                             <i class="pi pi-shield" style="font-size: 1.5rem"></i>
                             <span>Админ</span>
                         </a>

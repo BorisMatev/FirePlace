@@ -4,6 +4,12 @@
         <div class="row justify-content-between h-100">
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
                 <div>
+                    @if(isOwned){
+                        <button class="settings" (click)="navigate()">
+                          <span><i class="pi pi-cog px-1"></i></span>
+                          <span class="message">Настройки</span>
+                        </button>
+                    }
                     <div style=" text-align: center;">
                         <div class="rounded-circle">
                             <img class="rounded-circle img"
@@ -77,9 +83,6 @@
             </div>
             <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">
                 <div class=" d-flex flex-wrap gap-3 photos">
-                    <!-- @for (item of user.photos; track $index) {
-                            <img class="rounded item" [src]="item">
-                            } -->
                     <p-skeleton size="14rem"></p-skeleton>
                     <p-skeleton size="14rem"></p-skeleton>
                     <p-skeleton size="14rem"></p-skeleton>

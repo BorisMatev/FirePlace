@@ -327,6 +327,35 @@ namespace FirePlace.Controllers
 
         }
 
+        [HttpDelete]
+        public ActionResult Delete() 
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("Няма намерен потребител");
+            }
+
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .Include(x => x.Following)
+                .Include(x => x.Followers)
+                .Include(x => x.Photos)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return BadRequest("Няма намерен потребител");
+            }
+
+            _dbContext.Users.Remove(user);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+        
+
         //generate Token
         private string GenerateJwtToken(string role, int id)
         {

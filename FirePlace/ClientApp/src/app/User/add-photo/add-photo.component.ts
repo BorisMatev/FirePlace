@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
         transform: 'translateX(0px)',
         backgroundColor: 'rgba(0, 0, 0, 0.502)',
         borderRadius: '20px',
-        width: '60%'
+        width: '75%'
       })),
 
       transition('right => *', [

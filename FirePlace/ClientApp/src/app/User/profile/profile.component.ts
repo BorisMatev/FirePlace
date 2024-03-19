@@ -21,7 +21,6 @@ export class ProfileComponent {
   user$: Observable<any> = EMPTY;
   isOwned: boolean = false;
 
-
   ngOnInit() {
     this.checkRoute();
     this.fetchUser();
@@ -49,6 +48,10 @@ export class ProfileComponent {
 
   reviewPhoto(id: number){
     this.router.navigate(['/photo',id])
+  }
+
+  navigate(): void{
+    this.router.navigateByUrl('/settings')
   }
 
   checkRoute(): void {

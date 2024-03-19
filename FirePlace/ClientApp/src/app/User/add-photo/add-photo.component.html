@@ -58,7 +58,7 @@
                 <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
                 @if(categories != 0){
                         @for (item of categories; track $index) {
-                                    <div class="categori d-flex align-items-center justify-content-evently px-2 py-1">
+                                    <div class="categori d-flex align-items-center justify-content-center px-3 py-2">
                                         <h4 >{{item}}</h4>
                                         <span (click)="removeItem($index)" class="pi pi-times-circle ms-2"></span>
                                     </div>

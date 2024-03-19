@@ -23,6 +23,9 @@
       width: 200px;
     }
   }
+h4{
+    margin: 0px;
+}
 .content {
     height: 100%;
     display: flex;
@@ -71,7 +74,7 @@
 }
 
 .addImageBtn{
-    max-width: 90%;
+    width: 75%;
     aspect-ratio: 1/1;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.502);
@@ -85,8 +88,8 @@
 }
 
 .img{
-    max-width: 90%;
-    max-height: 90%;
+    aspect-ratio: 1/1;
+    width: 75%;
     border-radius: 20px;
 }
 

@@ -1,117 +1,131 @@
+:host ::ng-deep {
+  .chip .p-chip {
+    background: var(--dark-purple) !important;
+    color: var(--text);
+  }
+}
+
 .content {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image: url('../../../assets/backgrounds/fireplace2.jpg');
-    background-position: center;
-    background-size: cover;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../../assets/backgrounds/fireplace2.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .page {
-    background-color: #212121d4;
-    border: 2px solid var(--dark-purple);
-    border-radius: 20px;
-    box-shadow: 5px 5px 112px 14px black;
-    min-width: 70%;
-    height: 90%;
-    color: var(--text);
+  background-color: #212121d4;
+  border: 2px solid var(--dark-purple);
+  border-radius: 20px;
+  box-shadow: 5px 5px 112px 14px black;
+  min-width: 70%;
+  height: 90%;
+  color: var(--text);
 }
 
 .left-and-right {
-    width: 50%;
-    height: 100%;
+  width: 50%;
+  height: 100%;
 }
 
-.map{
-    width: 90%;
-    height: 50%;
-    box-shadow: 10px 12px 100px 0px black;
-    z-index: 3;
+.map {
+  width: 90%;
+  height: 50%;
+  box-shadow: 10px 12px 100px 0px black;
+  z-index: 3;
 }
-.imageDiv{
-    width: 80%;
-    height: 70%;
+
+.imageDiv {
+  width: 80%;
+  height: 70%;
 }
-.profileImage{
-    width: 70px;
-    border: #333 solid 1px;
-    object-fit: cover;
+
+.profileImage {
+  width: 70px;
+  border: #333 solid 1px;
+  object-fit: cover;
 }
-.categories{
-    width: 60%;
-    height: 30%;
-    background-color: rgb(169, 169, 169);
-    border-radius: 0px 0px 20px 20px;
+
+.categories {
+  width: 60%;
+  height: 30%;
+  background-color: rgb(169, 169, 169);
+  border-radius: 0px 0px 20px 20px;
 }
-.userInfo{
-    width: 80%;
-    height: 10%;
+
+.userInfo {
+  width: 80%;
+  height: 10%;
 }
-.image{
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
+
+.image {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
+
 .card {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1/1;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    perspective: 1000px;
-    box-shadow: 0 0 0 5px #ffffff80;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-  
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
-  }
-  
-  .card__content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    background-color: #f2f2f2c7;
-    transform: rotateX(-90deg);
-    transform-origin: bottom;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
-  .card:hover .card__content {
-    transform: rotateX(0deg);
-  }
-  
-  .card__title {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-    font-weight: 700;
-  }
-  
-  .card__description {
-    margin: 10px 0 0;
-    font-size: 14px;
-    color: #777;
-    line-height: 1.4;
-  }
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.card__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f2f2f2c7;
+  border-radius: 10px;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover .card__content {
+  transform: rotateX(0deg);
+}
+
+.card__title {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
+}
+
+.card__description {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.4;
+}
 
 @media only screen and (max-width: 1200px) {
-    .page {
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }

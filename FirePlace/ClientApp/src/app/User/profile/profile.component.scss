@@ -1,11 +1,11 @@
-h2 > span {
+h2>span {
     background-color: #131313;
     border: 2px solid black;
     padding: 5px 10px;
     border-radius: 15px;
 }
 
-h2 > span:hover {
+h2>span:hover {
     background-color: #13131350;
     border: 2px solid var(--text);
     color: var(--text);
@@ -44,9 +44,12 @@ h2 > span:hover {
     position: absolute;
     top: 0;
     left: 50%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
     transform: translateX(-50%);
     padding: 0.3em 0.6em;
-    opacity: 0;
+    // opacity: 0;
     pointer-events: none;
     transition: all 0.3s;
     background-color: rgb(255, 255, 255);
@@ -57,8 +60,8 @@ h2 > span:hover {
 .tooltip::before {
     position: absolute;
     content: "";
-    height: 0.6em;
-    width: 0.6em;
+    height: 0.7em;
+    width: 1em;
     bottom: -0.2em;
     left: 50%;
     transform: translate(-50%) rotate(45deg);
@@ -70,7 +73,7 @@ h2 > span:hover {
 }
 
 .tooltip-container:hover .tooltip {
-    top: -100%;
+    top: -80%;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -117,6 +120,33 @@ h2 > span:hover {
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.502);
     transition: 1s;
+}
+
+.settings {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    transition: width 0.5s;
+    background-color: #13131308;
+    border-radius: 15px;
+    color: var(--text) !important;
+}
+
+.settings .message {
+    max-width: 0;
+    display: inline-block;
+    transition: color .25s 1.5s, max-width 1.5s;
+    vertical-align: top;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.settings:hover .message {
+    max-width: 130px;
+    color: white;
 }
 
 .addImageBtn:hover {
