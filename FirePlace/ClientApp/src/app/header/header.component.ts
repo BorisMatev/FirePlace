@@ -8,8 +8,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { ProfileDataService } from '../User/profile/profile.service';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -48,8 +46,6 @@ import { switchMap } from 'rxjs';
 export class HeaderComponent {
   private user: UserService = inject(UserService);
   private readonly router: Router = inject(Router);
-  private readonly profileDataService: ProfileDataService =
-    inject(ProfileDataService);
 
   first = 'selectd';
   second = 'unselectd';
@@ -82,9 +78,7 @@ export class HeaderComponent {
   }
 
   onRouteChange(): void {
-    this.user.getUser().subscribe((resp: any) => {
-      this.profileDataService.setUser(resp);
-    });
+    this.router.navigateByUrl("/profile");
   }
 
   @HostListener('window:resize', [])

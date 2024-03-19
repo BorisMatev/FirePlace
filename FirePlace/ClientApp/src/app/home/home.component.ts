@@ -7,7 +7,6 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { UserService } from '../core/services/user.service';
 import { PhotoService } from '../core/services/photo.service';
-import { ProfileDataService } from '../User/profile/profile.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,7 +19,6 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   private readonly userServise: UserService = inject(UserService);
   private readonly photoServise: PhotoService = inject(PhotoService);
-  private readonly profileDataService: ProfileDataService = inject(ProfileDataService);
   private readonly router: Router = inject(Router);
 
   value: string = '';
@@ -59,11 +57,7 @@ export class HomeComponent {
   }
 
   openUser(name: string): void {
-    this.userServise.getInfoByUsername(name).subscribe({
-      next: resp => this.profileDataService.setUser(resp),
-      error: error => console.log(error),
-      complete: () => this.router.navigate(['/user/', name])
-    });
+    this.router.navigate(['/user/', name])
   }
 
   like(id: number){
