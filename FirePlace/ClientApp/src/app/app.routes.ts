@@ -10,6 +10,7 @@ import { AddPhotoComponent } from './User/add-photo/add-photo.component';
 import { UsersListComponent } from './User/users-list/users-list.component';
 import { AdminComponent } from './admin/admin.component';
 import { adminGuard } from './core/guards/admin.guard';
+import { SettingsComponent } from './User/profile/settings/settings.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'photo/:id', canActivate: [authGuard], component: PhotoComponent },
   { path: 'user/:name', canActivate: [authGuard], component: ProfileComponent },
   { path: 'profile', canActivate: [authGuard], component: ProfileComponent },
+  { path: 'settings', canActivate: [authGuard], component: SettingsComponent },
   { path: 'add-photo', canActivate: [authGuard], component: AddPhotoComponent },
   { path: 'admin', canActivate: [authGuard, adminGuard], component: AdminComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'

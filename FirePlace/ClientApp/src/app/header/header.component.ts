@@ -47,34 +47,15 @@ export class HeaderComponent {
   private user: UserService = inject(UserService);
   private readonly router: Router = inject(Router);
 
-  first = 'selectd';
-  second = 'unselectd';
   isLogged = false;
   isAdmin = false;
   showMenuBtn = true;
 
-  route1() {
-    this.first = 'unselectd';
-    this.second = 'selected';
-  }
-  route2() {
-    this.second = 'unselectd';
-    this.first = 'selected';
-  }
-
-
   constructor() {
-    this.user.checkToken();
     this.checkScreenSize();
+    this.user.checkToken();
     effect(() => (this.isLogged = this.user.isLogged()));
     effect(() => (this.isAdmin = this.user.isAdmin()));
-  }
-
-  logOut() {
-    if (localStorage.getItem('token')) {
-      localStorage.removeItem('token');
-      this.user.checkToken();
-    }
   }
 
   onRouteChange(): void {
