@@ -45,6 +45,28 @@
             </ul>
         </nav>
     </div>
+    } @else {
+        <div class="button-container">
+            <button class="button" [routerLink]="['/welcome']">
+                <i class="pi pi-home" style="font-size: 1.2rem"></i>
+            </button>
+            <button class="button" [routerLink]="['/home']">
+                <i class="pi pi-search" style="font-size: 1.2rem"></i>
+            </button>
+            <button class="button" [routerLink]="['/add-photo']">
+                <i class="pi pi-camera" style="font-size: 1.2rem"></i>
+            </button>
+          
+            <button class="button" [routerLink]="['/profile']">
+                <i class="pi pi-user" style="font-size: 1.1rem"></i>
+            </button>
+            @if(isAdmin){
+                <button class="button" [routerLink]="['/admin']">
+                    <i class="pi pi-shield" style="font-size: 1.1rem"></i>
+                </button>
+            }
+        </div>
+          
     }
     }
 </div>

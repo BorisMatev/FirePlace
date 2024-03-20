@@ -108,3 +108,38 @@ $linkWidth: 10rem;
     color: var(--text);
     margin: 0px;
 }
+
+.button-container {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  right: 10px;
+  z-index: 5;
+  display: flex;
+  background-color: var(--dark-green);
+  height: 45px;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px,
+    rgba(10, 170, 42, 0.248) 5px 10px 15px;
+}
+
+.button {
+  outline: 0 !important;
+  border: 0 !important;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
+  cursor: pointer;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+}
