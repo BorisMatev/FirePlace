@@ -327,8 +327,62 @@ namespace FirePlace.Controllers
 
         }
 
+
+
+        [HttpPut]
+        public ActionResult ChangeUsername(UserUpdateRequest request)
+        {
+            var user = GetUser();
+
+            if (string.IsNullOrEmpty(request.Value))
+            {
+                return BadRequest();
+            }
+
+            if (_dbContext.Users.Any(x => x.Username == request.Value))
+            {
+                return BadRequest("This username is already taken!");
+            }
+
+            user.Username = request.Value;
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public ActionResult ChangePhoto(UserUpdateRequest request)
+        {
+            var user = GetUser();
+
+            if (string.IsNullOrEmpty(request.Value))
+            {
+                return BadRequest();
+            }
+
+            user.ProfilePhoto = request.Value;
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public ActionResult ChangePassword(UserUpdateRequest request)
+        {
+            var user = GetUser();
+
+            if (string.IsNullOrEmpty(request.Value))
+            {
+                return BadRequest();
+            }
+
+            user.Password = request.Value;
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
         [HttpDelete]
-        public ActionResult Delete() 
+        public ActionResult Delete()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -354,7 +408,27 @@ namespace FirePlace.Controllers
 
             return Ok();
         }
-        
+        private User GetUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception();
+            }
+
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new Exception();
+            }
+
+            return user;
+        }
+
 
         //generate Token
         private string GenerateJwtToken(string role, int id)
