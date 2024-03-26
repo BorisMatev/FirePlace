@@ -2,7 +2,7 @@
     @if(user$ | async; as user){
     <div class="page scroll">
         <div class="row justify-content-between h-100">
-            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
                 <div>
                     @if(isOwned){
                         <button class="settings" (click)="navigate()">
@@ -40,7 +40,7 @@
                     }   
                 </div>
             </div>
-            <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-6 d-flex justify-content-center align-items-center h-100">
                 <div class=" d-flex flex-wrap gap-3 photos py-3">
                     @for (item of user.photos; track $index) {
                     <img class="rounded item" [src]="item.photo" (click)="reviewPhoto(item.id)">

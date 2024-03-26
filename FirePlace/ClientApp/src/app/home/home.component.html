@@ -54,19 +54,31 @@
           }
         } @else {
           @if(photos.length > 0){
+            <div class="container-fluid">
+              <div class="row py-4">
             @for (item of photos; track item) {
-            <div class="d-flex justify-content-between align-items-center mt-3 userElement px-2 py-2">
-              <div class="d-flex justify-content-start align-items-center">
+            <!-- <div class="d-flex flex-column justify-content-between align-items-center mt-3 userElement px-2 py-2">
                 <img
                   class="rounded img" 
                   style="object-fit: cover;"
                   [src]="item.base64String.includes('data:image') ? item.base64String : '../../assets/profile.png'"
                   >
                 <h1 class="ms-3">{{item.likes}}</h1>
-              </div>
               <button class="btn btn-outline-success" (click)="like(item.id)">Харесай</button>
+            </div> -->
+            <div class="col-6 elementImage">
+              <div  class="d-flex flex-column gap-3">
+                <img
+                class="rounded img" 
+                style="object-fit: cover;"
+                [src]="item.base64String.includes('data:image') ? item.base64String : '../../assets/profile.png'"
+                >
+                <h1 class="ms-3">{{item.likes}}</h1>
+              </div>
             </div>
             }
+          </div>
+          </div>
           } @else if(usersList.length == 0 && showNotFound) {
             <div class="d-flex justify-content-center align-items-center mt-3 userElement px-2 py-2">
                 <h1 class="ms-3 text-danger ">Няма намерени елементи!</h1>
