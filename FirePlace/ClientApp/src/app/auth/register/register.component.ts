@@ -52,7 +52,7 @@ export class RegisterComponent {
       ]),
       password: this.fb.control('', [
         Validators.required,
-        Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&^_-]).{8,}$'),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/),
         Validators.minLength(8)
       ]),
       confPassword: this.fb.control('', [
