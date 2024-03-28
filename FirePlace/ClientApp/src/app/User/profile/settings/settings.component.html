@@ -1,1 +1,115 @@
-<h1>settings work</h1>
+<main class="d-flex justify-content-center align-items-center">
+    <div class="page container pb-5 px-5 scroll">
+        <div class="row justify-content-between my-5 h-50">
+            <div class="col-12 col-md-4 col text-center">
+                <button (click)="usernameDialog = true">asdasd</button>
+                <button (click)="deleteDialog = true">asdasd</button>
+            </div>
+            <div class="col-12 col-md-7 col">
+                
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="row mt-5 h-25">
+            <div class="col">
+                
+            </div>
+        </div>
+    </div>
+</main>
+<p-dialog 
+    header="Смяна на паролата" 
+    [(visible)]="passwordDialog" 
+    [breakpoints]="{ '960px': '75vw' }" 
+    [style]="{ width: '40vw' }" 
+    [draggable]="false">
+        <div class="d-flex flex-wrap justify-content-center gap-3 align-items-center">
+            <span class="p-float-label mt-4">
+                <input pInputText [(ngModel)]="password.oldPassword"/>
+                <label>Сегашна парола</label>
+            </span>
+            <span class="p-float-label mt-4">
+                <input pInputText [(ngModel)]="password.newPassword"/>
+                <label>Нова парола</label>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button class="btn btn-outline-success" (click)=" changePassword();passwordDialog = false">Потвърди</button>
+        </ng-template>
+</p-dialog>
+
+<p-dialog 
+    header="Смяна на потребителското име" 
+    [(visible)]="usernameDialog" 
+    [breakpoints]="{ '960px': '75vw' }" 
+    [style]="{ width: '40vw' }" 
+    [draggable]="false">
+        <div class="d-flex flex-wrap justify-content-center gap-3 align-items-center">
+            <span class="p-float-label mt-4">
+                <input pInputText  [(ngModel)]="username"/>
+                <label>Потребителско име</label>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button class="btn btn-outline-success" (click)="changeUsername(); usernameDialog = false">Потвърди</button>
+        </ng-template>
+</p-dialog>
+
+<p-dialog 
+    header="Изтрий акаунт" 
+    class="text-danger"
+    [(visible)]="deleteDialog" 
+    [breakpoints]="{ '960px': '75vw' }" 
+    [style]="{ width: '40vw' }" 
+    [draggable]="false">
+        <h5 class="text-danger">Това действие ще доведе до пълното изтриване на вашият профил и снимки!</h5>
+        <div class="d-flex justify-content-center">
+            <span class="p-float-label mt-3">
+                <p-password [feedback]="false"
+                            [toggleMask]="true"
+                            [(ngModel)]="delete"
+                               ></p-password>
+                <label style="color: #b08686;" class="selectFalse">Парола</label>
+            </span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button class="btn btn-outline-danger" (click)="deleteUser();deleteDialog = false">Изтрий акаунт</button>
+        </ng-template>
+</p-dialog>
+
+<p-dialog 
+    header="Смяна на снимка" 
+    [(visible)]="photoDialog" 
+    [breakpoints]="{ '960px': '75vw' }" 
+    [style]="{ width: '40vw' }" 
+    [draggable]="false">
+        <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <div class="imgInput rounded-circle">
+            @if (!image) {
+                <i class="pi pi-image" style="font-size: 2.5rem" (click)="fileInput.click()">
+                </i>
+            }
+            @else {
+                <img 
+                    class="rounded-circle imgInput" 
+                    style="object-fit: cover;"
+                    [src]="image" 
+                    (click)="fileInput.click()">
+            }
+                <input type="file" 
+                    accept="image/png, image/jpeg, image/jpg"
+                    style="display:none;"
+                    #fileInput 
+                    (change)="onFileInput($event)"
+                    />
+            </div>
+            <h4 class="ms-3">Избери нова снимка</h4>
+        </div>
+        <ng-template pTemplate="footer">
+            <button class="btn btn-outline-success" (click)=" changePhoto();photoDialog = false">Потвърди</button>
+        </ng-template>
+</p-dialog>

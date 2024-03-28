@@ -23,10 +23,15 @@
                         #fileInput 
                         (change)="onFileInput($event)"
                         />
-                <span class="p-float-label mt-5">
-                    <input [(ngModel)]="infoInput">
-                    <label style="color: #f3e4c3;" class="selectFalse">Info</label>
-                </span>
+                <span class="p-float-label mt-2">
+                    <textarea 
+                            [(ngModel)]="infoInput" 
+                            rows="3" 
+                            cols="40" 
+                            placeholder="Info" 
+                            pInputTextarea 
+                            [autoResize]="true"></textarea>
+                </span> 
             </div>
         </div>
         <div [@onLoad]="info" class="left-and-right d-flex flex-column align-items-center justify-content-center gap-2">
@@ -50,6 +55,7 @@
                                 [(ngModel)]="categoryInput" 
                                 optionLabel="name"
                                 width="100px"
+                                emptyMessage="Моля изчакайте"
                                 placeholder="Избери категория"></p-dropdown>
                     <button class="btn btn-outline-success" 
                             (click)="addChip()" 

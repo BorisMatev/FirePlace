@@ -29,6 +29,9 @@ export class HomeComponent {
   photos: any = [];
   categories: any = [];
 
+
+  asd = "asdfpoaihfdh"
+
   ngOnInit() {
     this.fetchCategories();
   }

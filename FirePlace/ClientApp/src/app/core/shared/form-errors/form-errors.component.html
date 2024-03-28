@@ -7,10 +7,10 @@
             <span>Полето {{controlName}} трябва да съдържа: главна буква, малка буква, число и специален символ!</span><br>
         }
         @if(control.errors?.['maxlength']){
-            <span>Полето {{controlName}} трябва да е по-малка от {{max}}!</span>
+            <span>Полето {{controlName}} трябва да съдържа максимом {{max}} символа!</span>
         }
         @if(control.errors?.['minlength']){
-            <span>Полето {{controlName}} трябва да е по-голяма от {{min}}!</span><br>
+            <span>Полето {{controlName}} трябва да съдържа минимом {{min}} символа!</span><br>
         }
         @if(control.errors?.['email']){
             <span>Полето {{controlName}} не е в правилен формат!</span>

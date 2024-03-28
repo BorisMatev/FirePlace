@@ -144,6 +144,11 @@ namespace FirePlace.Controllers
                 .Include(x => x.Following)
                 .Include(x => x.Followers)
                 .FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
             var userResp = new UserInfoResponse
             {
                 Username = user.Username,
@@ -264,7 +269,7 @@ namespace FirePlace.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return BadRequest("Неправилни входни данни!");
             }
             else if (user.Role == "Admin")
             {
@@ -367,22 +372,28 @@ namespace FirePlace.Controllers
         }
 
         [HttpPut]
-        public ActionResult ChangePassword(UserUpdateRequest request)
+        public ActionResult ChangePassword(UpdatePassword request)
         {
             var user = GetUser();
 
-            if (string.IsNullOrEmpty(request.Value))
+            if (string.IsNullOrEmpty(request.newPassword) ||
+                string.IsNullOrEmpty(request.oldPassword))
             {
-                return BadRequest();
+                return BadRequest("Грешни входни данни");
             }
 
-            user.Password = request.Value;
+            if (user.Password != request.oldPassword) 
+            {
+                return BadRequest("Грешни входни данни");
+            }
+
+            user.Password = request.newPassword;
             _dbContext.SaveChanges();
 
             return Ok();
         }
         [HttpDelete]
-        public ActionResult Delete()
+        public ActionResult Delete(UserUpdateRequest request)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -401,6 +412,11 @@ namespace FirePlace.Controllers
             if (user == null)
             {
                 return BadRequest("Няма намерен потребител");
+            }
+
+            if (user.Password != request.Value)
+            {
+                return BadRequest("Грешна парола");
             }
 
             _dbContext.Users.Remove(user);

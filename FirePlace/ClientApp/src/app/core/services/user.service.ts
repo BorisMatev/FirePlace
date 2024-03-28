@@ -33,7 +33,7 @@ export class UserService {
     return this.http.post(`${this.url}/Register`, body);
   }
 
-  getUsername(){
+  getUsername() {
     return this.http.get<string>(`${this.url}/GetUsername`);
   }
 
@@ -65,13 +65,41 @@ export class UserService {
     return this.http.get<any>(`${this.url}/GetFollowing`, { params })
   }
 
-  followUnfollow(username: string): Observable<any>{
+  updateUsername(req: any): Observable<any> {
+    const body = {
+      value: req
+    }
+    return this.http.put<any>(`${this.url}/ChangeUsername`, body)
+  }
+
+  updatePassword(req: any): Observable<any> {
+    const body = {
+      newPassword: req.newPassword,
+      oldPassword: req.oldPassword
+    }
+    return this.http.put<any>(`${this.url}/ChangePassword`, body)
+  }
+
+  updatePhoto(req: any): Observable<any> {
+    const body = {
+      value: req
+    }
+    return this.http.put<any>(`${this.url}/ChangePhoto`, body)
+  }
+
+  followUnfollow(username: string): Observable<any> {
     const body = {
       username: username
     }
     return this.http.post<any>(`${this.url}/FollowAndUnfollow`, body)
   }
 
+  delete(req: string){
+    const body = {
+      value: req
+    }
+    return this.http.delete<any>(`${this.url}/Delete`, {body})
+  }
   checkToken() {
     if (localStorage.getItem('token')) {
       this.isLogged.set(true);
