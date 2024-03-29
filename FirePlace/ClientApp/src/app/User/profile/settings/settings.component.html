@@ -1,11 +1,17 @@
 <main class="d-flex justify-content-center align-items-center">
-    <div class="page container pb-5 px-5 scroll">
-        <div class="row justify-content-between my-5 h-50">
+    <div class="page p-5 scroll">
+        <div class="d-flex justify-content-start w-100" style="background-color: aqua;">
+            
+        </div>
+        <!-- <div class="row justify-content-between my-5 h-50">
             <div class="col-12 col-md-4 col text-center">
-                <button (click)="usernameDialog = true">asdasd</button>
-                <button (click)="deleteDialog = true">asdasd</button>
             </div>
             <div class="col-12 col-md-7 col">
+                <button (click)="usernameDialog = true">Username</button>
+                <button (click)="passwordDialog = true">Password</button>
+                <button (click)="photoDialog = true">Photo</button>
+                <button (click)="deleteDialog = true">Delete</button>
+                <button (click)="logout()">Log out</button>
                 
             </div>
         </div>
@@ -18,10 +24,11 @@
             <div class="col">
                 
             </div>
-        </div>
+        </div> -->
     </div>
 </main>
 <p-dialog 
+    (onHide)="clearAll()"
     header="Смяна на паролата" 
     [(visible)]="passwordDialog" 
     [breakpoints]="{ '960px': '75vw' }" 
@@ -43,6 +50,7 @@
 </p-dialog>
 
 <p-dialog 
+    (onHide)="clearAll()"
     header="Смяна на потребителското име" 
     [(visible)]="usernameDialog" 
     [breakpoints]="{ '960px': '75vw' }" 
@@ -60,6 +68,7 @@
 </p-dialog>
 
 <p-dialog 
+    (onHide)="clearAll()"
     header="Изтрий акаунт" 
     class="text-danger"
     [(visible)]="deleteDialog" 
@@ -82,6 +91,7 @@
 </p-dialog>
 
 <p-dialog 
+    (onHide)="clearAll()"
     header="Смяна на снимка" 
     [(visible)]="photoDialog" 
     [breakpoints]="{ '960px': '75vw' }" 
@@ -90,8 +100,7 @@
         <div class="d-flex justify-content-center align-items-center flex-wrap">
             <div class="imgInput rounded-circle">
             @if (!image) {
-                <i class="pi pi-image" style="font-size: 2.5rem" (click)="fileInput.click()">
-                </i>
+                <i class="pi pi-image" style="font-size: 2.5rem" (click)="fileInput.click()"></i>
             }
             @else {
                 <img 

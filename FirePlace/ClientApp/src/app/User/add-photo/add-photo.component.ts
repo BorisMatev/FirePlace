@@ -29,60 +29,13 @@ import { CommonModule } from '@angular/common';
     trigger("onLoad", [
       state("first", style({
         opacity: 0,
-        transform: 'scale(0.2)'
+        transform: 'translateY(100%)',
       })),
       state("second", style({
         opacity: 1,
-        transform: 'scale(1)'
+        transform: 'translateY(0%)'
       })),
-      state("right", style({
-        transform: 'translateX(305%)',
-        height: '210px',
-        width: '210px',
-        backgroundColor: 'var(--light-purple)',
-        borderRadius: '330px'
-      })),
-      state("left", style({
-        transform: 'translateX(0px)',
-        backgroundColor: 'rgba(0, 0, 0, 0.502)',
-        borderRadius: '20px',
-        width: '75%'
-      })),
-
-      transition('right => *', [
-        animate("1s", keyframes([
-          style({
-            transform: 'translateX(220%)',
-            backgroundColor: 'var(--light-purple)',
-            borderRadius: '330px',
-            width: '210px',
-            height: '210px',
-            offset: 0
-          }),
-          style({
-            transform: 'translateX(0%)',
-            backgroundColor: 'rgba(123, 42, 78, 0.502)',
-            borderRadius: '50px',
-            width: '40%',
-            offset: 0.7
-          }),
-          style({
-            transform: 'translateX(0%)',
-            backgroundColor: 'rgba(123, 42, 78, 0.502)',
-            borderRadius: '50px',
-            width: '50%',
-            offset: 0.9
-          }),
-          style({
-            backgroundColor: 'rgba(0, 0, 0, 0.502)',
-            borderRadius: '20px',
-            width: '60%',
-            height: '50%',
-            offset: 1
-          })
-        ]))
-      ]),
-      transition('first => second', animate('1s'))
+      transition('first => second', animate('0.8s'))
     ])
   ]
 })
@@ -93,8 +46,7 @@ export class AddPhotoComponent {
   private photoServise = inject(PhotoService);
   private messageService = inject(MessageService);
 
-  addPhotoBtn = "right";
-  info = "first";
+  page = "first";
 
   categoryInput: any = "";
   categories: any = [];
@@ -113,8 +65,7 @@ export class AddPhotoComponent {
 
   constructor() {
     setTimeout(() => {
-      this.addPhotoBtn = "left";
-      this.info = "second"
+      this.page = "second"
     }, 0);
   }
 

@@ -32,14 +32,14 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(userId));
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             return user.Username;
@@ -52,14 +52,14 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == int.Parse(userId));
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var users = _dbContext.Users
@@ -70,7 +70,7 @@ namespace FirePlace.Controllers
 
             if (users == null)
             {
-                return BadRequest("No users with this username!");
+                return BadRequest("Няма потребители с това име!");
             }
             return users.Select(x =>
                 new UsersListResponse
@@ -80,8 +80,8 @@ namespace FirePlace.Controllers
                     Photo = x.ProfilePhoto
                 }).ToList();
         }
-        [HttpGet]
 
+        [HttpGet]
         public ActionResult<UserInfoResponse> GetUserByUsername(string name)
         {
             var user = _dbContext.Users
@@ -93,7 +93,7 @@ namespace FirePlace.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -135,7 +135,7 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var user = _dbContext.Users
@@ -147,7 +147,7 @@ namespace FirePlace.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
             var userResp = new UserInfoResponse
             {
@@ -170,6 +170,34 @@ namespace FirePlace.Controllers
         }
 
         [HttpGet]
+        public ActionResult<SettingsResponse> GetUserSettings()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return NotFound("Не е намерен потребител");
+            }
+
+            var user = _dbContext.Users
+                .Where(x => x.Id == int.Parse(userId))
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound("Не е намерен потребител");
+            }
+
+            var userResp = new SettingsResponse
+            {
+                Username = user.Username,
+                Photo = user.ProfilePhoto
+            };
+
+            return Ok(userResp);
+        }
+
+        [HttpGet]
         public ActionResult<List<UserFollowersResponse>> GetFollowers(string username)
         {
             var user = _dbContext.Users
@@ -179,12 +207,9 @@ namespace FirePlace.Controllers
 
             if (user == null)
             {
-                return BadRequest();
-            }/*
-            if (user.Followers == null)
-            {
-                return BadRequest();
-            }*/
+                return NotFound("Не е намерен потребител");
+            }
+
             return user.Followers.Select(x => new UserFollowersResponse()
             {
                 ProfilePhoto = x.ProfilePhoto,
@@ -202,7 +227,7 @@ namespace FirePlace.Controllers
 
             if (user == null)
             {
-                return BadRequest();
+                return NotFound("Не е намерен потребител");
             }
 
             return user.Following.Select(x => new UserFollowersResponse()
@@ -217,27 +242,27 @@ namespace FirePlace.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(UserRegister request)
+        public ActionResult<string> Register(UserRegister request)
         {
             if (_dbContext.Users.Any(x => x.Username == request.Username))
             {
-                return BadRequest("This username is already taken!");
+                return BadRequest("Потребителското име е заето!");
             }
             if (_dbContext.Users.Any(x => x.Email == request.Email))
             {
-                return BadRequest("This Email is already taken!");
+                return BadRequest("Съществува потребител с този имейл!");
             }
             if (request.Username.Length < 3 && request.Username.Length > 20)
             {
-                return BadRequest();
+                return BadRequest("Потребителското име не отговаря на изискванията!");
             }
             if (request.Password.Length > 30 || request.Password.Length < 8)
             {
-                return BadRequest();
+                return BadRequest("Паролата не отговаря на изискванията!");
             }
             if (request.ProfilePhoto == null)
             {
-                return BadRequest();
+                return BadRequest("Не е намерена снимка!");
             }
 
 
@@ -290,7 +315,7 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             // the user to follow
@@ -307,7 +332,7 @@ namespace FirePlace.Controllers
 
             if (followingUser == null || userForFollow == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             if (followingUser.Following.Contains(userForFollow))
@@ -341,12 +366,12 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(request.Value))
             {
-                return BadRequest();
+                return NotFound("Не е намерен потребител");
             }
 
             if (_dbContext.Users.Any(x => x.Username == request.Value))
             {
-                return BadRequest("This username is already taken!");
+                return BadRequest("Потребителското име е заето!");
             }
 
             user.Username = request.Value;
@@ -362,7 +387,7 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(request.Value))
             {
-                return BadRequest();
+                return BadRequest("Не е намерена снимка");
             }
 
             user.ProfilePhoto = request.Value;

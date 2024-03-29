@@ -30,7 +30,7 @@ export class UserService {
       Email: request.email,
       Password: request.password,
     };
-    return this.http.post(`${this.url}/Register`, body);
+    return this.http.post(`${this.url}/Register`, body, { responseType: 'text' });
   }
 
   getUsername() {
@@ -51,6 +51,10 @@ export class UserService {
     let params = new HttpParams();
     params = params.append('username', username);
     return this.http.get(`${this.url}/GetUsersBySearchedName`, { params });
+  }
+
+  getSettingsUser() {
+    return this.http.get(`${this.url}/GetUserSettings`);
   }
 
   getFollowers(username: string): Observable<any> {

@@ -3,7 +3,6 @@ import { GalleriaModule } from 'primeng/galleria';
 
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-welcome-page',
   standalone: true,
@@ -40,20 +39,20 @@ export class WelcomePageComponent {
     this.move = "right";
   }
 
-  @ViewChild('test') testElement!: ElementRef;
+  // @ViewChild('test') testElement!: ElementRef;
 
-  isElementInViewport(element: HTMLElement): boolean {
-    return element.getBoundingClientRect().top <= 500;
-  }
+  // isElementInViewport(element: HTMLElement): boolean {
+  //   return element.getBoundingClientRect().top <= 500;
+  // }
 
 
-  @HostListener('mousewheel')
-  onScroll(): void {
-    const element = this.testElement.nativeElement;
-    if (this.isElementInViewport(element)) {
-      this.animation();
-    }
-  }
+  // @HostListener('mousewheel')
+  // onScroll(): void {
+  //   const element = this.testElement.nativeElement;
+  //   if (this.isElementInViewport(element)) {
+  //     this.animation();
+  //   }
+  // }
 
 
   images = [

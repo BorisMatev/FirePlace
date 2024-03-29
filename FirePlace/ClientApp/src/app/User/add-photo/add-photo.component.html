@@ -1,10 +1,10 @@
 <div class="content">
-    <div class="page d-flex scroll">
+    <div [@onLoad]="page"  class="page d-flex scroll">
         <div class="left-and-right ">
             <div class="imageDiv d-flex flex-column align-items-center justify-content-center">
                 @if (form.value.base64String == '') {
                     
-                    <div [@onLoad]="addPhotoBtn" 
+                    <div
                         class="addImageBtn d-flex justify-content-center align-items-center"
                         (click)="fileInput.click()">
                         <h2>Добави снимка</h2>
@@ -28,13 +28,15 @@
                             [(ngModel)]="infoInput" 
                             rows="3" 
                             cols="40" 
-                            placeholder="Info" 
+                            class="scroll"
+                            placeholder="Информация" 
                             pInputTextarea 
-                            [autoResize]="true"></textarea>
+                            style="resize: none; ::placeholder { color: var(--text) !important; }"
+                                ></textarea>
                 </span> 
             </div>
         </div>
-        <div [@onLoad]="info" class="left-and-right d-flex flex-column align-items-center justify-content-center gap-2">
+        <div class="left-and-right d-flex flex-column align-items-center justify-content-center gap-2">
             <div class="map">
                 @if(addLoc){
                     <app-map (sendCordinates)="setCordinates($event)" 

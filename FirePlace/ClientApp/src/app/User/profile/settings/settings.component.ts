@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { EMPTY, Observable } from "rxjs";
 
 
 @Component({
@@ -32,6 +33,16 @@ export class SettingsComponent {
         newPassword: "",
         oldPassword: ""
     };
+
+    user$: Observable<any> = EMPTY;
+
+    ngOnInit(): void {
+        this.fetchUser()
+    }
+    
+    fetchUser(): void {
+        this.user$ = this.userService.getSettingsUser();
+    }
 
     changePassword(): void {
         this.userService.updatePassword(this.password).subscribe({

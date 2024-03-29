@@ -5,6 +5,7 @@ import { AsyncPipe} from '@angular/common';
 
 import { SkeletonModule } from 'primeng/skeleton';
 import { UserService } from '../../core/services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import { UserService } from '../../core/services/user.service';
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+  private readonly messageService: MessageService = inject(MessageService);
   private readonly activeRoute: ActivatedRoute = inject(ActivatedRoute)
   private readonly userService: UserService = inject(UserService);
   private readonly router: Router = inject(Router);
@@ -38,7 +40,14 @@ export class ProfileComponent {
 
   follow(username: string){
     this.userService.followUnfollow(username).subscribe({
-      complete: () => {}
+      complete: () => {
+        this.messageService.add({ 
+          key: 'toast', 
+          severity: 'info', 
+          summary: 'Успех', 
+          detail: 'Действието беше извършено успешно!' 
+        });
+      }
     })
   }
 

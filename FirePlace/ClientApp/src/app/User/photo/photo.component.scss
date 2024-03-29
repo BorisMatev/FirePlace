@@ -33,17 +33,19 @@
 .map {
   width: 90%;
   height: 50%;
+  min-height: 250px;
   box-shadow: 10px 12px 100px 0px black;
   z-index: 3;
 }
 
 .imageDiv {
-  width: 80%;
+  aspect-ratio: 1/1;
   height: 70%;
 }
 
 .profileImage {
   width: 70px;
+  aspect-ratio: 1/1;
   border: #333 solid 1px;
   object-fit: cover;
 }
@@ -121,11 +123,19 @@
   line-height: 1.4;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1100px) {
   .page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: block !important;
+  }
+
+  .imageDiv {
+    width: 90%;
+    aspect-ratio: 1/1 !important;
+    max-width: 450px;
+    max-height: 450px;
+  }
+
+  .left-and-right {
+    width: 100%;
   }
 }

@@ -56,25 +56,10 @@ export class HomeComponent {
         this.showNotFound = true;
       },
       error: (error) => console.log(error),
+      complete: () => {
+        this.photos.sort((a: { likes: number; }, b: { likes: number; }) => b.likes - a.likes);
+      }
     });
-  }
-
-  openUser(name: string): void {
-    this.router.navigate(['/user/', name])
-  }
-
-  like(id: number){
-    this.photoServise.like(id).subscribe({
-      next: resp => console.log(resp),
-      error: error => console.log(error)
-    })
-  }
-
-  clear(): void {
-    this.usersList = [];
-    this.photos = []
-    this.showNotFound = false;
-    this.value = '';
   }
 
   fetchCategories(): void {
@@ -83,4 +68,28 @@ export class HomeComponent {
       error: error => console.log(error)
     })
   }
+
+  like(id: number) {
+    this.photoServise.like(id).subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    })
+  }
+
+  openUser(name: string): void {
+    this.router.navigate(['/user/', name])
+  }
+
+  openPhoto(id: number): void {
+    this.router.navigate(['/photo',id])
+  }
+
+
+  clear(): void {
+    this.usersList = [];
+    this.photos = []
+    this.showNotFound = false;
+    this.value = '';
+  }
+
 }

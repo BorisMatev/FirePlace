@@ -29,7 +29,7 @@ namespace FirePlace.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest();
+                return NotFound("Няма намерен потребител!");
             }
 
             var photos = _dbContext.Photos.Where(x => x.UserId == int.Parse(userId)).ToList();
@@ -54,14 +54,14 @@ namespace FirePlace.Controllers
 
             if (photo == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == photo.UserId);
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не е намерен потребител");
             }
 
             PhotoResponse resp = new PhotoResponse()
@@ -87,7 +87,7 @@ namespace FirePlace.Controllers
 
             if (photos == null)
             {
-                return NotFound();
+                return NotFound("Потребителят няма снимки!");
             }
 
             List<PhotoListResponse> photosList = photos.Select(x => new PhotoListResponse()
@@ -110,7 +110,7 @@ namespace FirePlace.Controllers
 
             if (photos == null)
             {
-                return BadRequest();
+                return BadRequest("Няма снимки в тази категория!");
             }
 
 
@@ -132,7 +132,7 @@ namespace FirePlace.Controllers
                 .ToList();
             if (cat.Count < 1)
             {
-                return BadRequest("No categories with this name!");
+                return BadRequest("Няма категорий с това име!");
             }
             return cat;
         }
@@ -149,14 +149,14 @@ namespace FirePlace.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
-                return BadRequest();
+                return NotFound("Не е намерен потребител");
             }
 
             var user = _dbContext.Users
                 .FirstOrDefault(x => x.Id == int.Parse(userId));
             if (user == null)
             {
-                return BadRequest();
+                return NotFound("Не е намерен потребител");
             }
 
             List<Category> cat = _dbContext.Categories
@@ -192,7 +192,7 @@ namespace FirePlace.Controllers
 
             if (photo == null)
             {
-                return BadRequest();
+                return BadRequest("Не е намерена снимка!");
             }
 
             photo.Likes++;
@@ -208,7 +208,7 @@ namespace FirePlace.Controllers
 
             if (photo == null)
             {
-                return BadRequest();
+                return BadRequest("Не е намерена снимка!");
             }
 
             photo.Likes--;

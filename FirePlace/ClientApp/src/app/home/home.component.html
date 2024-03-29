@@ -66,14 +66,23 @@
                 <h1 class="ms-3">{{item.likes}}</h1>
               <button class="btn btn-outline-success" (click)="like(item.id)">Харесай</button>
             </div> -->
-            <div class="col-6 elementImage">
+            <div class="col-12 col-sm-6 elementImage">
               <div  class="d-flex flex-column gap-3">
                 <img
                 class="rounded img" 
                 style="object-fit: cover;"
                 [src]="item.base64String.includes('data:image') ? item.base64String : '../../assets/profile.png'"
+                (click)="openPhoto(item.id)"
                 >
-                <h1 class="ms-3">{{item.likes}}</h1>
+                <button class="Btn" (click)="like(item.id); item.likes = item.likes + 1">
+                  <span class="leftContainer">
+                    <i class="pi pi-heart-fill" style="color: white"></i>
+                    <span class="like">Харесвания</span>
+                  </span>
+                  <span class="likeCount">
+                    {{item.likes}}
+                  </span>
+                </button>
               </div>
             </div>
             }

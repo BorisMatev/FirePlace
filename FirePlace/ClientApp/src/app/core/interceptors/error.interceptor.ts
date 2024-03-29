@@ -11,14 +11,16 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
       let errorMessage = '';
 
-      if (error.status <= 400 || error.status < 500) {
+      if (error.status == 400 || error.status == 404) {
         errorMessage = `${error.error}`;
+      }
+      else if (error.status == 401 || error.status == 403) {
+        errorMessage = 'Нямате достъп до страницата!';
       }
       else if (error.status >= 500) {
         errorMessage = 'Възникна фатална сървърна грешка!';
       }
-      
-      if (errorMessage == "") {
+      else {
         errorMessage = "Неясна грешка";
       }
 

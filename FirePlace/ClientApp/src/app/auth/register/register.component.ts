@@ -79,9 +79,9 @@ export class RegisterComponent {
           localStorage.setItem('token',JSON.stringify(resp));
         }
       },
-      error: error => console.log(error),
+      error: (error) => console.log(error),
       complete: () => {
-        localStorage.setItem('name', body.username)
+        localStorage.setItem('name', body.username!);
         this.router.navigate(['/home'])
       }
     });
