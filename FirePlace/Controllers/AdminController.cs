@@ -1,7 +1,9 @@
 ﻿using FirePlace.Models.DB;
 using FirePlace.Models.Request;
+using FirePlace.Models.Response.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FirePlace.Controllers
 {
@@ -21,10 +23,22 @@ namespace FirePlace.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<User>> GetAll()
+        public ActionResult<List<GetUser>> GetAll()
         {
-            return _dbContext.Users
-            .ToList();
+            var users = _dbContext.Users.Select(x => new GetUser()
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Email = x.Email,
+                Role = x.Role
+            }).ToList();
+
+            if (users == null)
+            {
+                return NotFound("Няма потребители!");
+            }
+
+            return users;
         }
 
         [HttpPost]
@@ -47,5 +61,59 @@ namespace FirePlace.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        public ActionResult ChangeRole(AdminUserId request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Грешка при подаването на потребител!");
+            }
+
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == request.Id);
+
+            if (user == null)
+            {
+                return BadRequest("Грешка при подаването на потребител!");
+            }
+
+            if (user.Role == "User")
+            {
+                user.Role = "Admin";
+            }
+            else
+            {
+                user.Role = "User";
+            }
+
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(AdminUserId request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Грешка при подаването на потребител!");
+            }
+
+            var user = _dbContext.Users
+                .Where(x => x.Id == request.Id)
+                .Include(x => x.Following)
+                .Include(x => x.Followers)
+                .Include(x => x.Photos)
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                return BadRequest("Няма намерен потребител!");
+            }
+
+            _dbContext.Users.Remove(user);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
     }
 }

@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) { }
 
-  private router = inject(Router);
+  private readonly http: HttpClient = inject(HttpClient);
+  private readonly router = inject(Router);
 
   url = 'http://localhost:5157/User';
   isLogged = signal<boolean>(false);
@@ -98,13 +98,14 @@ export class UserService {
     return this.http.post<any>(`${this.url}/FollowAndUnfollow`, body)
   }
 
-  delete(req: string){
+  delete(req: string) {
     const body = {
       value: req
     }
-    return this.http.delete<any>(`${this.url}/Delete`, {body})
+    return this.http.delete<any>(`${this.url}/Delete`, { body })
   }
-  checkToken() {
+
+  checkToken(): void {
     if (localStorage.getItem('token')) {
       this.isLogged.set(true);
       this.isAdmin.set(

@@ -1,0 +1,15 @@
+:host ::ng-deep {
+    a {
+        text-decoration: none;
+    }
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    background-image: url("/assets/background.png");
+    background-size: 350px;
+    display: flex;
+    align-items: center;
+    color: #f3e4c3;
+}

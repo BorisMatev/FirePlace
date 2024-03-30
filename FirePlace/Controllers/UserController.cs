@@ -65,7 +65,8 @@ namespace FirePlace.Controllers
             var users = _dbContext.Users
                 .Where(x =>
                     x.Username.Contains(username) &&
-                    x.Username != user.Username
+                    x.Username != user.Username &&
+                    x.Role != "Admin"
                 ).ToList();
 
             if (users == null)

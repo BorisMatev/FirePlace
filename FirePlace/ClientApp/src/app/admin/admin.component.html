@@ -1,1 +1,49 @@
-<p>admin works!</p>
+<main class="d-flex justify-content-center align-items-center">
+    <div class="card w-75 h-75 scroll">
+        <p-tabView>
+            <p-tabPanel header="Потребители">
+                <ng-template pTemplate="content">
+                    <div class="card ">
+                        <p-table [value]="users" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '25rem'}">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Роля</th>
+                                    <th>Име</th>
+                                    <th>Имейл</th>
+                                    <th style="width: 15rem;"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-user>
+                                <tr>
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.role}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td class="d-flex justify-content-end gap-2">
+                                        <button class="btn btn-success"
+                                            (click)="update(user.id); user.role = user.role == 'User' ? 'Admin' : 'User'">
+                                            Смени роля
+                                        </button>
+                                        <button class="btn btn-danger" (click)="delete(user.id)">Изтрий</button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+            <p-tabPanel header="Добави категория">
+                <ng-template pTemplate="content">
+                    <div class="d-flex justify-content-center align-items-center gap-3 mt-5">
+                        <span class="p-float-label">
+                            <input pInputText id="username" [(ngModel)]="category" />
+                            <label for="username">Категория</label>
+                        </span>
+                        <button class="btn btn-success" (click)="addCategory()">Добави</button>
+                    </div>
+                </ng-template>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</main>

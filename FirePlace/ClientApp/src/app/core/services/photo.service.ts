@@ -1,14 +1,13 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Inject, Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhotoService {
-  constructor() { }
 
-  private http: HttpClient = inject(HttpClient);
+  private readonly http: HttpClient = inject(HttpClient);
 
   url = 'http://localhost:5157/Photo';
 
