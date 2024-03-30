@@ -14,14 +14,18 @@ main .page{
     height: 90%;
     width: 65%;
 }
-
-.row{
-    height: 40%;
-}
-.col{
+.style{
     background-color: rgba(0, 0, 0, 0.532);
     border-radius: 20px;
     border: 1px solid var(--dark-green);
+    max-height: 250px;
+}
+
+.photo{
+    max-width: 80% !important;
+    max-height: 95% !important;
+    border: 3px solid var(--text);
+    aspect-ratio: 1/1;
 }
 
 .imgInput{
@@ -33,4 +37,40 @@ main .page{
     border: 3px solid var(--dark-purple);
     border-radius: 20px;
     aspect-ratio: 1/1;
+}
+@media only screen and (max-width: 600px) {
+    .userInfo{
+        flex-direction: column;
+        min-height: 460px !important;
+    }
+    .username{
+        display: flex;
+        gap: 20px;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .userInfo{
+        min-height: 360px !important;
+    }
+    .userUpdate{
+        min-height: 330px !important;
+    }
+    .userDelete{
+        min-height: 150px !important;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .userInfo{
+        min-height: 300px !important;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .userInfo{
+        min-height: 0px !important;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .page {
+        width: 95% !important;
+    }
 }

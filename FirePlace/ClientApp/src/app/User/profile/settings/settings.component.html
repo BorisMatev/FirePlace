@@ -1,28 +1,48 @@
 <main class="d-flex justify-content-center align-items-center">
-    <div class="page p-5 scroll">
-        <div class="d-flex justify-content-start w-100" style="background-color: aqua;">
-            
+    <div class="page scroll py-5 px-5">
+        <div class="d-flex justify-content-strat align-items-center gap-4 p-3 h-50 style userInfo">
+            @if (user$ | async; as user) {
+                <img [src]="user.photo" class="photo rounded-circle">
+                <div class="username">
+                    <h2>{{user.username}}</h2>
+                    <button class="btn btn-outline-danger "(click)="logout()">Изход</button>
+                </div>
+            }
         </div>
-        <!-- <div class="row justify-content-between my-5 h-50">
-            <div class="col-12 col-md-4 col text-center">
+        <div class=" h-100 p-5 mt-5 style userUpdate">
+            <h3><b>Смяна на: </b></h3>
+            <hr>
+            <div class="d-flex flex-wrap gap-3">
+                <button class="btn btn-success" (click)="usernameDialog = true">Потребителско име</button>
+                <button class="btn btn-success" (click)="photoDialog = true">Профилна снимка</button>
+                <button class="btn btn-outline-success" (click)="passwordDialog = true">Парола</button>
             </div>
-            <div class="col-12 col-md-7 col">
+        </div>
+        <div class="d-flex justify-content-between align-items-center h-25 my-5 ps-5 style border border-danger userDelete">
+            <div>
+                <h3 class="text-danger"><b>Истриване на профил</b></h3>
+                <button class="btn btn-danger mt-2"(click)="deleteDialog = true">Delete</button>
+            </div>
+        </div>
+        <!-- <div class="row justify-content-between my-4 h-50">
+             <div class=" col-md-12 col-lg-6  col-12 col py-2 d-flex justify-content-start align-items-center gap-3">
+                @if (user$ | async; as user) {
+                        <img [src]="user.photo" class="photo rounded-circle">
+                            <h2>{{user.username}}</h2>
+                            <button class="btn btn-outline-danger "(click)="logout()">Log out</button>
+                }
+            </div>
+            <div class=" col-md-12 col-lg-6  col-12 col">
                 <button (click)="usernameDialog = true">Username</button>
                 <button (click)="passwordDialog = true">Password</button>
                 <button (click)="photoDialog = true">Photo</button>
                 <button (click)="deleteDialog = true">Delete</button>
-                <button (click)="logout()">Log out</button>
                 
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col">
-
             </div>
         </div>
         <div class="row mt-5 h-25">
-            <div class="col">
-                
+            <div class="col border border-danger">
+                oijok
             </div>
         </div> -->
     </div>

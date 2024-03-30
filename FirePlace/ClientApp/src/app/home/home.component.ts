@@ -51,7 +51,6 @@ export class HomeComponent {
     const body: any = this.value;
     this.photoServise.getPhotosByCategories(body.name).subscribe({
       next: (resp) => {
-        console.log(resp)
         this.photos = resp;
         this.showNotFound = true;
       },

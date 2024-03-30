@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-center align-items-center h-100">
-                <div class="d-flex flex-wrap gap-3 photos py-4 w-100">
+                <div class="d-flex flex-wrap gap-3 photos py-4 w-100 responsiveDiv">
                     @for (item of user.photos; track $index) {
                     <img class="rounded item" [src]="item.photo" (click)="reviewPhoto(item.id)">
                     }

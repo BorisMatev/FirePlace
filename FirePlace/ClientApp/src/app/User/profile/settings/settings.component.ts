@@ -8,12 +8,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { EMPTY, Observable } from "rxjs";
+import { AsyncPipe } from "@angular/common";
 
 
 @Component({
     selector: "app-settings",
     standalone: true,
-    imports: [DialogModule, PasswordModule, ButtonModule, InputTextModule, FormsModule],
+    imports: [DialogModule, PasswordModule, ButtonModule, InputTextModule, FormsModule,AsyncPipe],
     templateUrl: './settings.component.html',
     styleUrl: './settings.component.scss'
 })
@@ -54,16 +55,14 @@ export class SettingsComponent {
 
     changePhoto(): void {
         this.userService.updatePhoto(this.image).subscribe({
-            next: resp => console.log(resp),
-            error: error => console.log(error)
+            complete: () => this.fetchUser
         })
         this.clearAll();
     }
 
     changeUsername(): void {
         this.userService.updateUsername(this.username).subscribe({
-            next: resp => console.log(resp),
-            error: error => console.log(error)
+            complete: () => this.fetchUser()
         })
         this.clearAll();
     }
@@ -75,7 +74,6 @@ export class SettingsComponent {
                 this.userService.checkToken();
             }
         })
-        this.clearAll();
     }
 
     clearAll(): void {
