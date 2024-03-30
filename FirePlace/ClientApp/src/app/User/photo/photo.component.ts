@@ -22,9 +22,11 @@ export class PhotoComponent {
   private readonly router: Router = inject(Router);
 
   photo$: Observable<any> = EMPTY;
+  username: string = "";
 
   ngOnInit(): void {
     this.fetchPhoto();
+    this.username = localStorage.getItem("name")!;
   }
 
   fetchPhoto(): void {
@@ -34,5 +36,12 @@ export class PhotoComponent {
 
   openUser(name: string): void {
     this.router.navigate(['/user/', name])
+  }
+
+  like(id: number) {
+    this.photoService.like(id).subscribe({
+      next: resp => console.log(resp),
+      error: error => console.log(error)
+    })
   }
 }

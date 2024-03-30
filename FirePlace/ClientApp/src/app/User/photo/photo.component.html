@@ -16,15 +16,17 @@
                     </div>
                 </div>
                 <div class="userInfo mt-3">
-                    <div class="d-flex gap-5 justify-content-between align-items-center">
-                        <div class="ms-3 d-flex align-items-center" (click)="openUser(photo.username)">
+                    <div class="d-flex justify-content-around align-items-center">
+                        <div class="d-flex align-items-center" (click)="openUser(photo.username)">
                             <img 
                             class="profileImage rounded-circle"
                             style="object-fit: cover;" 
                             [src]="photo.profilePhoto">
                             <h2 class="ms-2">{{photo.username}}</h2>
                         </div>
-                        <button class="btn btn-outline-success">Like</button>
+                        @if (photo.username != username) {
+                            <button class="btn btn-outline-success" (click)="like(photo.id)">Харесай</button>
+                        }
                     </div>
                 </div>
             }

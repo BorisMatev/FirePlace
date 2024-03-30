@@ -57,15 +57,7 @@
             <div class="container-fluid">
               <div class="row py-4">
             @for (item of photos; track item) {
-            <!-- <div class="d-flex flex-column justify-content-between align-items-center mt-3 userElement px-2 py-2">
-                <img
-                  class="rounded img" 
-                  style="object-fit: cover;"
-                  [src]="item.base64String.includes('data:image') ? item.base64String : '../../assets/profile.png'"
-                  >
-                <h1 class="ms-3">{{item.likes}}</h1>
-              <button class="btn btn-outline-success" (click)="like(item.id)">Харесай</button>
-            </div> -->
+            
             <div class="col-12 col-sm-6 elementImage">
               <div  class="d-flex flex-column gap-3">
                 <img

@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  private readonly userServise: UserService = inject(UserService);
+  private readonly photoService: UserService = inject(UserService);
   private readonly photoServise: PhotoService = inject(PhotoService);
   private readonly router: Router = inject(Router);
 
@@ -38,7 +38,7 @@ export class HomeComponent {
 
   searchUser() {
     const body = this.value;
-    this.userServise.getUsersByUsername(body).subscribe({
+    this.photoService.getUsersByUsername(body).subscribe({
       next: (resp) => {
         this.usersList = resp;
         this.showNotFound = true;
