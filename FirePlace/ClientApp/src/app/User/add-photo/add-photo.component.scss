@@ -1,37 +1,89 @@
 :host ::ng-deep {
     .p-togglebutton.p-button.p-highlight {
-      background: var(--light-purple);
-      border-color: var(--dark-purple);
-      color: #ffffff;
+        background: var(--light-purple);
+        border-color: var(--dark-purple);
+        color: #ffffff;
     }
 
-    .chip .p-chip { 
-        background: var(--dark-purple) !important; 
-        color: var(--text); 
+    .chip .p-chip {
+        background: var(--dark-purple) !important;
+        color: var(--text);
     }
-  
+
     .p-button:focus {
-      box-shadow: none;
+        box-shadow: none;
     }
-  
+
+    .p-stepper .p-stepper-header.p-highlight .p-stepper-number {
+        background: none;
+        color: var(--dark-green);
+        border: solid 2px var(--dark-green);
+    }
+
+    .p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-number {
+        background: none;
+        color: var(--dark-green);
+        border: none;
+    }
+
+    .p-stepper .p-stepper-panels {
+        background: #ffffff00;
+        padding: 1.25rem;
+    }
+
+    .p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-separator {
+        background-color: var(--dark-green);
+    }
+
+    .p-stepper .p-stepper-header.p-highlight .p-stepper-title {
+        color: var(--light-green);
+    }
+
+    .p-stepper .p-stepper-header .p-stepper-title {
+        color: var(--text);
+    }
+
+    .p-stepper {
+        flex-basis: 50rem;
+    }
+
+    .p-stepper .p-stepper-nav {
+        color: var(--text);
+        border-radius: 20px;
+        background-color: rgb(55, 55, 55);
+    }
+
+    .p-stepper .p-stepper-nav::-webkit-scrollbar {
+        display: none;
+      }
+
+    .p-stepper .p-stepper-header .p-stepper-action {
+        transition: box-shadow 0.2s;
+        border-radius: 6px;
+        background: none;
+        color: var(--text);
+    }
+
     ol,
     ul {
-      padding-left: 0rem !important;
+        padding-left: 0rem !important;
     }
-  
-    .p-dropdown{
-      width: 200px;
+
+    .p-dropdown {
+        width: 200px;
     }
-    
+
     .p-inputtextarea {
-      width: 100%;
-      color: #ffffff;
-    background: #ffffff18;
+        width: 100%;
+        color: #ffffff;
+        background: #ffffff18;
     }
-  }
-h4{
+}
+
+h4 {
     margin: 0px;
 }
+
 .content {
     height: 100%;
     display: flex;
@@ -42,15 +94,22 @@ h4{
     background-size: cover;
 }
 
+.card {
+    height: 90%;
+    width: 80%;
+    border: none;
+    background-color: #21212100;
+}
+
 .page {
     background-color: #212121d4;
     border: 2px solid var(--dark-purple);
     border-radius: 20px;
     box-shadow: 5px 5px 112px 14px black;
     width: 70%;
-    max-width: 70%;
     height: 90%;
     color: var(--text);
+    padding: 20px;
 }
 
 .left-and-right {
@@ -58,49 +117,92 @@ h4{
     height: 100%;
 }
 
-.map{
+.map {
+    width: 500px;
+    height: 300px;
+}
+
+.categories {
     width: 90%;
-    height: 50%;
-}
-.imageDiv{
-    width: 100%;
-    height: 100%;
-}
-.categories{
-    width: 80%;
-    max-width: 80%;
-    height: 30%;
-    background-color: rgba(169, 169, 169, 0.397);
+    height: 300px;
+    background-color: rgba(82, 82, 82, 0.397);
     border: 2px solid var(--dark-green);
     border-radius: 20px;
 }
-.userInfo{
+
+.userInfo {
     width: 80%;
     height: 10%;
 }
 
-.addImageBtn{
-    width: 75%;
+.addImageBtn {
+    min-width: 300px;
     aspect-ratio: 1/1;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.502);
 }
 
-.asd{
+.img {
+    aspect-ratio: 1/1;
+    min-width: 300px;
+    width: 300px;
+    border-radius: 20px;
+}
+
+.asd {
     background-color: rgba(0, 0, 0, 0.326);
 }
-.addMapBtn{
+
+.addMapBtn {
     box-shadow: inset 2px 2px 5px 5px black;
 }
 
-.img{
-    aspect-ratio: 1/1;
-    width: 75%;
+
+.category {
+    background-color: var(--dark-purple);
+    color: var(--text);
     border-radius: 20px;
 }
 
-.categori{
-    background-color: var(--dark-purple);
-    color: var(--text); 
-    border-radius: 20px;
+@media only screen and (max-width: 400px) {
+    .categories {
+        background-color: transparent;
+        border: none;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .content{
+        padding-top: 30px;
+        align-items: start;
+    }
+    .page {
+        width: 99% !important;
+        height: 85%;
+        padding: 5px;
+    }
+    .card {
+        height: 90%;
+        width: 100% !important;
+        border: none;
+        background-color: #21212100;
+    }
+}
+
+
+@media only screen and (max-width: 630px) {
+    .imageDiv {
+        flex-direction: column;
+    }
+    .card1 {
+        margin-top: 390px;
+    }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1240px) {
+    .imageDiv {
+        flex-direction: column;
+    }
+    .card1 {
+        margin-top: 340px;
+    }
 }

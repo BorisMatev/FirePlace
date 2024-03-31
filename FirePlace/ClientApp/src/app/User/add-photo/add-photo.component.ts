@@ -4,12 +4,14 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
+import { StepperModule } from 'primeng/stepper';
 
 import { PhotoService } from '../../core/services/photo.service';
 import { MapComponent } from '../map/map.component';
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-add-photo',
@@ -20,7 +22,9 @@ import { CommonModule } from '@angular/common';
             MapComponent, 
             DropdownModule,
             InputTextareaModule,
-            ReactiveFormsModule
+            ReactiveFormsModule,
+            StepperModule,
+            ButtonModule
           ],
   templateUrl: './add-photo.component.html',
   styleUrl: './add-photo.component.scss',
@@ -47,6 +51,7 @@ export class AddPhotoComponent {
   private messageService = inject(MessageService);
 
   page = "first";
+  progress: number = 1;
 
   categoryInput: any = "";
   categories: any = [];
@@ -54,7 +59,8 @@ export class AddPhotoComponent {
   allCategories: any = [];
 
   infoInput: string = '';
-  addLoc = false;
+
+  saveBtn: boolean = false;
 
   form = this.fb.group({
     base64String: ['', Validators.required],

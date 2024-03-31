@@ -1,83 +1,117 @@
 <div class="content">
-    <div [@onLoad]="page"  class="page d-flex scroll">
-        <div class="left-and-right ">
-            <div class="imageDiv d-flex flex-column align-items-center justify-content-center">
-                @if (form.value.base64String == '') {
-                    
-                    <div
-                        class="addImageBtn d-flex justify-content-center align-items-center"
-                        (click)="fileInput.click()">
-                        <h2>Добави снимка</h2>
-                    </div>
-                }
-                @else {
-                    <img 
-                        class="img d-flex justify-content-center align-items-center" 
-                        style="object-fit: cover;"
-                        [src]="form.value.base64String" 
-                        (click)="fileInput.click()">
-                }
-                <input type="file" 
-                        accept="image/png, image/jpeg, image/jpg"
-                        style="display:none;"
-                        #fileInput 
-                        (change)="onFileInput($event)"
-                        />
-                <span class="p-float-label mt-2">
-                    <textarea 
-                            [(ngModel)]="infoInput" 
-                            rows="3" 
-                            cols="40" 
-                            class="scroll"
-                            placeholder="Информация" 
-                            pInputTextarea 
-                            [autoResize]="true"
-                            style="resize: none;"
-                                ></textarea>
-                </span> 
-            </div>
-        </div>
-        <div class="left-and-right d-flex flex-column align-items-center justify-content-center gap-2">
-            <div class="map">
-                @if(addLoc){
-                    <app-map (sendCordinates)="setCordinates($event)" 
-                                [zoom]="6" 
-                                [canTouch]="true" 
-                                [canSeeMarker]="false">
-                        </app-map>
-                    }
-                    @else {
-                        <div class="d-flex justify-content-center align-items-center h-100 asd">
-                            <button class="btn btn-success addMapBtn" (click)="addLoc = true">Избери местоположение</button>
+    <div [@onLoad]="page" class="page d-flex justify-content-center align-items-center scroll">
+        <div class="card flex justify-content-center" [ngClass]="progress == 1 ? 'card1' : ''">
+            <p-stepper>
+                <p-stepperPanel header="Снимка">
+                    <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index" class="change">
+                        <div class="d-flex justify-content-center align-items-center gap-3 w-100 imageDiv">
+                            @if (form.value.base64String == '') {
+                                <div
+                                    class="addImageBtn d-flex justify-content-center align-items-center"
+                                    (click)="fileInput.click()">
+                                    <h2>Добави снимка</h2>
+                                </div>
+                            }
+                            @else {
+                                <img 
+                                    class="img d-flex justify-content-center align-items-center" 
+                                    style="object-fit: cover;"
+                                    [src]="form.value.base64String" 
+                                    (click)="fileInput.click()">
+                            }
+                            <input type="file" 
+                                    accept="image/png, image/jpeg, image/jpg"
+                                    style="display:none;"
+                                    #fileInput 
+                                    (change)="onFileInput($event)"
+                                    />
+                            <span class="p-float-label mt-2">
+                                <textarea 
+                                        [(ngModel)]="infoInput" 
+                                        rows="11" 
+                                        class="scroll"
+                                        placeholder="Информация" 
+                                        pInputTextarea 
+                                        [autoResize]="true"
+                                        style="resize: none; 
+                                                width: 300px;
+                                                height: 300px;"
+                                            ></textarea>
+                            </span> 
                         </div>
-                    }
-            </div>
-            <div class="categories d-flex gap-2 flex-column align-items-center justify-content-center position-relative">
-                <div class="d-flex gap-2 mt-2">
-                    <p-dropdown [options]="allCategories" 
-                                [(ngModel)]="categoryInput" 
-                                optionLabel="name"
-                                width="100px"
-                                emptyMessage="Моля изчакайте"
-                                placeholder="Избери категория"></p-dropdown>
-                    <button class="btn btn-outline-success" 
-                            (click)="addChip()" 
-                            [disabled]="categoryInput==''">Добави</button>
-                </div>
-                <div class="d-flex flex-wrap gap-2 mb-4 ms-1 scroll">
-                @if(categories != 0){
-                        @for (item of categories; track $index) {
-                                    <div class="categori d-flex align-items-center justify-content-center px-3 py-2">
-                                        <h4 >{{item}}</h4>
-                                        <span (click)="removeItem($index)" class="pi pi-times-circle ms-2"></span>
+                        <div class="d-flex pt-4 justify-content-end w-100">
+                                <button class="btn btn-success" (click)="nextCallback.emit(); progress = 2">
+                                    Напред
+                                    <i class="pi pi-arrow-right"></i>
+                                </button>
+                        </div>
+                    </ng-template>
+                </p-stepperPanel>
+                <p-stepperPanel header="Място">
+                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback"
+                        let-index="index">
+                        <div class="flex flex-column h-12rem">
+                            <div class="d-flex justify-content-center w-100">
+                                <div class="map">
+                                    <app-map (sendCordinates)="setCordinates($event)" 
+                                                [zoom]="6" 
+                                                [canTouch]="true" 
+                                                [canSeeMarker]="false">
+                                        </app-map>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex pt-4 justify-content-between">
+                            <button class="btn btn-success" (click)="prevCallback.emit(); progress = 1">
+                                <i class="pi pi-arrow-left"></i>
+                                Назад
+                            </button>
+                            <button class="btn btn-success" (click)="nextCallback.emit();">
+                                Напред
+                                <i class="pi pi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </ng-template>
+                </p-stepperPanel>
+                <p-stepperPanel header="Категория">
+                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
+                        <div class="flex flex-column h-12rem">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="categories ">
+                                    <div class="d-flex justify-content-center gap-2 my-4">
+                                        <p-dropdown [options]="allCategories" 
+                                                    [(ngModel)]="categoryInput" 
+                                                    optionLabel="name"
+                                                    width="100px"
+                                                    emptyMessage="Моля изчакайте"
+                                                    placeholder="Избери категория"></p-dropdown>
+                                        <button class="btn btn-outline-success" 
+                                                (click)="addChip()" 
+                                                [disabled]="categoryInput==''">Добави</button>
                                     </div>
-                        }
-                }
-                </div>
-            </div>
-            <div class="d-flex justify-content-center gap-3">
-                <button class="btn btn-success" (click)="save()">Запази</button>
-            </div>
+                                    <div class="d-flex flex-wrap justify-content-center gap-2 px-3">
+                                    @if(categories != 0){
+                                        @for (item of categories; track $index) {
+                                            <div class="category d-flex align-items-center justify-content-center px-3 py-2">
+                                                <h4 >{{item}}</h4>
+                                                <span (click)="removeItem($index)" class="pi pi-times-circle ms-2"></span>
+                                            </div>
+                                        }
+                                    }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex pt-4 justify-content-between">
+                            <button class="btn btn-success" (click)="prevCallback.emit();">
+                                <i class="pi pi-arrow-left"></i>
+                                Назад
+                            </button>
+                            <button class="btn btn-outline-success" (click)="save(); saveBtn = true" [disabled]="saveBtn">Запази</button>
+                        </div>
+                    </ng-template>
+                </p-stepperPanel>
+            </p-stepper>
         </div>
     </div>
 </div>
