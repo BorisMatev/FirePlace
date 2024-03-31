@@ -24,7 +24,7 @@
                             [src]="photo.profilePhoto">
                             <h2 class="ms-2">{{photo.username}}</h2>
                         </div>
-                        @if (photo.username != username) {
+                        @if (photo.username.toLowerCase() != username.toLowerCase()) {
                             <button class="btn btn-outline-success" (click)="like(photo.id)">Харесай</button>
                         }
                     </div>
@@ -35,7 +35,7 @@
                     <p-skeleton size="100%" styleClass="mb-2" borderRadius="10px"></p-skeleton>
                 </div>
                 <div class="userInfo mt-3">
-                    <div class="d-flex gap-5">
+                    <div class="d-flex justify-content-center gap-5">
                         <div class="ms-3 d-flex">
                             <p-skeleton shape="circle" size="4rem" styleClass="me-2"></p-skeleton>
                             <div>

@@ -266,12 +266,23 @@ namespace FirePlace.Controllers
                 return BadRequest("Не е намерена снимка!");
             }
 
+            string role;
+
+            if (!_dbContext.Users.Any())
+            {
+                 role = "Admin";
+            }
+            else 
+            {
+                 role = "User";
+            }
+
 
             User user = new User();
             user.Username = request.Username;
             user.Email = request.Email;
             user.Password = request.Password;
-            user.Role = "User";
+            user.Role = role;
             user.ProfilePhoto = request.ProfilePhoto;
 
             user.Followers = new List<User>() { };
@@ -281,7 +292,7 @@ namespace FirePlace.Controllers
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
 
-            string token = GenerateJwtToken("User", user.Id);
+            string token = GenerateJwtToken(role, user.Id);
             return Ok(token);
         }
 

@@ -25,7 +25,7 @@
                                             (click)="update(user.id); user.role = user.role == 'User' ? 'Admin' : 'User'">
                                             Смени роля
                                         </button>
-                                        <button class="btn btn-danger" (click)="delete(user.id)">Изтрий</button>
+                                        <button class="btn btn-danger" (click)="showDialog(user.id)">Изтрий</button>
                                     </td>
                                 </tr>
                             </ng-template>
@@ -47,3 +47,15 @@
         </p-tabView>
     </div>
 </main>
+<p-dialog 
+    [modal]="true"
+    header="Изтрий потребител" 
+    (onHide)="deleteId = 0"
+    [(visible)]="deleteDialog" 
+    [breakpoints]="{ '960px': '75vw' }" 
+    [style]="{ width: '40vw' }" 
+    [draggable]="false">
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-danger" (click)="delete(); deleteDialog = false">Изтрий</button>
+        </div>
+</p-dialog>

@@ -24,30 +24,10 @@
                 <button class="btn btn-danger mt-2"(click)="deleteDialog = true">Delete</button>
             </div>
         </div>
-        <!-- <div class="row justify-content-between my-4 h-50">
-             <div class=" col-md-12 col-lg-6  col-12 col py-2 d-flex justify-content-start align-items-center gap-3">
-                @if (user$ | async; as user) {
-                        <img [src]="user.photo" class="photo rounded-circle">
-                            <h2>{{user.username}}</h2>
-                            <button class="btn btn-outline-danger "(click)="logout()">Log out</button>
-                }
-            </div>
-            <div class=" col-md-12 col-lg-6  col-12 col">
-                <button (click)="usernameDialog = true">Username</button>
-                <button (click)="passwordDialog = true">Password</button>
-                <button (click)="photoDialog = true">Photo</button>
-                <button (click)="deleteDialog = true">Delete</button>
-                
-            </div>
-        </div>
-        <div class="row mt-5 h-25">
-            <div class="col border border-danger">
-                oijok
-            </div>
-        </div> -->
     </div>
 </main>
 <p-dialog 
+    [modal]="true"
     (onHide)="clearAll()"
     header="Смяна на паролата" 
     [(visible)]="passwordDialog" 
@@ -70,6 +50,7 @@
 </p-dialog>
 
 <p-dialog 
+    [modal]="true"
     (onHide)="clearAll()"
     header="Смяна на потребителското име" 
     [(visible)]="usernameDialog" 
@@ -88,6 +69,7 @@
 </p-dialog>
 
 <p-dialog 
+    [modal]="true"
     (onHide)="clearAll()"
     header="Изтрий акаунт" 
     class="text-danger"
