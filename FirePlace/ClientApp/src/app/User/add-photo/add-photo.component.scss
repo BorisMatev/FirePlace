@@ -74,9 +74,16 @@
     }
 
     .p-inputtextarea {
-        width: 100%;
+        width: 400px;
+        max-width: 400px;
+        aspect-ratio: 1/1;
         color: #ffffff;
         background: #ffffff18;
+    }
+    @media only screen and (max-height: 900px) {
+        .p-inputtextarea {
+            width: 300px;
+        }
     }
 }
 
@@ -137,6 +144,7 @@ h4 {
 
 .addImageBtn {
     min-width: 300px;
+    width: 40%;
     aspect-ratio: 1/1;
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.502);
@@ -144,8 +152,7 @@ h4 {
 
 .img {
     aspect-ratio: 1/1;
-    min-width: 300px;
-    width: 300px;
+    width: 40%;
     border-radius: 20px;
 }
 
