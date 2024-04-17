@@ -26,8 +26,8 @@ import { CommonModule } from '@angular/common';
 export class RegisterComponent {
 
   constructor(private fb: FormBuilder,
-              private user: UserService,
-              private router: Router) {
+    private user: UserService,
+    private router: Router) {
 
   }
   img!: string;
@@ -64,9 +64,8 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    // console.log(this.img)
     this.registerForm.value.image = this.img;
-    
+
     const body = {
       image: this.img,
       username: this.registerForm.get('username').value,
@@ -76,7 +75,7 @@ export class RegisterComponent {
     this.user.register(body).subscribe({
       next: (resp) => {
         if (resp !== null) {
-          localStorage.setItem('token',JSON.stringify(resp));
+          localStorage.setItem('token', JSON.stringify(resp));
         }
       },
       error: (error) => console.log(error),
@@ -115,9 +114,8 @@ export class RegisterComponent {
       });
     }
 
-    // return null;
-     return password?.value === confirmPassword?.value
-       ? null
-       : { notmatched: true };
+    return password?.value === confirmPassword?.value
+      ? null
+      : { notmatched: true };
   };
 }

@@ -2,7 +2,8 @@
     <div class="page scroll py-5 px-5">
         <div class="d-flex justify-content-strat align-items-center gap-4 p-3 h-50 style userInfo">
             @if (user$ | async; as user) {
-                <img [src]="user.photo" class="photo rounded-circle">
+                <img [src]="user.photo.includes('data:image') ? user.photo : '../../assets/profile.png'"
+                 class="photo rounded-circle">
                 <div class="username">
                     <h2>{{user.username}}</h2>
                     <button class="btn btn-outline-danger "(click)="logout()">Изход</button>

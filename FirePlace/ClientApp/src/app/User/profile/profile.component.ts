@@ -29,7 +29,6 @@ export class ProfileComponent {
   }
 
   fetchUser() {
-    // this.user$ = this.profileDataService.user;
     if (this.isOwned) {
       this.user$ = this.userService.getUser();
     } else{

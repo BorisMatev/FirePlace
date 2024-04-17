@@ -1,7 +1,7 @@
 import { SkeletonModule } from 'primeng/skeleton';
 import { ChipModule } from 'primeng/chip';
 
-import { Component, Injector, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MapComponent } from '../map/map.component';
 import { EMPTY, Observable } from 'rxjs';
 import { PhotoService } from '../../core/services/photo.service';

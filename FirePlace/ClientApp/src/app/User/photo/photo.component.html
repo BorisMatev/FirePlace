@@ -21,7 +21,7 @@
                             <img 
                             class="profileImage rounded-circle"
                             style="object-fit: cover;" 
-                            [src]="photo.profilePhoto">
+                            [src]="photo.profilePhoto.includes('data:image') ? photo.profilePhoto : '../../assets/profile.png'">
                             <h2 class="ms-2">{{photo.username}}</h2>
                         </div>
                         @if (photo.username.toLowerCase() != username.toLowerCase()) {

@@ -24,6 +24,6 @@ export const routes: Routes = [
   { path: 'settings', canActivate: [authGuard], component: SettingsComponent },
   { path: 'add-photo', canActivate: [authGuard], component: AddPhotoComponent },
   { path: 'admin', canActivate: [authGuard, adminGuard], component: AdminComponent },
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'log-in'
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' }, // redirect to 'welcome'
   { path: '**', component: WelcomePageComponent },  // Wildcard route for a 404 page
 ];

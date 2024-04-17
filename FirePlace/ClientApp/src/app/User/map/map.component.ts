@@ -46,7 +46,6 @@ export class MapComponent {
     lng: 0,
   };
 
-  // Method to handle map click event and update the display property
   setMarker(event: google.maps.MapMouseEvent) {
     this.isMarked = true;
     if (event.latLng != null && this.canTouch) {
