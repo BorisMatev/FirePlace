@@ -43,7 +43,7 @@ export class RegisterComponent {
       image: this.fb.control('', [Validators.required]),
       username: this.fb.control('', [
         Validators.required,
-        Validators.maxLength(30),
+        Validators.maxLength(10),
         Validators.minLength(3)
       ]),
       email: this.fb.control('', [
